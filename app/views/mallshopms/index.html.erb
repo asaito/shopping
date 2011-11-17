@@ -1,0 +1,35 @@
+<h1>Listing mallshopms</h1>
+
+<table>
+  <tr>
+    <th>Mallshopcode</th>
+    <th>Mallshopflg</th>
+    <th>Mallshopname</th>
+    <th>Mallshopnamekana</th>
+    <th>Malladmin</th>
+    <th>Malladminname</th>
+    <th>Malladminpass</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @mallshopms.each do |mallshopm| %>
+  <tr>
+    <td><%= mallshopm.mallshopcode %></td>
+    <td><%= mallshopm.mallshopflg %></td>
+    <td><%= mallshopm.mallshopname %></td>
+    <td><%= mallshopm.mallshopnamekana %></td>
+    <td><%= mallshopm.malladmin_id %></td>
+    <td><%= mallshopm.malladminname %></td>
+    <td><%= mallshopm.malladminpass %></td>
+    <td><%= link_to 'Show', mallshopm %></td>
+    <td><%= link_to 'Edit', edit_mallshopm_path(mallshopm) %></td>
+    <td><%= link_to 'Destroy', mallshopm, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Mallshopm', new_mallshopm_path %>

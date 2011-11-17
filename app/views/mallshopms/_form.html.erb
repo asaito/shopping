@@ -1,0 +1,45 @@
+<%= form_for(@mallshopm) do |f| %>
+  <% if @mallshopm.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mallshopm.errors.count, "error") %> prohibited this mallshopm from being saved:</h2>
+
+      <ul>
+      <% @mallshopm.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :mallshopcode %><br />
+    <%= f.text_field :mallshopcode %>
+  </div>
+  <div class="field">
+    <%= f.label :mallshopflg %><br />
+    <%= f.text_field :mallshopflg %>
+  </div>
+  <div class="field">
+    <%= f.label :mallshopname %><br />
+    <%= f.text_field :mallshopname %>
+  </div>
+  <div class="field">
+    <%= f.label :mallshopnamekana %><br />
+    <%= f.text_field :mallshopnamekana %>
+  </div>
+  <div class="field">
+    <%= f.label :malladmin_id %><br />
+    <%= f.text_field :malladmin_id %>
+  </div>
+  <div class="field">
+    <%= f.label :malladminname %><br />
+    <%= f.text_field :malladminname %>
+  </div>
+  <div class="field">
+    <%= f.label :malladminpass %><br />
+    <%= f.text_field :malladminpass %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

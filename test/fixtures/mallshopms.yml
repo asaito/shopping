@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  mallshopcode: MyString
+  mallshopflg: 1
+  mallshopname: MyString
+  mallshopnamekana: MyString
+  malladmin_id: 1
+  malladminname: MyString
+  malladminpass: MyString
+
+two:
+  mallshopcode: MyString
+  mallshopflg: 1
+  mallshopname: MyString
+  mallshopnamekana: MyString
+  malladmin_id: 1
+  malladminname: MyString
+  malladminpass: MyString

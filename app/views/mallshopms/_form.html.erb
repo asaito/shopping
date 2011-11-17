@@ -11,34 +11,72 @@
     </div>
   <% end %>
 
+  <table><tr>
+    <th><%= t('items') %></th>
+    <th><%= t('values') %></th>
   <div class="field">
-    <%= f.label :mallshopcode %><br />
-    <%= f.text_field :mallshopcode %>
+    <tr>
+    <td><%= f.label :mallshopflg %></td>
+	<% if @func == 'show' %>
+    <td> <%= t('close') %>:<%= f.radio_button :mallshopflg, "0", :readonly => true %>|
+         <%= t('open') %>:<%= f.radio_button :mallshopflg, "1", :readonly => true %></td>
+	<% else %>
+    <td>  <%= t('close') %>:<%= f.radio_button :mallshopflg,"0" %>|
+          <%= t('open') %>:<%= f.radio_button :mallshopflg,"1" %></td>
+	<% end %>
+    </tr>
   </div>
   <div class="field">
-    <%= f.label :mallshopflg %><br />
-    <%= f.text_field :mallshopflg %>
+    <tr>
+    <td><%= f.label :mallshopname %></td>
+	<% if @func == 'show' %>
+    <td><%= f.text_field :mallshopname, :readonly => true %></td>
+	<% else %>
+    <td><%= f.text_field :mallshopname %></td>
+	<% end %>
+    </tr>
   </div>
   <div class="field">
-    <%= f.label :mallshopname %><br />
-    <%= f.text_field :mallshopname %>
+    <tr>
+    <td><%= f.label :mallshopnamekana %></td>
+	<% if @func == 'show' %>
+    <td><%= f.text_field :mallshopnamekana, :readonly => true %></td>
+	<% else %>
+    <td><%= f.text_field :mallshopnamekana %></td>
+	<% end %>
+    </tr>
   </div>
   <div class="field">
-    <%= f.label :mallshopnamekana %><br />
-    <%= f.text_field :mallshopnamekana %>
+    <tr>
+    <td><%= f.label :malladmin_id %></td>
+	<% if @func == 'show' %>
+    <td><%= f.text_field :malladmin_id, :readonly => true %></td>
+	<% else %>
+    <td><%= f.text_field :malladmin_id %></td>
+	<% end %>
+    </tr>
   </div>
   <div class="field">
-    <%= f.label :malladmin_id %><br />
-    <%= f.text_field :malladmin_id %>
+    <tr>
+    <td><%= f.label :malladminname %></td>
+	<% if @func == 'show' %>
+    <td><%= f.text_field :malladminname, :readonly => true %></td>
+	<% else %>
+    <td><%= f.text_field :malladminname %></td>
+	<% end %>
+    </tr>
   </div>
   <div class="field">
-    <%= f.label :malladminname %><br />
-    <%= f.text_field :malladminname %>
+    <tr>
+    <td><%= f.label :malladminpass %></td>
+	<% if @func == 'show' %>
+    <td><%= f.password_field :malladminpass, :readonly => true %></td>
+	<% else %>
+    <td><%= f.password_field :malladminpass %></td>
+	<% end %>
+    </tr>
   </div>
-  <div class="field">
-    <%= f.label :malladminpass %><br />
-    <%= f.text_field :malladminpass %>
-  </div>
+  </table>
   <div class="actions">
     <%= f.submit %>
   </div>

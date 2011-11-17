@@ -1,14 +1,14 @@
-<h1>Listing mallshopms</h1>
+<h1><%= t('Listing_mallshopms') %></h1>
 
 <table>
   <tr>
-    <th>Mallshopcode</th>
-    <th>Mallshopflg</th>
-    <th>Mallshopname</th>
-    <th>Mallshopnamekana</th>
-    <th>Malladmin</th>
-    <th>Malladminname</th>
-    <th>Malladminpass</th>
+    <th><%= Mallshopm.human_attribute_name(:mallshopcode) %></th>
+    <th><%= Mallshopm.human_attribute_name(:mallshopflg) %></th>
+    <th><%= Mallshopm.human_attribute_name(:mallshopname) %></th>
+    <th><%= Mallshopm.human_attribute_name(:mallshopnamekana) %></th>
+    <th><%= Mallshopm.human_attribute_name(:malladmin_id) %></th>
+    <th><%= Mallshopm.human_attribute_name(:malladminname) %></th>
+    <th><%= Mallshopm.human_attribute_name(:malladminpass) %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -23,9 +23,9 @@
     <td><%= mallshopm.malladmin_id %></td>
     <td><%= mallshopm.malladminname %></td>
     <td><%= mallshopm.malladminpass %></td>
-    <td><%= link_to 'Show', mallshopm %></td>
-    <td><%= link_to 'Edit', edit_mallshopm_path(mallshopm) %></td>
-    <td><%= link_to 'Destroy', mallshopm, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to '表示', mallshopm %></td>
+    <td><%= link_to '編集', edit_mallshopm_path(mallshopm) %></td>
+    <td><%= link_to '削除', mallshopm, :confirm => '削除してもいいですか？', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

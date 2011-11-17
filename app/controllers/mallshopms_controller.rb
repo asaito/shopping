@@ -5,6 +5,7 @@ class MallshopmsController < ApplicationController
     #@mallshopms = Mallshopm.all
     @malladmin = current_malladmin
     @mallshopms = Mallshopm.where("malladmin_id=?",@malladmin.id).latest
+    @func = ''
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,6 +18,7 @@ class MallshopmsController < ApplicationController
   def show
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.find(params[:id])
+    @func = 'show'
 
     respond_to do |format|
       format.html # show.html.erb
@@ -29,6 +31,7 @@ class MallshopmsController < ApplicationController
   def new
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.new
+    @func = ''
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,6 +43,7 @@ class MallshopmsController < ApplicationController
   def edit
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.find(params[:id])
+    @func = ''
   end
 
   # POST /mallshopms
@@ -49,6 +53,7 @@ class MallshopmsController < ApplicationController
     @mallshopm = Mallshopm.new(params[:mallshopm])
     @malladmin = current_malladmin
     @mallshopm.malladmin_id = @malladmin.id
+    @func = ''
 
     respond_to do |format|
       if @mallshopm.save
@@ -66,6 +71,7 @@ class MallshopmsController < ApplicationController
   def update
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.find(params[:id])
+    @func = ''
 
     respond_to do |format|
       if @mallshopm.update_attributes(params[:mallshopm])

@@ -18,8 +18,8 @@
     <tr>
     <td><%= f.label :mallshopflg %></td>
 	<% if @func == 'show' %>
-    <td> <%= t('close') %>:<%= f.radio_button :mallshopflg, "0", :readonly => true %>|
-         <%= t('open') %>:<%= f.radio_button :mallshopflg, "1", :readonly => true %></td>
+    <td> <%= t('close') %>:<%= f.radio_button :mallshopflg, "0", :disabled => true %>|
+         <%= t('open') %>:<%= f.radio_button :mallshopflg, "1", :disabled => true %></td>
 	<% else %>
     <td>  <%= t('close') %>:<%= f.radio_button :mallshopflg,"0" %>|
           <%= t('open') %>:<%= f.radio_button :mallshopflg,"1" %></td>
@@ -78,6 +78,6 @@
   </div>
   </table>
   <div class="actions">
-    <%= f.submit %>
+    <%= image_submit_tag("btn_L_Confirm.gif")%>
   </div>
 <% end %>

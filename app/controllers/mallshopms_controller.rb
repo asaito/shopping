@@ -19,6 +19,7 @@ class MallshopmsController < ApplicationController
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.find(params[:id])
     @func = 'show'
+    @onload = 'on_load()'
 
     respond_to do |format|
       format.html # show.html.erb
@@ -32,6 +33,9 @@ class MallshopmsController < ApplicationController
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.new
     @func = ''
+    #@onload = 'window.alert("hello")'
+    @onload = 'window.onload()'
+    @onload = 'on_load()'
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,6 +48,9 @@ class MallshopmsController < ApplicationController
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.find(params[:id])
     @func = ''
+    #@onload = 'window.alert("hello")'
+    #@onload = 'window.onload()'
+    @onload = 'on_load()'
   end
 
   # POST /mallshopms
@@ -54,6 +61,9 @@ class MallshopmsController < ApplicationController
     @malladmin = current_malladmin
     @mallshopm.malladmin_id = @malladmin.id
     @func = ''
+    #@onload = 'window.alert("hello")'
+    #@onload = 'window.onload()'
+    @onload = 'on_load()'
 
     respond_to do |format|
       if @mallshopm.save
@@ -72,6 +82,9 @@ class MallshopmsController < ApplicationController
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.find(params[:id])
     @func = ''
+    #@onload = 'window.alert("hello")'
+    #@onload = 'window.onload()'
+    @onload = 'on_load()'
 
     respond_to do |format|
       if @mallshopm.update_attributes(params[:mallshopm])

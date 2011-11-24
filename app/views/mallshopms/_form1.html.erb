@@ -1,0 +1,58 @@
+<%= form_for(@mallshopm) do |f| %>
+  <% if @mallshopm.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mallshopm.errors.count, "error") %> prohibited this mallshopm from being saved:</h2>
+
+      <ul>
+      <% @mallshopm.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table><tr>
+    <th><%= t('items') %></th>
+    <th><%= t('values') %></th>
+  <div class="field">
+    <tr>
+    <td><%= f.label :mallshopflg %></td>
+    <td> <%= t('close') %>:<%= f.radio_button :mallshopflg, "0", :disabled => true %>|
+         <%= t('open') %>:<%= f.radio_button :mallshopflg, "1", :disabled => true %></td>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td><%= f.label :mallshopname %></td>
+    <td><%= f.text_field :mallshopname, :readonly => true %></td>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td><%= f.label :mallshopnamekana %></td>
+    <td><%= f.text_field :mallshopnamekana, :readonly => true %></td>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td><%= f.label :malladmin_id %></td>
+    <td><%= f.text_field :malladmin_id, :readonly => true %></td>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td><%= f.label :malladminname %></td>
+    <td><%= f.text_field :malladminname, :readonly => true %></td>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td><%= f.label :malladminpass %></td>
+    <td><%= f.password_field :malladminpass, :readonly => true %></td>
+    </tr>
+  </div>
+  </table>
+  <div class="actions">
+    <%= image_submit_tag("btn_L_Confirm.gif")%>
+  </div>
+<% end %>

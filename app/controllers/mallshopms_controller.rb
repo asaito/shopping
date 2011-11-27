@@ -47,11 +47,19 @@ class MallshopmsController < ApplicationController
   def edit
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.find(params[:id])
-    @func = ''
+    @func = 'edit'
     #@onload = 'window.alert("hello")'
     #@onload = 'window.onload()'
     @onload = 'on_load()'
   end
+
+   def reset
+    @malladmin = current_malladmin
+    @mallshopm = Mallshopm.new
+    @func = 'reset'
+    @onload = 'on_load()'
+  end
+
 
   # POST /mallshopms
   # POST /mallshopms.xml

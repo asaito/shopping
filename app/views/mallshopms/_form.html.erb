@@ -78,6 +78,12 @@
   </div>
   </table>
   <div class="actions">
-    <%= image_submit_tag("btn_L_Confirm.gif")%>
+	<% if @func == 'show' %>
+	  <%= link_to image_tag("btn_L_Back.gif"), edit_mallshopm_path(@mallshopm), :method => :put %>
+	  <%= image_submit_tag("btn_L_Commit.gif") %>
+	<% else %>
+	  <%= image_submit_tag("btn_L_Confirm.gif") %>
+	  <%= link_to image_tag("btn_L_Reset.gif"), reset_mallshopm_path(f), :method => :put %>
+	<% end %>
   </div>
 <% end %>

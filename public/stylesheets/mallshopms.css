@@ -20,13 +20,21 @@ section {
     float: right;
     margin: 3px;
 }
+.actions {
+  background-color: #FFFFFF;
+  border: 0px solid #333333;
+  font-size: 10pt;
+  width: 700px;
+  margin: 30px;
+  color:#ffffff; position:fixed; top:500px; left:50px
+}
 footer{
     width: 600px;
     height: 60px;
     text-align: center;
 }
 .mallshopm {
-  background-color: #FFFFDB;
+  background-color: #0000FF;
   border: 1px solid #333333;
   font-size: 10pt;
   width: 200px;
@@ -54,7 +62,7 @@ footer{
 .mallshopm {
     font-weight: bold;
     font-size: 12pt;
-    background-color: #FFFFDB;
+    background-color: #0000FF;
     border: 1px solid #333333;
     width: 700px;
     margin: 30px;

@@ -1,7 +1,10 @@
 Shopping::Application.routes.draw do
   devise_for :malladmins
 
-  resources :mallshopms
+  resources :mallshopms  do  
+    put :edit, :on => :member
+    put :reset, :on => :member
+  end  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

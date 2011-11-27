@@ -6,9 +6,9 @@ function on_load(){
   for(var i=0; i<ff.length; i++){
     ss += ff[i].value + '/';
   }
-  alert(ff.length); 
-  alert('test test')
-  alert(ss); 
+  //alert(ff.length); 
+  //alert('test test')
+  //alert(ss); 
 }
 function testscript(){
   var ff=$$('form#edit_mallshopm_4 .field input');
@@ -16,8 +16,10 @@ function testscript(){
   for(var i=0; i<ff.length; i++){
     ss += ff[i].value + '/';
   }
-  alert(ff.length);
-  alert('test test')
-  alert(ss);
+  //alert(ff.length);
+  //alert('test test')
+  //alert(ss);
 }
-
+function reset(){
+  
+}

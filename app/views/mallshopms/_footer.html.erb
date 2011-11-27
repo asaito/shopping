@@ -1,5 +1,11 @@
 <header>
-<%= link_to t('Show'), @mallshopm %>
-<%=image_tag("btn_L_Reset.gif", :border=> 0) %>
+<% if @func == 'show' %>
+  <%= link_to t('Edit'), edit_mallshopm_path(@mallshopm) %>
+  <%= link_to t('Register'), edit_mallshopm_path(@mallshopm) %>
+<% elsif @func == 'edit' %>
+  <%= link_to t('Show'), @mallshopm %>
+<% else %>
+  <%= link_to t('Show'), @mallshopm %>
+<% end %>
 </header>
 

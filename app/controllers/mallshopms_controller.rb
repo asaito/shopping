@@ -47,6 +47,7 @@ class MallshopmsController < ApplicationController
   def edit
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.find(params[:id])
+    $mallshopm = @mallshopm
     @func = 'edit'
     #@onload = 'window.alert("hello")'
     #@onload = 'window.onload()'
@@ -55,7 +56,15 @@ class MallshopmsController < ApplicationController
 
    def reset
     @malladmin = current_malladmin
-    @mallshopm = Mallshopm.new
+    @mallshopm = $mallshopm 
+    @mallshopm.mallshopcode = ""
+    @mallshopm.mallshopflg = ""
+    @mallshopm.mallshopname = ""
+    @mallshopm.mallshopnamekana = ""
+    @mallshopm.malladmin_id = 0
+    @mallshopm.malladminname = ""
+    @mallshopm.malladminpass = ""
+    #@mallshopm = Mallshopm.new
     @func = 'reset'
     @onload = 'on_load()'
   end

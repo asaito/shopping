@@ -80,9 +80,8 @@
   <div class="actions">
 	<% if @func == 'show' %>
 	  <%= link_to image_tag("btn_L_Back.gif"), edit_mallshopm_path(@mallshopm), :method => :put %>
-	  <%= image_submit_tag("btn_L_Commit.gif") %>
 	<% else %>
-	  <%= image_submit_tag("btn_L_Confirm.gif") %>
+	  <%= image_submit_tag("btn_L_Commit.gif", :confirm => 'Are you sure?') %>
 	  <%= link_to image_tag("btn_L_Reset.gif"), reset_mallshopm_path(f), :method => :put %>
 	<% end %>
   </div>

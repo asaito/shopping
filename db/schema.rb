@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111117010057) do
+ActiveRecord::Schema.define(:version => 20111129071109) do
 
   create_table "malladmins", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -31,15 +31,43 @@ ActiveRecord::Schema.define(:version => 20111117010057) do
   add_index "malladmins", ["reset_password_token"], :name => "index_malladmins_on_reset_password_token", :unique => true
 
   create_table "mallshopms", :force => true do |t|
-    t.string   "mallshopcode"
-    t.integer  "mallshopflg"
-    t.string   "mallshopname"
+    t.string   "mallshopcode",                     :null => false
+    t.integer  "mallshopflg",       :default => 1, :null => false
+    t.string   "mallshopname",                     :null => false
     t.string   "mallshopnamekana"
-    t.integer  "malladmin_id",     :default => 0, :null => false
-    t.string   "malladminname"
-    t.string   "malladminpass"
+    t.integer  "malladmin_id",      :default => 0, :null => false
+    t.string   "malladminpass",                    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "frontshopname"
+    t.string   "frontshopnamekana"
+    t.string   "departname"
+    t.string   "postcode1",                        :null => false
+    t.string   "postcode2",                        :null => false
+    t.string   "address1",                         :null => false
+    t.string   "address2",                         :null => false
+    t.string   "address3"
+    t.string   "tel",                              :null => false
+    t.string   "fax"
+    t.string   "email",                            :null => false
+    t.string   "chargeusername",                   :null => false
+    t.date     "discountfromdate"
+    t.date     "discounttodate"
+    t.integer  "discountrate",      :default => 0, :null => false
+    t.integer  "instockflg",        :default => 0, :null => false
+    t.integer  "amountbyadvise",    :default => 0, :null => false
+    t.string   "abbvfrontshopname"
+    t.integer  "daysofnew",         :default => 0
+    t.integer  "giftflg",           :default => 0, :null => false
+    t.integer  "status",            :default => 1, :null => false
+    t.integer  "feetaxflg",         :default => 1, :null => false
+    t.integer  "deliverytaxflg",    :default => 1, :null => false
+    t.integer  "rankingdispflg",    :default => 1, :null => false
+    t.integer  "rankingflg",        :default => 0, :null => false
+    t.integer  "rankingcount",      :default => 0, :null => false
+    t.integer  "rankingdays",       :default => 0, :null => false
+    t.datetime "rankingdatetime"
+    t.integer  "pointenableflg",    :default => 0
   end
 
   add_index "mallshopms", ["malladmin_id", "updated_at"], :name => "index_mallshopms_on_malladmin_id_and_updated_at"

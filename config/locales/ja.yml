@@ -189,11 +189,16 @@ ja:
       mallshopm:
         mallshopcode: ショップコード
         mallshopflg: ショップ状態
-        mallshopname: ショップ名
-        mallshopnamekana: ショップ名カナ
+        mallshopname: 管理会社名
+        mallshopnamekana: 管理会社名カナ
         malladmin_id: 管理者ID
         malladminname: 管理者名
         malladminpass: 管理者パスワード
+        frontshopname: ショップ名
+        frontshopnamekana: ショップ名カナ
+        abbvfrontshopname: ショップ略名
+        departname: 部門名
+        postcode: 郵便番号
         
   site_title: ゲームブログ
   Listing_mallshopms: ショップマスタ

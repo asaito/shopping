@@ -14,7 +14,8 @@ header{
 }
 section {
   width: 100%;
-  background-color: #61D060;
+  /*background-color: #FFFFFF;*/
+  /*background-color: #61D060;:*/
   visibility: visible;
   z-index: 0;
     float: right;

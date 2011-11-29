@@ -12,11 +12,13 @@
   <% end %>
 
   <table><tr>
-    <th><%= t('items') %></th>
-    <th><%= t('values') %></th>
+    <th colspan=2 bgcolor="#800000"><font color="#ffffff"><%= t('items') %></font></th>
+    <th colspan=2 bgcolor="#800000"><font color="#ffffff"><%= t('values') %></font></th>
   <div class="field">
     <tr>
-    <td><%= f.label :mallshopflg %></td>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><%= f.label :mallshopflg %></td>
+    <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
 	<% if @func == 'show' %>
     <td> <%= t('close') %>:<%= f.radio_button :mallshopflg, "0", :disabled => true %>|
          <%= t('open') %>:<%= f.radio_button :mallshopflg, "1", :disabled => true %></td>
@@ -28,7 +30,9 @@
   </div>
   <div class="field">
     <tr>
-    <td><%= f.label :mallshopname %></td>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><%= f.label :mallshopname %></td>
+    <td ><%= image_tag("lbl_S_Zen.gif") %></td>
 	<% if @func == 'show' %>
     <td><%= f.text_field :mallshopname, :readonly => true %></td>
 	<% else %>
@@ -38,7 +42,9 @@
   </div>
   <div class="field">
     <tr>
-    <td><%= f.label :mallshopnamekana %></td>
+    <td bgcolor="#FFFFCC"> </td>
+    <td bgcolor="#FFFFCC"><%= f.label :mallshopnamekana %></td>
+    <td ><%= image_tag("lbl_S_ZenKana.gif") %></td>
 	<% if @func == 'show' %>
     <td><%= f.text_field :mallshopnamekana, :readonly => true %></td>
 	<% else %>
@@ -48,7 +54,9 @@
   </div>
   <div class="field">
     <tr>
-    <td><%= f.label :malladmin_id %></td>
+    <td bgcolor="#FFFFCC"> </td>
+    <td bgcolor="#FFFFCC"><%= f.label :malladmin_id %></td>
+    <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
 	<% if @func == 'show' %>
     <td><%= f.text_field :malladmin_id, :readonly => true %></td>
 	<% else %>
@@ -58,7 +66,9 @@
   </div>
   <div class="field">
     <tr>
-    <td><%= f.label :malladminname %></td>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><%= f.label :malladminname %></td>
+    <td ><%= image_tag("lbl_S_Zen.gif") %></td>
 	<% if @func == 'show' %>
     <td><%= f.text_field :malladminname, :readonly => true %></td>
 	<% else %>
@@ -68,7 +78,9 @@
   </div>
   <div class="field">
     <tr>
-    <td><%= f.label :malladminpass %></td>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><%= f.label :malladminpass %></td>
+    <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
 	<% if @func == 'show' %>
     <td><%= f.password_field :malladminpass, :readonly => true %></td>
 	<% else %>

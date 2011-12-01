@@ -199,6 +199,7 @@ ja:
         abbvfrontshopname: ショップ略名
         departname: 部門名
         postcode: 郵便番号
+        address1: 住所１(都道府県)
         
   site_title: ゲームブログ
   Listing_mallshopms: ショップマスタ

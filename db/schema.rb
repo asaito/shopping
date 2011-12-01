@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111129071109) do
+ActiveRecord::Schema.define(:version => 20111201043931) do
 
   create_table "malladmins", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -71,5 +71,12 @@ ActiveRecord::Schema.define(:version => 20111129071109) do
   end
 
   add_index "mallshopms", ["malladmin_id", "updated_at"], :name => "index_mallshopms_on_malladmin_id_and_updated_at"
+
+  create_table "prefectures", :id => false, :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "id",         :null => false
+  end
 
 end

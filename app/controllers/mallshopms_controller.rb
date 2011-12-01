@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 class MallshopmsController < ApplicationController
   # GET /mallshopms
   # GET /mallshopms.xml
@@ -18,6 +19,7 @@ class MallshopmsController < ApplicationController
   def show
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.find(params[:id])
+    @prefecture = Prefecture.find_by_sql("select * from prefectures")
     @func = 'show'
     @onload = 'on_load()'
 
@@ -32,8 +34,8 @@ class MallshopmsController < ApplicationController
   def new
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.new
+    @prefecture = Prefecture.find_by_sql("select * from prefectures")
     @func = ''
-    #@onload = 'window.alert("hello")'
     @onload = 'window.onload()'
     @onload = 'on_load()'
 
@@ -48,38 +50,70 @@ class MallshopmsController < ApplicationController
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.find(params[:id])
     $mallshopm = @mallshopm
+    @prefecture = Prefecture.find_by_sql("select * from prefectures")
     @func = 'edit'
     #@onload = 'window.alert("hello")'
     #@onload = 'window.onload()'
     @onload = 'on_load()'
   end
 
-   def reset
+  def reset
     @malladmin = current_malladmin
     @mallshopm = $mallshopm 
-    @mallshopm.mallshopcode = ""
+    @mallshopm.mallshopcode = "1"
     @mallshopm.mallshopflg = ""
     @mallshopm.mallshopname = ""
     @mallshopm.mallshopnamekana = ""
     @mallshopm.malladmin_id = 0
-    @mallshopm.malladminname = ""
+    #@mallshopm.malladminname = ""
     @mallshopm.malladminpass = ""
     #@mallshopm = Mallshopm.new
+    @mallshopm.frontshopname = ""
+    @mallshopm.frontshopnamekana = ""
+    @mallshopm.departname = ""
+    @mallshopm.postcode1 = ""
+    @mallshopm.postcode2 = ""
+    @mallshopm.address1 = ""
+    @mallshopm.address2 = ""
+    @mallshopm.address3 = ""
+    @mallshopm.tel = ""
+    @mallshopm.fax = ""
+    @mallshopm.email = ""
+    @mallshopm.chargeusername = ""
+    @mallshopm.discountfromdate = ""
+    @mallshopm.discounttodate = ""
+    @mallshopm.discountrate = 0
+    @mallshopm.instockflg = 0
+    @mallshopm.amountbyadvise = 0
+    @mallshopm.abbvfrontshopname = ""
+    @mallshopm.daysofnew = 0
+    @mallshopm.giftflg = 0
+    @mallshopm.status = 1
+    @mallshopm.feetaxflg = 1
+    @mallshopm.deliverytaxflg = 1
+    @mallshopm.rankingdispflg = 1
+    @mallshopm.rankingflg = 0
+    @mallshopm.rankingcount = 0
+    @mallshopm.rankingdays = 0
+    @mallshopm.rankingdatetime ="" 
+    @mallshopm.pointenableflg = 0
     @func = 'reset'
     @onload = 'on_load()'
   end
 
-
   # POST /mallshopms
   # POST /mallshopms.xml
   def create
-    #@mallshopm = Mallshopm.new(params[:entry])
     @mallshopm = Mallshopm.new(params[:mallshopm])
     @malladmin = current_malladmin
     @mallshopm.malladmin_id = @malladmin.id
+    @mallshopm.mallshopcode = "1"
+    @mallshopm.address2 = "代田"
+    @mallshopm.tel = "03-3333-4444"
+    @mallshopm.email = "gs975318642@gmail.com"
+    @mallshopm.chargeusername = "1"
+    @prefecture = Prefecture.find_by_sql("select * from prefectures")
     @func = ''
-    #@onload = 'window.alert("hello")'
-    #@onload = 'window.onload()'
     @onload = 'on_load()'
 
     respond_to do |format|

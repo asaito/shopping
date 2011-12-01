@@ -13,17 +13,17 @@
 
   <table><tr>
     <th colspan=2 bgcolor="#800000"><font color="#ffffff"><%= t('items') %></font></th>
-    <th colspan=2 bgcolor="#800000"><font color="#ffffff"><%= t('values') %></font></th>
+    <th colspan=4 bgcolor="#800000"><font color="#ffffff"><%= t('values') %></font></th>
   <div class="field">
     <tr>
     <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
     <td bgcolor="#FFFFCC"><%= f.label :mallshopflg %></td>
     <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
 	<% if @func == 'show' %>
-    <td> <%= t('close') %>:<%= f.radio_button :mallshopflg, "0", :disabled => true %>|
+    <td colspan=3> <%= t('close') %>:<%= f.radio_button :mallshopflg, "0", :disabled => true %>|
          <%= t('open') %>:<%= f.radio_button :mallshopflg, "1", :disabled => true %></td>
 	<% else %>
-    <td>  <%= t('close') %>:<%= f.radio_button :mallshopflg,"0" %>|
+    <td colspan=3>  <%= t('close') %>:<%= f.radio_button :mallshopflg,"0" %>|
           <%= t('open') %>:<%= f.radio_button :mallshopflg,"1" %></td>
 	<% end %>
     </tr>
@@ -34,9 +34,9 @@
     <td bgcolor="#FFFFCC"><%= f.label :mallshopname %></td>
     <td ><%= image_tag("lbl_S_Zen.gif") %></td>
 	<% if @func == 'show' %>
-    <td><%= f.text_field :mallshopname, :readonly => true %></td>
+    <td colspan=3><%= f.text_field :mallshopname, :readonly => true %></td>
 	<% else %>
-    <td><%= f.text_field :mallshopname %></td>
+    <td colspan=3><%= f.text_field :mallshopname %></td>
 	<% end %>
     </tr>
   </div>
@@ -46,9 +46,9 @@
     <td bgcolor="#FFFFCC"><%= f.label :mallshopnamekana %></td>
     <td ><%= image_tag("lbl_S_ZenKana.gif") %></td>
 	<% if @func == 'show' %>
-    <td><%= f.text_field :mallshopnamekana, :readonly => true %></td>
+    <td colspan=3><%= f.text_field :mallshopnamekana, :readonly => true %></td>
 	<% else %>
-    <td><%= f.text_field :mallshopnamekana %></td>
+    <td colspan=3><%= f.text_field :mallshopnamekana %></td>
 	<% end %>
     </tr>
   </div>
@@ -58,9 +58,9 @@
     <td bgcolor="#FFFFCC"><%= f.label :malladmin_id %></td>
     <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
 	<% if @func == 'show' %>
-    <td><%= f.text_field :malladmin_id, :readonly => true %></td>
+    <td colspan=3><%= f.text_field :malladmin_id, :readonly => true %></td>
 	<% else %>
-    <td><%= f.text_field :malladmin_id %></td>
+    <td colspan=3><%= f.text_field :malladmin_id %></td>
 	<% end %>
     </tr>
   </div>
@@ -70,9 +70,9 @@
     <td bgcolor="#FFFFCC"><%= f.label :malladminpass %></td>
     <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
 	<% if @func == 'show' %>
-    <td><%= f.password_field :malladminpass, :readonly => true %></td>
+    <td colspan=3><%= f.password_field :malladminpass, :readonly => true %></td>
 	<% else %>
-    <td><%= f.password_field :malladminpass %></td>
+    <td colspan=3><%= f.password_field :malladminpass %></td>
 	<% end %>
     </tr>
   </div>
@@ -82,9 +82,9 @@
     <td bgcolor="#FFFFCC"><%= f.label :frontshopname %></td>
     <td ><%= image_tag("lbl_S_Zen.gif") %></td>
         <% if @func == 'show' %>
-    <td><%= f.text_field :frontshopname, :readonly => true %></td>
+    <td colspan=3><%= f.text_field :frontshopname, :readonly => true %></td>
         <% else %>
-    <td><%= f.text_field :frontshopname %></td>
+    <td colspan=3><%= f.text_field :frontshopname %></td>
         <% end %>
     </tr>
   </div>
@@ -94,9 +94,9 @@
     <td bgcolor="#FFFFCC"><%= f.label :frontshopnamekana %></td>
     <td ><%= image_tag("lbl_S_ZenKana.gif") %></td>
         <% if @func == 'show' %>
-    <td><%= f.text_field :frontshopnamekana, :readonly => true %></td>
+    <td colspan=3><%= f.text_field :frontshopnamekana, :readonly => true %></td>
         <% else %>
-    <td><%= f.text_field :frontshopnamekana %></td>
+    <td colspan=3><%= f.text_field :frontshopnamekana %></td>
         <% end %>
     </tr>
   </div>
@@ -106,9 +106,9 @@
     <td bgcolor="#FFFFCC"><%= f.label :abbvfrontshopname %></td>
     <td ><%= image_tag("lbl_S_Zen.gif") %></td>
         <% if @func == 'show' %>
-    <td><%= f.text_field :abbvfrontshopname, :readonly => true %></td>
+    <td colspan=3><%= f.text_field :abbvfrontshopname, :readonly => true %></td>
         <% else %>
-    <td><%= f.text_field :abbvfrontshopname %></td>
+    <td colspan=3><%= f.text_field :abbvfrontshopname %></td>
         <% end %>
     </tr>
   </div>
@@ -118,9 +118,9 @@
     <td bgcolor="#FFFFCC"><%= f.label :departname %></td>
     <td ><%= image_tag("lbl_S_Zen.gif") %></td>
         <% if @func == 'show' %>
-    <td><%= f.text_field :departname, :readonly => true %></td>
+    <td colspan=3><%= f.text_field :departname, :readonly => true %></td>
         <% else %>
-    <td><%= f.text_field :departname %></td>
+    <td colspan=3><%= f.text_field :departname %></td>
         <% end %>
     </tr>
   </div>
@@ -128,12 +128,28 @@
     <tr>
     <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
     <td bgcolor="#FFFFCC"><%= f.label :postcode %></td>
-    <td ><%= image_tag("lbl_S_Zen.gif") %></td>
+    <td ><%= image_tag("lbl_S_HanSuuji.gif") %></td>
         <% if @func == 'show' %>
-    <td><%= f.text_field :departname, :readonly => true %></td>
+    <td><%= f.text_field :postcode1, :size => '10', :readonly => true %></td>
+    <td>-&nbsp;&nbsp;<%= f.text_field :postcode2, :size => '10', :readonly => true %></td>
         <% else %>
     <td><%= f.text_field :postcode1, :size => '10' %></td>
-    <td><%= f.text_field :postcode2, :size => '10' %></td>
+    <td>-&nbsp;&nbsp;<%= f.text_field :postcode2, :size => '10' %></td>
+        <% end %>
+    <td><input type="button" value="住所検索"></td>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><%= f.label :address1 %></td>
+    <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3><%= f.text_field :address1, :readonly => true %></td>
+        <% else %>
+    <td colspan=3>
+        <%= select_tag "mallshopm[address1]",options_from_collection_for_select(@prefecture, :id, :name, params[:id].to_i) %>
+    </td>
         <% end %>
     </tr>
   </div>

@@ -145,11 +145,35 @@
     <td bgcolor="#FFFFCC"><%= f.label :address1 %></td>
     <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
         <% if @func == 'show' %>
-    <td colspan=3><%= f.text_field :address1, :readonly => true %></td>
+    <td colspan=3><input type="text" name="prefecture_id" value=<%= @prefecturenm %> readonly ></td>
         <% else %>
     <td colspan=3>
-        <%= select_tag "mallshopm[address1]",options_from_collection_for_select(@prefecture, :id, :name, params[:id].to_i) %>
+	<%= select_tag "mallshopm[address1]",options_from_collection_for_select(@prefectures, :id, :name, (@mallshopm.address1).to_i), :include_blank => true %>
     </td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><%= f.label :departname %></td>
+    <td ><%= image_tag("lbl_S_Zen.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3><%= f.text_field :address2, :readonly => true %></td>
+        <% else %>
+    <td colspan=3><%= f.text_field :address2 %></td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"></td>
+    <td bgcolor="#FFFFCC"><%= f.label :address3 %></td>
+    <td ><%= image_tag("lbl_S_Zen.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3><%= f.text_field :address3, :readonly => true %></td>
+        <% else %>
+    <td colspan=3><%= f.text_field :address3 %></td>
         <% end %>
     </tr>
   </div>

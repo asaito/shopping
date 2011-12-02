@@ -200,6 +200,8 @@ ja:
         departname: 部門名
         postcode: 郵便番号
         address1: 住所１(都道府県)
+        address2: 住所２(市区町村・番地)
+        address3: 住所３(ビル名・階など)
         
   site_title: ゲームブログ
   Listing_mallshopms: ショップマスタ

@@ -19,7 +19,13 @@ class MallshopmsController < ApplicationController
   def show
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.find(params[:id])
-    @prefecture = Prefecture.find_by_sql("select * from prefectures")
+    @prefectures = Prefecture.find_by_sql("select id, name from prefectures")
+    #@prefecture = @prefectures.find(params[@mallshopm.address1])
+    #@testpre = @prefecture.name
+    #@prefecture = "鹿児島県"
+    @prefecture = @prefectures[(@mallshopm.address1).to_i - 1]  
+    @prefecturenm = @prefecture.name
+    #@prefecture = @mallshopm.address1
     @func = 'show'
     @onload = 'on_load()'
 
@@ -34,7 +40,7 @@ class MallshopmsController < ApplicationController
   def new
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.new
-    @prefecture = Prefecture.find_by_sql("select * from prefectures")
+    @prefectures = Prefecture.find_by_sql("select * from prefectures")
     @func = ''
     @onload = 'window.onload()'
     @onload = 'on_load()'
@@ -50,10 +56,12 @@ class MallshopmsController < ApplicationController
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.find(params[:id])
     $mallshopm = @mallshopm
-    @prefecture = Prefecture.find_by_sql("select * from prefectures")
+    @prefectures = Prefecture.find_by_sql("select id, name from prefectures")
+    @prefecture = @prefectures[(@mallshopm.address1).to_i - 1]
+    @prefecturenm = @mallshopm.address1
+    @prefecturenm = @prefecture.name
+
     @func = 'edit'
-    #@onload = 'window.alert("hello")'
-    #@onload = 'window.onload()'
     @onload = 'on_load()'
   end
 
@@ -65,15 +73,13 @@ class MallshopmsController < ApplicationController
     @mallshopm.mallshopname = ""
     @mallshopm.mallshopnamekana = ""
     @mallshopm.malladmin_id = 0
-    #@mallshopm.malladminname = ""
-    @mallshopm.malladminpass = ""
-    #@mallshopm = Mallshopm.new
+    @mallshopm.malladminpass = "0"
     @mallshopm.frontshopname = ""
     @mallshopm.frontshopnamekana = ""
     @mallshopm.departname = ""
     @mallshopm.postcode1 = ""
     @mallshopm.postcode2 = ""
-    @mallshopm.address1 = ""
+    @mallshopm.address1 = "0"
     @mallshopm.address2 = ""
     @mallshopm.address3 = ""
     @mallshopm.tel = ""
@@ -97,6 +103,12 @@ class MallshopmsController < ApplicationController
     @mallshopm.rankingdays = 0
     @mallshopm.rankingdatetime ="" 
     @mallshopm.pointenableflg = 0
+    
+    @prefectures = Prefecture.find_by_sql("select id, name from prefectures")
+    @prefecture = @prefectures[(@mallshopm.address1).to_i - 1]
+    @prefecturenm = @mallshopm.address1
+    @prefecturenm = @prefecture.name
+
     @func = 'reset'
     @onload = 'on_load()'
   end
@@ -112,7 +124,7 @@ class MallshopmsController < ApplicationController
     @mallshopm.tel = "03-3333-4444"
     @mallshopm.email = "gs975318642@gmail.com"
     @mallshopm.chargeusername = "1"
-    @prefecture = Prefecture.find_by_sql("select * from prefectures")
+    @prefectures = Prefecture.find_by_sql("select * from prefectures")
     @func = ''
     @onload = 'on_load()'
 

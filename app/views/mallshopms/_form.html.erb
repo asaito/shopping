@@ -17,21 +17,26 @@
   <div class="field">
     <tr>
     <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
-    <td bgcolor="#FFFFCC"><%= f.label :mallshopflg %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :mallshopflg %></b></td>
     <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
 	<% if @func == 'show' %>
-    <td colspan=3> <%= t('close') %>:<%= f.radio_button :mallshopflg, "0", :disabled => true %>|
-         <%= t('open') %>:<%= f.radio_button :mallshopflg, "1", :disabled => true %></td>
+    <td colspan=3>
+	<%= f.radio_button :mallshopflg, "0", :disabled => true %><%= t('close') %>&nbsp;&nbsp;
+         <%= f.radio_button :mallshopflg, "1", :disabled => true %> <%= t('open') %>
+
+  </td>
 	<% else %>
-    <td colspan=3>  <%= t('close') %>:<%= f.radio_button :mallshopflg,"0" %>|
-          <%= t('open') %>:<%= f.radio_button :mallshopflg,"1" %></td>
+    <td colspan=3>
+	<%= f.radio_button :mallshopflg,"0" %><%= t('close') %>&nbsp;&nbsp;
+        <%= f.radio_button :mallshopflg,"1" %> <%= t('open') %>
+    </td>
 	<% end %>
     </tr>
   </div>
   <div class="field">
     <tr>
     <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
-    <td bgcolor="#FFFFCC"><%= f.label :mallshopname %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :mallshopname %></b></td>
     <td ><%= image_tag("lbl_S_Zen.gif") %></td>
 	<% if @func == 'show' %>
     <td colspan=3><%= f.text_field :mallshopname, :readonly => true %></td>
@@ -43,7 +48,7 @@
   <div class="field">
     <tr>
     <td bgcolor="#FFFFCC"> </td>
-    <td bgcolor="#FFFFCC"><%= f.label :mallshopnamekana %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :mallshopnamekana %></b></td>
     <td ><%= image_tag("lbl_S_ZenKana.gif") %></td>
 	<% if @func == 'show' %>
     <td colspan=3><%= f.text_field :mallshopnamekana, :readonly => true %></td>
@@ -55,7 +60,7 @@
   <div class="field">
     <tr>
     <td bgcolor="#FFFFCC"> </td>
-    <td bgcolor="#FFFFCC"><%= f.label :malladmin_id %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :malladmin_id %></b></td>
     <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
 	<% if @func == 'show' %>
     <td colspan=3><%= f.text_field :malladmin_id, :readonly => true %></td>
@@ -67,7 +72,7 @@
   <div class="field">
     <tr>
     <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
-    <td bgcolor="#FFFFCC"><%= f.label :malladminpass %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :malladminpass %></b></td>
     <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
 	<% if @func == 'show' %>
     <td colspan=3><%= f.password_field :malladminpass, :readonly => true %></td>
@@ -79,7 +84,7 @@
    <div class="field">
     <tr>
     <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
-    <td bgcolor="#FFFFCC"><%= f.label :frontshopname %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :frontshopname %></b></td>
     <td ><%= image_tag("lbl_S_Zen.gif") %></td>
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :frontshopname, :readonly => true %></td>
@@ -91,7 +96,7 @@
   <div class="field">
     <tr>
     <td bgcolor="#FFFFCC"> </td>
-    <td bgcolor="#FFFFCC"><%= f.label :frontshopnamekana %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :frontshopnamekana %></b></td>
     <td ><%= image_tag("lbl_S_ZenKana.gif") %></td>
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :frontshopnamekana, :readonly => true %></td>
@@ -103,7 +108,7 @@
   <div class="field">
     <tr>
     <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
-    <td bgcolor="#FFFFCC"><%= f.label :abbvfrontshopname %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :abbvfrontshopname %></b></td>
     <td ><%= image_tag("lbl_S_Zen.gif") %></td>
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :abbvfrontshopname, :readonly => true %></td>
@@ -115,7 +120,7 @@
   <div class="field">
     <tr>
     <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
-    <td bgcolor="#FFFFCC"><%= f.label :departname %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :departname %></b></td>
     <td ><%= image_tag("lbl_S_Zen.gif") %></td>
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :departname, :readonly => true %></td>
@@ -127,14 +132,14 @@
   <div class="field">
     <tr>
     <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
-    <td bgcolor="#FFFFCC"><%= f.label :postcode %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :postcode %></b></td>
     <td ><%= image_tag("lbl_S_HanSuuji.gif") %></td>
         <% if @func == 'show' %>
-    <td><%= f.text_field :postcode1, :size => '10', :readonly => true %></td>
-    <td>-&nbsp;&nbsp;<%= f.text_field :postcode2, :size => '10', :readonly => true %></td>
+    <td><%= f.text_field :postcode1, :size => '6', :readonly => true %></td>
+    <td>-&nbsp;&nbsp;<%= f.text_field :postcode2, :size => '6', :readonly => true %></td>
         <% else %>
-    <td><%= f.text_field :postcode1, :size => '10' %></td>
-    <td>-&nbsp;&nbsp;<%= f.text_field :postcode2, :size => '10' %></td>
+    <td><%= f.text_field :postcode1, :size => '6' %></td>
+    <td>-&nbsp;&nbsp;<%= f.text_field :postcode2, :size => '6' %></td>
         <% end %>
     <td><input type="button" value="住所検索"></td>
     </tr>
@@ -142,7 +147,7 @@
   <div class="field">
     <tr>
     <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
-    <td bgcolor="#FFFFCC"><%= f.label :address1 %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :address1 %></b></td>
     <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
         <% if @func == 'show' %>
     <td colspan=3><input type="text" name="prefecture_id" value=<%= @prefecturenm %> readonly ></td>
@@ -156,7 +161,7 @@
   <div class="field">
     <tr>
     <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
-    <td bgcolor="#FFFFCC"><%= f.label :departname %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :address2 %></b></td>
     <td ><%= image_tag("lbl_S_Zen.gif") %></td>
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :address2, :readonly => true %></td>
@@ -168,12 +173,131 @@
   <div class="field">
     <tr>
     <td bgcolor="#FFFFCC"></td>
-    <td bgcolor="#FFFFCC"><%= f.label :address3 %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :address3 %></b></td>
     <td ><%= image_tag("lbl_S_Zen.gif") %></td>
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :address3, :readonly => true %></td>
         <% else %>
     <td colspan=3><%= f.text_field :address3 %></td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :tel %></b></td>
+    <td ><%= image_tag("lbl_S_TelNo.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3><%= f.text_field :tel, :readonly => true %></td>
+        <% else %>
+    <td colspan=3><%= f.text_field :tel %></td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :fax %></b></td>
+    <td ><%= image_tag("lbl_S_TelNo.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3><%= f.text_field :fax, :readonly => true %></td>
+        <% else %>
+    <td colspan=3><%= f.text_field :fax %></td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :email %></b></td>
+    <td ><%= image_tag("lbl_S_TelNo.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3><%= f.text_field :email, :readonly => true %></td>
+        <% else %>
+    <td colspan=3><%= f.text_field :email %></td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :chargeusername %></b></td>
+    <td ><%= image_tag("lbl_S_Zen.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3><%= f.text_field :chargeusername, :readonly => true %></td>
+        <% else %>
+    <td colspan=3><%= f.text_field :chargeusername %></td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :feetaxflg %></b></td>
+    <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3>
+	 <%= f.radio_button :feetaxflg, "0", :disabled => true %><%= t('TaxIncluded') %>&nbsp;&nbsp;
+         <%= f.radio_button :feetaxflg, "1", :disabled => true %><%= t('TaxnotIncluded') %>&nbsp;&nbsp;
+         <%= f.radio_button :feetaxflg, "2", :disabled => true %> <%= t('NoTax') %>
+    </td>
+        <% else %>
+    <td colspan=3>
+	<%= f.radio_button :feetaxflg,"0" %><%= t('TaxIncluded') %>&nbsp;&nbsp;
+        <%= f.radio_button :feetaxflg,"1" %><%= t('TaxnotIncluded') %>&nbsp;&nbsp;
+        <%= f.radio_button :feetaxflg,"2" %><%= t('NoTax') %>
+    </td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :deliverytaxflg %></b></td>
+    <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3>
+	<%= f.radio_button :deliverytaxflg, "0", :disabled => true %><%= t('TaxIncluded') %>&nbsp;&nbsp;
+        <%= f.radio_button :deliverytaxflg, "1", :disabled => true %><%= t('TaxnotIncluded') %>&nbsp;&nbsp;
+        <%= f.radio_button :deliverytaxflg, "2", :disabled => true %><%= t('NoTax') %>
+    </td>
+        <% else %>
+    <td colspan=3>
+	<%= f.radio_button :deliverytaxflg,"0" %><%= t('TaxIncluded') %>&nbsp;&nbsp;
+        <%= f.radio_button :deliverytaxflg,"1" %><%= t('TaxnotIncluded') %>&nbsp;&nbsp;
+       <%= f.radio_button :deliverytaxflg,"2" %><%= t('NoTax') %>
+    </td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :pointenableflg %></b></td>
+    <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3>
+	<%= t('NotUse') %><%= f.radio_button :pointenableflg, "0", :disabled => true %>&nbsp;&nbsp;
+         <%= t('Use') %><%= f.radio_button :pointenableflg, "1", :disabled => true %></td>
+        <% else %>
+    <td colspan=3>
+	<%= f.radio_button :pointenableflg,"0" %><%= t('NotUse') %>&nbsp;&nbsp;
+        <%= f.radio_button :pointenableflg,"1" %><%= t('Use') %>
+    </td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :discountdate %></b></td>
+    <td ><%= image_tag("lbl_S_Seireki.gif") %></td>
+        <% if @func == 'show' %>
+    <td><%= f.text_field :discounttodate, :size => '4', :readonly => true %></td>
+    <td>-&nbsp;&nbsp;<%= f.text_field :discounttodate, :size => '4', :readonly => true %></td>
+        <% else %>
+    <td><%= f.text_field :discountfromdate, :size => '4' %></td>
+    <td>&nbsp;&nbsp;<%= f.text_field :discounttodate, :size => '4' %></td>
         <% end %>
     </tr>
   </div>

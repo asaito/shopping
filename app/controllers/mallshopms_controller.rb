@@ -41,6 +41,7 @@ class MallshopmsController < ApplicationController
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.new
     @prefectures = Prefecture.find_by_sql("select * from prefectures")
+    @mallshopm.malladminpass = "0"
     @func = ''
     @onload = 'window.onload()'
     @onload = 'on_load()'
@@ -80,12 +81,12 @@ class MallshopmsController < ApplicationController
     @mallshopm.postcode1 = ""
     @mallshopm.postcode2 = ""
     @mallshopm.address1 = "0"
-    @mallshopm.address2 = ""
+    @mallshopm.address2 = " "
     @mallshopm.address3 = ""
     @mallshopm.tel = ""
-    @mallshopm.fax = ""
-    @mallshopm.email = ""
-    @mallshopm.chargeusername = ""
+    @mallshopm.fax = " "
+    @mallshopm.email = " "
+    @mallshopm.chargeusername = " "
     @mallshopm.discountfromdate = ""
     @mallshopm.discounttodate = ""
     @mallshopm.discountrate = 0
@@ -95,8 +96,8 @@ class MallshopmsController < ApplicationController
     @mallshopm.daysofnew = 0
     @mallshopm.giftflg = 0
     @mallshopm.status = 1
-    @mallshopm.feetaxflg = 1
-    @mallshopm.deliverytaxflg = 1
+    @mallshopm.feetaxflg = 0
+    @mallshopm.deliverytaxflg = 0
     @mallshopm.rankingdispflg = 1
     @mallshopm.rankingflg = 0
     @mallshopm.rankingcount = 0

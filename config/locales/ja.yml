@@ -202,6 +202,14 @@ ja:
         address1: 住所１(都道府県)
         address2: 住所２(市区町村・番地)
         address3: 住所３(ビル名・階など)
+        tel: 電話番号
+        fax: FAX番号
+        email: メールアドレス
+        chargeusername: 担当者名
+        feetaxflg: 手数料消費税
+        deliverytaxflg: 送料消費税
+        pointenableflg: ポイントシステム
+        discountdate: 値引期間
         
   site_title: ゲームブログ
   Listing_mallshopms: ショップマスタ
@@ -217,4 +225,9 @@ ja:
   Back: 戻る
   Register: 登録
   Reset: リセット
+  TaxIncluded: 税込
+  TaxnotIncluded: 税抜
+  NoTax: 非課税
+  Use: 使用する
+  NotUse: 使用しない
 

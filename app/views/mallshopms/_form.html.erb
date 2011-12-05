@@ -296,7 +296,7 @@
     <td><%= f.text_field :discounttodate, :size => '4', :readonly => true %></td>
     <td>-&nbsp;&nbsp;<%= f.text_field :discounttodate, :size => '4', :readonly => true %></td>
         <% else %>
-    <td><%= f.text_field :discountfromdate, :size => '4' %></td>
+    <td><%= f.text_field :discountfromdate, :class => "datepicker", :size => '4' %></td>
     <td>&nbsp;&nbsp;<%= f.text_field :discounttodate, :size => '4' %></td>
         <% end %>
     </tr>

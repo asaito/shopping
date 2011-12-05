@@ -62,6 +62,8 @@ class MallshopmsController < ApplicationController
     @prefecturenm = @mallshopm.address1
     @prefecturenm = @prefecture.name
 
+    @email = "mail" #params[:email]
+
     @func = 'edit'
     @onload = 'on_load()'
   end
@@ -145,6 +147,7 @@ class MallshopmsController < ApplicationController
   def update
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.find(params[:id])
+    #params[:]
     @func = ''
     #@onload = 'window.alert("hello")'
     #@onload = 'window.onload()'
@@ -171,5 +174,9 @@ class MallshopmsController < ApplicationController
       format.html { redirect_to(mallshopms_url) }
       format.xml  { head :ok }
     end
+  end
+
+  def discountfromYear
+    :discountfromdate
   end
 end

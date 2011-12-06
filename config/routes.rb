@@ -3,7 +3,7 @@ Shopping::Application.routes.draw do
 
   resources :mallshopms  do  
     put :edit, :on => :member
-    put :reset, :on => :member
+    get :reset, :on => :member
   end  
 
   # The priority is based upon order of creation:

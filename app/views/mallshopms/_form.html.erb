@@ -41,7 +41,7 @@
 	<% if @func == 'show' %>
     <td colspan=3><%= f.text_field :mallshopname, :readonly => true %></td>
 	<% else %>
-    <td colspan=3><%= f.text_field :mallshopname %></td>
+    <td colspan=3><%= f.text_field :mallshopname, :style => "ime-mode:active" %></td>
 	<% end %>
     </tr>
   </div>
@@ -53,7 +53,7 @@
 	<% if @func == 'show' %>
     <td colspan=3><%= f.text_field :mallshopnamekana, :readonly => true %></td>
 	<% else %>
-    <td colspan=3><%= f.text_field :mallshopnamekana %></td>
+    <td colspan=3><%= f.text_field :mallshopnamekana, :style => "ime-mode:active" %></td>
 	<% end %>
     </tr>
   </div>
@@ -65,7 +65,7 @@
 	<% if @func == 'show' %>
     <td colspan=3><%= f.text_field :malladmin_id, :readonly => true %></td>
 	<% else %>
-    <td colspan=3><%= f.text_field :malladmin_id %></td>
+    <td colspan=3><%= f.text_field :malladmin_id, :style => "ime-mode:disabled" %></td>
 	<% end %>
     </tr>
   </div>
@@ -77,7 +77,7 @@
 	<% if @func == 'show' %>
     <td colspan=3><%= f.password_field :malladminpass, :readonly => true %></td>
 	<% else %>
-    <td colspan=3><%= f.password_field :malladminpass %></td>
+    <td colspan=3><%= f.password_field :malladminpass, :style => "ime-mode:disabled" %></td>
 	<% end %>
     </tr>
   </div>
@@ -89,7 +89,7 @@
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :frontshopname, :readonly => true %></td>
         <% else %>
-    <td colspan=3><%= f.text_field :frontshopname %></td>
+    <td colspan=3><%= f.text_field :frontshopname, :style => "ime-mode:active" %></td>
         <% end %>
     </tr>
   </div>
@@ -101,7 +101,7 @@
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :frontshopnamekana, :readonly => true %></td>
         <% else %>
-    <td colspan=3><%= f.text_field :frontshopnamekana %></td>
+    <td colspan=3><%= f.text_field :frontshopnamekana, :style => "ime-mode:active" %></td>
         <% end %>
     </tr>
   </div>
@@ -113,7 +113,7 @@
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :abbvfrontshopname, :readonly => true %></td>
         <% else %>
-    <td colspan=3><%= f.text_field :abbvfrontshopname %></td>
+    <td colspan=3><%= f.text_field :abbvfrontshopname, :style => "ime-mode:active" %></td>
         <% end %>
     </tr>
   </div>
@@ -125,7 +125,7 @@
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :departname, :readonly => true %></td>
         <% else %>
-    <td colspan=3><%= f.text_field :departname %></td>
+    <td colspan=3><%= f.text_field :departname, :style => "ime-mode:active" %></td>
         <% end %>
     </tr>
   </div>
@@ -135,56 +135,14 @@
     <td bgcolor="#FFFFCC"><b><%= f.label :postcode %></b></td>
     <td ><%= image_tag("lbl_S_HanSuuji.gif") %></td>
     <td colspan=3>
-<input type="text" name="zipA" size="10" maxlength="8">
-－ <input type="text" name="zipB" size="10" maxlength="8"
-    onKeyUp="AjaxZip2.zip2addr('zipA','mallshopm[address1]','mallshopm[address2]','zipB','strt','area');"><br>
-    都道府県名：　<select name="pref">
-<option value="">↓</option>
-<option value="1">北海道</option><option value="2">青森県</option>
-<option value="3">岩手県</option><option value="4">宮城県</option>
-<option value="5">秋田県</option><option value="6">山形県</option>
-<option value="7">福島県</option><option value="8">茨城県</option>
-<option value="9">栃木県</option><option value="10">群馬県</option>
-<option value="11">埼玉県</option><option value="12">千葉県</option>
-<option value="13">東京都</option><option value="14">神奈川県</option>
-<option value="15">新潟県</option><option value="16">富山県</option>
-<option value="17">石川県</option><option value="18">福井県</option>
-<option value="19">山梨県</option><option value="20">長野県</option>
-<option value="21">岐阜県</option><option value="22">静岡県</option>
-<option value="23">愛知県</option><option value="24">三重県</option>
-<option value="25">滋賀県</option><option value="26">京都府</option>
-<option value="27">大阪府</option><option value="28">兵庫県</option>
-<option value="29">奈良県</option><option value="30">和歌山県</option>
-<option value="31">鳥取県</option><option value="32">島根県</option>
-<option value="33">岡山県</option><option value="34">広島県</option>
-<option value="35">山口県</option><option value="36">徳島県</option>
-<option value="37">香川県</option><option value="38">愛媛県</option>
-<option value="39">高知県</option><option value="40">福岡県</option>
-<option value="41">佐賀県</option><option value="42">長崎県</option>
-<option value="43">熊本県</option><option value="44">大分県</option>
-<option value="45">宮崎県</option><option value="46">鹿児島県</option>
-<option value="47">沖縄県</option>
-</select><br>
-市区町村：　<input type="text" name="city" size="40"><br>
-町域(大字)：　<input type="text" name="area" size="40"><br>
-番地：　<input type="text" name="strt" size="40"><br>
-建物名～号室：　<input type="text" name="rest" size="40"><br>
-    </td>
-    </tr>
-  </div>
-  <div class="field">
-    <tr>
-    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
-    <td bgcolor="#FFFFCC"><b><%= f.label :postcode %></b></td>
-    <td ><%= image_tag("lbl_S_HanSuuji.gif") %></td>
         <% if @func == 'show' %>
-    <td><%= f.text_field :postcode1, :size => '6', :readonly => true %></td>
-    <td>-&nbsp;&nbsp;<%= f.text_field :postcode2, :size => '6', :readonly => true %></td>
+	<%= f.text_field :postcode1, :size => '4', :maxlength => '3', :readonly => true %> － 
+	<%= f.text_field :postcode2, :size => '6', :maxlength => '4', :readonly => true %>
         <% else %>
-    <td><%= f.text_field :postcode1, :size => '6' %></td>
-    <td>-&nbsp;&nbsp;<%= f.text_field :postcode2, :size => '6' %></td>
+        <%= f.text_field :postcode1, :size => '4', :maxlength => '3', :style => "ime-mode:disabled" %> －
+	<%= f.text_field :postcode2, :size => '6', :maxlength => '4', :style => "ime-mode:disabled", :onKeyUp => "AjaxZip2.zip2addr('mallshopm[postcode1]','mallshopm[address1]','mallshopm[address2]','mallshopm[postcode2]','strt','area');" %>
         <% end %>
-    <td><input type="button" value="住所検索"></td>
+    </td>
     </tr>
   </div>
   <div class="field">
@@ -193,7 +151,7 @@
     <td bgcolor="#FFFFCC"><b><%= f.label :address1 %></b></td>
     <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
         <% if @func == 'show' %>
-	<td colspan=3><input type="text" name="prefecture_id" value=<%= @prefecturenm %> readonly ></td>
+    <td colspan=3><input type="text" name="prefecture_id" value=<%= @prefecturenm %> readonly ></td>
         <% else %>
     <td colspan=3>
 	<%= select_tag "mallshopm[address1]",options_from_collection_for_select(@prefectures, :id, :name, (@mallshopm.address1).to_i), :include_blank => true %>
@@ -209,7 +167,7 @@
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :address2, :readonly => true %></td>
         <% else %>
-    <td colspan=3><%= f.text_field :address2 %></td>
+    <td colspan=3><%= f.text_field :address2, :style => "ime-mode:active" %></td>
         <% end %>
     </tr>
   </div>
@@ -221,7 +179,7 @@
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :address3, :readonly => true %></td>
         <% else %>
-    <td colspan=3><%= f.text_field :address3 %></td>
+    <td colspan=3><%= f.text_field :address3, :style => "ime-mode:active" %></td>
         <% end %>
     </tr>
   </div>
@@ -233,7 +191,7 @@
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :tel, :readonly => true %></td>
         <% else %>
-    <td colspan=3><%= f.text_field :tel %></td>
+    <td colspan=3><%= f.text_field :tel, :style => "ime-mode:disabled" %></td>
         <% end %>
     </tr>
   </div>
@@ -245,7 +203,7 @@
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :fax, :readonly => true %></td>
         <% else %>
-    <td colspan=3><%= f.text_field :fax %></td>
+    <td colspan=3><%= f.text_field :fax, :style => "ime-mode:disabled" %></td>
         <% end %>
     </tr>
   </div>
@@ -253,11 +211,11 @@
     <tr>
     <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
     <td bgcolor="#FFFFCC"><b><%= f.label :email %></b></td>
-    <td ><%= image_tag("lbl_S_TelNo.gif") %></td>
+    <td ><%= image_tag("lbl_S_Email.gif") %></td>
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :email, :readonly => true %></td>
         <% else %>
-    <td colspan=3><%= f.text_field :email %></td>
+    <td colspan=3><%= f.text_field :email, :style => "ime-mode:disabled" %></td>
         <% end %>
     </tr>
   </div>
@@ -269,7 +227,7 @@
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :chargeusername, :readonly => true %></td>
         <% else %>
-    <td colspan=3><%= f.text_field :chargeusername %></td>
+    <td colspan=3><%= f.text_field :chargeusername, :style => "ime-mode:active" %></td>
         <% end %>
     </tr>
   </div>
@@ -352,7 +310,7 @@
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :discountrate, :readonly => true, :size => '4', :class =>'right' %></td>
         <% else %>
-    <td colspan=3><%= f.text_field :discountrate,:size => '4', :class =>'right' %>％</td>
+    <td colspan=3><%= f.text_field :discountrate,:size => '4', :class =>'right', :style => "ime-mode:disabled" %>％</td>
         <% end %>
     </tr>
   </div>
@@ -381,7 +339,7 @@
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :daysofnew, :readonly => true, :size => '4', :class =>'right' %>日</td>
         <% else %>
-    <td colspan=3><%= f.text_field :daysofnew, :size => '4', :class =>'right' %>日</td>
+    <td colspan=3><%= f.text_field :daysofnew, :size => '4', :class =>'right', :style => "ime-mode:disabled" %>日</td>
         <% end %>
     </tr>
   </div>
@@ -393,7 +351,7 @@
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :amountbyadvise, :readonly => true, :size => '4', :class =>'right' %></td>
         <% else %>
-    <td colspan=3><%= f.text_field :amountbyadvise, :size => '4', :class =>'right' %>個</td>
+    <td colspan=3><%= f.text_field :amountbyadvise, :size => '4', :class =>'right', :style => "ime-mode:disabled" %>個</td>
         <% end %>
     </tr>
   </div>
@@ -457,7 +415,7 @@
         <% if @func == 'show' %>
     <td colspan=3><%= f.text_field :rankingcount, :readonly => true, :size => '4', :class =>'right' %>件まで(0は全件)</td>
         <% else %>
-    <td colspan=3><%= f.text_field :rankingcount, :size => '4', :class =>'right' %>件まで(0は全件)</td>
+    <td colspan=3><%= f.text_field :rankingcount, :size => '4', :class =>'right', :style => "ime-mode:disabled" %>件まで(0は全件)</td>
         <% end %>
     </tr>
   </div>
@@ -469,7 +427,7 @@
         <% if @func == 'show' %>
     <td colspan=3>集計実行時から過去<%= f.text_field :rankingdays, :readonly => true, :size => '4', :class =>'right' %>日間(0は、全期間)</td>
         <% else %>
-    <td colspan=2>集計実行時から過去<%= f.text_field :rankingdays, :size => '4', :class =>'right' %>日間(0は、全期間)</td>
+    <td colspan=2>集計実行時から過去<%= f.text_field :rankingdays, :size => '4', :class =>'right', :style => "ime-mode:disabled" %>日間(0は、全期間)</td>
     <td><input type="button" value="集計する"></td>
         <% end %>
     </tr>
@@ -480,7 +438,7 @@
 	  <%= link_to image_tag("btn_L_Back.gif"), edit_mallshopm_path(@mallshopm), :method => :put %>
 	<% else %>
 	  <%= image_submit_tag("btn_L_Commit.gif", :confirm => 'Are you sure?') %>
-	  <%= link_to image_tag("btn_L_Reset.gif"), reset_mallshopm_path(f), :method => :put %>
+	  <%= link_to image_tag("btn_L_Reset.gif"), reset_mallshopm_path(@mallshopm), :method => :get %>
 	<% end %>
   </div>
 <% end %>

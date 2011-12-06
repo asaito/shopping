@@ -129,7 +129,8 @@ AjaxZip2.zip2addr = function ( azip1, apref, aaddr, azip2, astrt, aarea ) {
                 fstrt.value = jstrt;
             }
         }
-        faddr.value = jaddr + jarea + jstrt;// change by asaito 20111206
+        faddr.value = jaddr + jstrt;// change by asaito 20111206
+        //faddr.value = jaddr + jarea + jstrt;// change by asaito 20111206
 
         // patch from http://iwa-ya.sakura.ne.jp/blog/2006/10/20/050037
         // update http://www.kawa.net/works/ajax/ajaxzip2/ajaxzip2.html#com-2006-12-15T04:41:22Z

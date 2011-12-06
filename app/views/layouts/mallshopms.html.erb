@@ -6,6 +6,10 @@
   <%= stylesheet_link_tag 'base' ,:media=>'screen' %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
+  <script src="/javascripts/ajaxzip2/prototype.js"></script>
+  <script src="/javascripts/ajaxzip2/ajaxzip2.js" charset="UTF-8"></script>
+  <script>AjaxZip2.JSONDATA = '/javascripts/ajaxzip2/data';</script>
+
 </head>
 <body<%= " onload='#{@onload}'"%>>
 <%= render 'common/header' %>

@@ -210,6 +210,15 @@ ja:
         deliverytaxflg: 送料消費税
         pointenableflg: ポイントシステム
         discountdate: 値引期間
+        discountrate: 値引率
+        instockflg: 在庫数量表示
+        daysofnew: 商品新着期間
+        amountbyadvise: おすすめ商品数
+        giftflg: ギフト取り扱い
+        rankingdispflg: ランキング表示
+        rankingflg: ランキング集計項目
+        rankingcount: ランキング対象
+        rankingdays: ランキング集計期間
         
   site_title: ゲームブログ
   Listing_mallshopms: ショップマスタ
@@ -230,4 +239,6 @@ ja:
   NoTax: 非課税
   Use: 使用する
   NotUse: 使用しない
+  Do: する
+  Dont: しない
 

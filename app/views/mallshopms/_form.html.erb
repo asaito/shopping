@@ -150,7 +150,7 @@
     <td bgcolor="#FFFFCC"><b><%= f.label :address1 %></b></td>
     <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
         <% if @func == 'show' %>
-    <td colspan=3><input type="text" name="prefecture_id" value=<%= @prefecturenm %> readonly ></td>
+	<td colspan=3><input type="text" name="prefecture_id" value=<%= @prefecturenm %> readonly ></td>
         <% else %>
     <td colspan=3>
 	<%= select_tag "mallshopm[address1]",options_from_collection_for_select(@prefectures, :id, :name, (@mallshopm.address1).to_i), :include_blank => true %>
@@ -293,11 +293,141 @@
     <td bgcolor="#FFFFCC"><b><%= f.label :discountdate %></b></td>
     <td ><%= image_tag("lbl_S_Seireki.gif") %></td>
         <% if @func == 'show' %>
-    <td><%= f.text_field :discounttodate, :size => '4', :readonly => true %></td>
-    <td>-&nbsp;&nbsp;<%= f.text_field :discounttodate, :size => '4', :readonly => true %></td>
+	    <td><%= f.date_select("discountfromdate", :use_month_numbers => true, :disabled => true) %></td>
+	    <td>&nbsp;&nbsp;～&nbsp;&nbsp;<%= f.date_select("discounttodate", :use_month_numbers => true, :disabled => true) %></td>
         <% else %>
-    <td><%= f.text_field :discountfromdate, :class => "datepicker", :size => '4' %></td>
-    <td>&nbsp;&nbsp;<%= f.text_field :discounttodate, :size => '4' %></td>
+	    <td><%= f.date_select("discountfromdate", :use_month_numbers => true) %></td>
+	    <td>&nbsp;&nbsp;～&nbsp;&nbsp;<%= f.date_select("discounttodate", :use_month_numbers => true) %></td>
+		<% end %>
+	    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :discountrate %></b></td>
+    <td ><%= image_tag("lbl_S_HanSuuji.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3><%= f.text_field :discountrate, :readonly => true, :size => '4', :class =>'right' %></td>
+        <% else %>
+    <td colspan=3><%= f.text_field :discountrate,:size => '4', :class =>'right' %>％</td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :instockflg %></b></td>
+    <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3>
+        <%= t('Dont') %><%= f.radio_button :instockflg, "0", :disabled => true %>&nbsp;&nbsp;
+         <%= t('Do') %><%= f.radio_button :instockflg, "1", :disabled => true %></td>
+        <% else %>
+    <td colspan=3>
+        <%= f.radio_button :instockflg,"0" %><%= t('Dont') %>&nbsp;&nbsp;
+        <%= f.radio_button :instockflg,"1" %><%= t('Do') %>
+    </td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :daysofnew %></b></td>
+    <td ><%= image_tag("lbl_S_HanSuuji.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3><%= f.text_field :daysofnew, :readonly => true, :size => '4', :class =>'right' %>日</td>
+        <% else %>
+    <td colspan=3><%= f.text_field :daysofnew, :size => '4', :class =>'right' %>日</td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :amountbyadvise %></b></td>
+    <td ><%= image_tag("lbl_S_HanSuuji.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3><%= f.text_field :amountbyadvise, :readonly => true, :size => '4', :class =>'right' %></td>
+        <% else %>
+    <td colspan=3><%= f.text_field :amountbyadvise, :size => '4', :class =>'right' %>個</td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :giftflg %></b></td>
+    <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3>
+        <%= t('Dont') %><%= f.radio_button :giftflg, "0", :disabled => true %>&nbsp;&nbsp;
+         <%= t('Do') %><%= f.radio_button :giftflg, "1", :disabled => true %></td>
+        <% else %>
+    <td colspan=3>
+        <%= f.radio_button :giftflg,"0" %><%= t('Dont') %>&nbsp;&nbsp;
+        <%= f.radio_button :giftflg,"1" %><%= t('Do') %>
+    </td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :rankingdispflg %></b></td>
+    <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3>
+        <%= t('Dont') %><%= f.radio_button :rankingdispflg, "0", :disabled => true %>&nbsp;&nbsp;
+         <%= t('Do') %><%= f.radio_button :rankingdispflg, "1", :disabled => true %></td>
+        <% else %>
+    <td colspan=3>
+        <%= f.radio_button :rankingdispflg,"0" %><%= t('Dont') %>&nbsp;&nbsp;
+        <%= f.radio_button :rankingdispflg,"1" %><%= t('Do') %>
+	(最終集計日時:2011/12/6 8:43)
+    </td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :rankingflg %></b></td>
+    <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3>
+        <%= t('受注数量') %><%= f.radio_button :rankingflg, "0", :disabled => true %>&nbsp;&nbsp;
+         <%= t('受注金額') %><%= f.radio_button :rankingflg, "1", :disabled => true %></td>
+        <% else %>
+    <td colspan=3>
+        <%= f.radio_button :rankingflg,"0" %><%= t('受注数量') %>&nbsp;&nbsp;
+        <%= f.radio_button :rankingflg,"1" %><%= t('受注金額') %>
+    </td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :rankingcount %></b></td>
+    <td ><%= image_tag("lbl_S_HanSuuji.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3><%= f.text_field :rankingcount, :readonly => true, :size => '4', :class =>'right' %>件まで(0は全件)</td>
+        <% else %>
+    <td colspan=3><%= f.text_field :rankingcount, :size => '4', :class =>'right' %>件まで(0は全件)</td>
+        <% end %>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+    <td bgcolor="#FFFFCC"><b><%= f.label :rankingdays %></b></td>
+    <td ><%= image_tag("lbl_S_HanSuuji.gif") %></td>
+        <% if @func == 'show' %>
+    <td colspan=3>集計実行時から過去<%= f.text_field :rankingdays, :readonly => true, :size => '4', :class =>'right' %>日間(0は、全期間)</td>
+        <% else %>
+    <td colspan=2>集計実行時から過去<%= f.text_field :rankingdays, :size => '4', :class =>'right' %>日間(0は、全期間)</td>
+    <td><input type="button" value="集計する"></td>
         <% end %>
     </tr>
   </div>

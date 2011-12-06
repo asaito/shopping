@@ -61,7 +61,12 @@ class MallshopmsController < ApplicationController
     @prefecture = @prefectures[(@mallshopm.address1).to_i - 1]
     @prefecturenm = @mallshopm.address1
     @prefecturenm = @prefecture.name
-
+    #@discountfromdate = Date.parse(params[:discountfromdate]['year'] + “-” + params[:discountfromdate]['month'] + “-” + params[:discountfromdate]['day'])
+    #@discountfrom = @mallshopm.discountfromdate
+    #@discountfromYear = @discountfrom.tm_year
+    #@discountfromMonth = @discountfrom.tm_mon
+    #@discountfromDay = @discountfrom.tm_mday
+    
     @email = "mail" #params[:email]
 
     @func = 'edit'
@@ -123,9 +128,9 @@ class MallshopmsController < ApplicationController
     @malladmin = current_malladmin
     @mallshopm.malladmin_id = @malladmin.id
     @mallshopm.mallshopcode = "1"
-    @mallshopm.address2 = "代田"
-    @mallshopm.tel = "03-3333-4444"
-    @mallshopm.email = "gs975318642@gmail.com"
+    @mallshopm.address2 = " "
+    @mallshopm.tel = " "
+    @mallshopm.email = " "
     @mallshopm.chargeusername = "1"
     @prefectures = Prefecture.find_by_sql("select * from prefectures")
     @func = ''
@@ -147,14 +152,14 @@ class MallshopmsController < ApplicationController
   def update
     @malladmin = current_malladmin
     @mallshopm = Mallshopm.find(params[:id])
-    #params[:]
+    @mallshopm.discountfromdate = "20111205"
+    @mallshopm.discountfromdate = params[@discountfromYear]
     @func = ''
-    #@onload = 'window.alert("hello")'
-    #@onload = 'window.onload()'
     @onload = 'on_load()'
 
     respond_to do |format|
       if @mallshopm.update_attributes(params[:mallshopm])
+      #if @mallshopm.save
         format.html { redirect_to(@mallshopm, :notice => 'Mallshopm was successfully updated.') }
         format.xml  { head :ok }
       else

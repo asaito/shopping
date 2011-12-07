@@ -1,0 +1,116 @@
+<h1>商品マスタ</h1>
+
+<table>
+    <th bgcolor="#800000"><font color="#ffffff"><%= t('検索項目') %></font></th>
+    <th colspan=3 bgcolor="#800000"><font color="#ffffff"><%= t('検索条件') %></font></th>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><b>商品コード</b></td>
+    <td ><%= image_tag("lbl_S_HanSuuji.gif") %></td>
+    <td colspan=2><input name="searchCmdtyCode" style="ime-mode:active">&nbsp;&nbsp;<font color="blue">部分一致</font></td>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><b>商品名</b></td>
+    <td ><%= image_tag("lbl_S_Zen.gif") %></td>
+    <td colspan=2><input name="searchCmdtyName" style="ime-mode:active">&nbsp;&nbsp;<font color="blue">部分一致</font></td>
+    </tr>
+  </div>
+  <div class="field">
+    <tr>
+    <td bgcolor="#FFFFCC"><b>在庫数量</b></td>
+    <td ><%= image_tag("lbl_S_HanSuuji.gif") %></td>
+    <td colspan=2><input name="searchCmdtyStockCount1" style="ime-mode:active" size="4">&nbsp;～
+		  <input name="searchCmdtyStockCount2" style="ime-mode:active" size="4"></td>
+    </tr>
+  </div>
+</table>
+
+<table>
+  <tr>
+    <th>Shopcode</th>
+    <th>Cmdtycode</th>
+    <th>Jancode</th>
+    <th>Cmdtyname</th>
+    <th>Description</th>
+    <th>Stockcode</th>
+    <th>Stockunitprice</th>
+    <th>Unitprice</th>
+    <th>Salesunitprice</th>
+    <th>Taxflg</th>
+    <th>Adviceflg</th>
+    <th>Bannerfile</th>
+    <th>Bannerurl</th>
+    <th>Memberdiscountflg</th>
+    <th>Srchkeyname1</th>
+    <th>Srchkeyname2</th>
+    <th>Srchkeyname3</th>
+    <th>Cmdtysize</th>
+    <th>Sellfromdate</th>
+    <th>Endsellflg</th>
+    <th>Selltodate</th>
+    <th>Salesfromdate</th>
+    <th>Salestodate</th>
+    <th>Rsrvenableflg</th>
+    <th>Nostockflg</th>
+    <th>Amount</th>
+    <th>Stockstatuscode</th>
+    <th>Wrappingflg</th>
+    <th>Deliverytypecode</th>
+    <th>Amountflg</th>
+    <th>Rsrvamount</th>
+    <th>Ranking</th>
+    <th>Rankingdatetime</th>
+    <th>Initdatetime</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @comdties.each do |comdty| %>
+  <tr>
+    <td><%= comdty.shopcode %></td>
+    <td><%= comdty.cmdtycode %></td>
+    <td><%= comdty.jancode %></td>
+    <td><%= comdty.cmdtyname %></td>
+    <td><%= comdty.description %></td>
+    <td><%= comdty.stockcode %></td>
+    <td><%= comdty.stockunitprice %></td>
+    <td><%= comdty.unitprice %></td>
+    <td><%= comdty.salesunitprice %></td>
+    <td><%= comdty.taxflg %></td>
+    <td><%= comdty.adviceflg %></td>
+    <td><%= comdty.bannerfile %></td>
+    <td><%= comdty.bannerurl %></td>
+    <td><%= comdty.memberdiscountflg %></td>
+    <td><%= comdty.srchkeyname1 %></td>
+    <td><%= comdty.srchkeyname2 %></td>
+    <td><%= comdty.srchkeyname3 %></td>
+    <td><%= comdty.cmdtysize %></td>
+    <td><%= comdty.sellfromdate %></td>
+    <td><%= comdty.endsellflg %></td>
+    <td><%= comdty.selltodate %></td>
+    <td><%= comdty.salesfromdate %></td>
+    <td><%= comdty.salestodate %></td>
+    <td><%= comdty.rsrvenableflg %></td>
+    <td><%= comdty.nostockflg %></td>
+    <td><%= comdty.amount %></td>
+    <td><%= comdty.stockstatuscode %></td>
+    <td><%= comdty.wrappingflg %></td>
+    <td><%= comdty.deliverytypecode %></td>
+    <td><%= comdty.amountflg %></td>
+    <td><%= comdty.rsrvamount %></td>
+    <td><%= comdty.ranking %></td>
+    <td><%= comdty.rankingdatetime %></td>
+    <td><%= comdty.initdatetime %></td>
+    <td><%= link_to 'Show', comdty %></td>
+    <td><%= link_to 'Edit', edit_comdty_path(comdty) %></td>
+    <td><%= link_to 'Destroy', comdty, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Comdty', new_comdty_path %>

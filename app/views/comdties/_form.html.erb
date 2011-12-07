@@ -1,0 +1,153 @@
+<%= form_for(@comdty) do |f| %>
+  <% if @comdty.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comdty.errors.count, "error") %> prohibited this comdty from being saved:</h2>
+
+      <ul>
+      <% @comdty.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :shopcode %><br />
+    <%= f.text_field :shopcode %>
+  </div>
+  <div class="field">
+    <%= f.label :cmdtycode %><br />
+    <%= f.text_field :cmdtycode %>
+  </div>
+  <div class="field">
+    <%= f.label :jancode %><br />
+    <%= f.text_field :jancode %>
+  </div>
+  <div class="field">
+    <%= f.label :cmdtyname %><br />
+    <%= f.text_field :cmdtyname %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :stockcode %><br />
+    <%= f.text_field :stockcode %>
+  </div>
+  <div class="field">
+    <%= f.label :stockunitprice %><br />
+    <%= f.text_field :stockunitprice %>
+  </div>
+  <div class="field">
+    <%= f.label :unitprice %><br />
+    <%= f.text_field :unitprice %>
+  </div>
+  <div class="field">
+    <%= f.label :salesunitprice %><br />
+    <%= f.text_field :salesunitprice %>
+  </div>
+  <div class="field">
+    <%= f.label :taxflg %><br />
+    <%= f.text_field :taxflg %>
+  </div>
+  <div class="field">
+    <%= f.label :adviceflg %><br />
+    <%= f.text_field :adviceflg %>
+  </div>
+  <div class="field">
+    <%= f.label :bannerfile %><br />
+    <%= f.text_field :bannerfile %>
+  </div>
+  <div class="field">
+    <%= f.label :bannerurl %><br />
+    <%= f.text_field :bannerurl %>
+  </div>
+  <div class="field">
+    <%= f.label :memberdiscountflg %><br />
+    <%= f.text_field :memberdiscountflg %>
+  </div>
+  <div class="field">
+    <%= f.label :srchkeyname1 %><br />
+    <%= f.text_field :srchkeyname1 %>
+  </div>
+  <div class="field">
+    <%= f.label :srchkeyname2 %><br />
+    <%= f.text_field :srchkeyname2 %>
+  </div>
+  <div class="field">
+    <%= f.label :srchkeyname3 %><br />
+    <%= f.text_field :srchkeyname3 %>
+  </div>
+  <div class="field">
+    <%= f.label :cmdtysize %><br />
+    <%= f.text_field :cmdtysize %>
+  </div>
+  <div class="field">
+    <%= f.label :sellfromdate %><br />
+    <%= f.date_select :sellfromdate %>
+  </div>
+  <div class="field">
+    <%= f.label :endsellflg %><br />
+    <%= f.text_field :endsellflg %>
+  </div>
+  <div class="field">
+    <%= f.label :selltodate %><br />
+    <%= f.date_select :selltodate %>
+  </div>
+  <div class="field">
+    <%= f.label :salesfromdate %><br />
+    <%= f.date_select :salesfromdate %>
+  </div>
+  <div class="field">
+    <%= f.label :salestodate %><br />
+    <%= f.date_select :salestodate %>
+  </div>
+  <div class="field">
+    <%= f.label :rsrvenableflg %><br />
+    <%= f.text_field :rsrvenableflg %>
+  </div>
+  <div class="field">
+    <%= f.label :nostockflg %><br />
+    <%= f.text_field :nostockflg %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br />
+    <%= f.text_field :amount %>
+  </div>
+  <div class="field">
+    <%= f.label :stockstatuscode %><br />
+    <%= f.text_field :stockstatuscode %>
+  </div>
+  <div class="field">
+    <%= f.label :wrappingflg %><br />
+    <%= f.text_field :wrappingflg %>
+  </div>
+  <div class="field">
+    <%= f.label :deliverytypecode %><br />
+    <%= f.text_field :deliverytypecode %>
+  </div>
+  <div class="field">
+    <%= f.label :amountflg %><br />
+    <%= f.text_field :amountflg %>
+  </div>
+  <div class="field">
+    <%= f.label :rsrvamount %><br />
+    <%= f.text_field :rsrvamount %>
+  </div>
+  <div class="field">
+    <%= f.label :ranking %><br />
+    <%= f.text_field :ranking %>
+  </div>
+  <div class="field">
+    <%= f.label :rankingdatetime %><br />
+    <%= f.datetime_select :rankingdatetime %>
+  </div>
+  <div class="field">
+    <%= f.label :initdatetime %><br />
+    <%= f.datetime_select :initdatetime %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

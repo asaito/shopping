@@ -1,4 +1,6 @@
 Shopping::Application.routes.draw do
+  resources :comdties
+
   devise_for :malladmins
 
   resources :mallshopms  do  

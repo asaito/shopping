@@ -1,0 +1,73 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  shopcode: MyString
+  cmdtycode: MyString
+  jancode: MyString
+  cmdtyname: MyString
+  description: MyString
+  stockcode: MyString
+  stockunitprice: 1
+  unitprice: 1
+  salesunitprice: 1
+  taxflg: 1
+  adviceflg: 1
+  bannerfile: MyString
+  bannerurl: MyString
+  memberdiscountflg: 1
+  srchkeyname1: MyString
+  srchkeyname2: MyString
+  srchkeyname3: MyString
+  cmdtysize: MyString
+  sellfromdate: 2011-12-07
+  endsellflg: 1
+  selltodate: 2011-12-07
+  salesfromdate: 2011-12-07
+  salestodate: 2011-12-07
+  rsrvenableflg: 1
+  nostockflg: 1
+  amount: 1
+  stockstatuscode: 1
+  wrappingflg: 1
+  deliverytypecode: 1
+  amountflg: 1
+  rsrvamount: 1
+  ranking: 1
+  rankingdatetime: 2011-12-07 14:48:23
+  initdatetime: 2011-12-07 14:48:23
+
+two:
+  shopcode: MyString
+  cmdtycode: MyString
+  jancode: MyString
+  cmdtyname: MyString
+  description: MyString
+  stockcode: MyString
+  stockunitprice: 1
+  unitprice: 1
+  salesunitprice: 1
+  taxflg: 1
+  adviceflg: 1
+  bannerfile: MyString
+  bannerurl: MyString
+  memberdiscountflg: 1
+  srchkeyname1: MyString
+  srchkeyname2: MyString
+  srchkeyname3: MyString
+  cmdtysize: MyString
+  sellfromdate: 2011-12-07
+  endsellflg: 1
+  selltodate: 2011-12-07
+  salesfromdate: 2011-12-07
+  salestodate: 2011-12-07
+  rsrvenableflg: 1
+  nostockflg: 1
+  amount: 1
+  stockstatuscode: 1
+  wrappingflg: 1
+  deliverytypecode: 1
+  amountflg: 1
+  rsrvamount: 1
+  ranking: 1
+  rankingdatetime: 2011-12-07 14:48:23
+  initdatetime: 2011-12-07 14:48:23

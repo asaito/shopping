@@ -2,7 +2,8 @@ class ComdtiesController < ApplicationController
   # GET /comdties
   # GET /comdties.xml
   def index
-    @comdties = Comdty.all
+    #@comdties = Comdty.all
+    @comdties = Comdty.paginate(:page => params[:page], :order => 'created_at desc', :per_page => 10)
 
     respond_to do |format|
       format.html # index.html.erb

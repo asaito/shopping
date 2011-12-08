@@ -1,0 +1,106 @@
+.title {
+  font-weight: bold;
+  font-size: 12pt;
+}
+
+.label {
+  font-size: 8pt;
+  font-weight: bold;
+  background-color: #FFFFDB;
+}
+header{
+  width: 600px;
+  height: 40px;
+  font-weight: bold;
+  font-size: 12pt;
+}
+input.right{
+    text-align:right;
+}
+section {
+  width: 100%;
+  height: 600px;
+  overflow:scroll;
+  font-size: 9pt;
+  visibility: visible;
+  z-index: 0;
+    float: right;
+    margin: 3px;
+}
+.actions {
+  background-color: #FFFFFF;
+  border: 0px solid #333333;
+  font-size: 10pt;
+  width: 600px;
+  margin: 10px;
+  color:#ffffff; position:fixed; top:650px; left:50px
+}
+footer{
+    width: 600px;
+    height: 60px;
+    text-align: center;
+}
+.comdties {
+  background-color: #0000FF;
+  border: 1px solid #333333;
+  font-size: 8pt;
+  width: 200px;
+  margin: 3px;
+  z-index: 4;
+  cursor: move;
+}
+
+.list_menu {
+  text-align: left;
+  font-size: 9pt;
+  background-color: #67BA37;
+}
+
+.datetime {
+  font-size: 8pt;
+}
+
+.menu_text {
+  text-align: left;
+  font-weight: bold;
+  color: #3725A8;
+}
+
+.comdties {
+    font-weight: bold;
+    font-size: 8pt;
+    background-color: #0000FF;
+    border: 1px solid #333333;
+    width: 700px;
+    margin: 30px;
+}
+
+.login_user_info{
+    text-align: right;
+    font-weight: bold;
+    font-size: 10pt;
+}
+.sub_header_info{
+    text-align: center;
+    font-size: 12pt;
+    text-align: center;
+    font-size: 12pt;
+    font-weight: bold;
+    color: #3725A8;
+    width: 100%;
+}
+
+.profile_detail {
+    text-align: left;
+    font-weight: bold;
+  color: #4B0082;
+    width: 800px;
+}
+
+.user_info_form{
+    text-align: center;
+  font-weight: bold;
+  color: #4B0082;
+    width: 100%;
+}
+

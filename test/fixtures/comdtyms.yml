@@ -1,0 +1,73 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  SHOPCODE: MyString
+  CmdtyCode: MyString
+  JanCode: MyString
+  CmdtyName: MyString
+  Description: MyString
+  StockCode: MyString
+  StockUnitPrice: 1
+  UnitPrice: 1
+  SalesUnitPrice: 1
+  TaxFlg: 1
+  AdviceFlg: 1
+  BannerFile: MyString
+  BannerURL: MyString
+  MemberDiscountFlg: 1
+  SrchKeyName1: MyString
+  SrchKeyName2: MyString
+  SrchKeyName3: MyString
+  CmdtySize: MyString
+  SellFromDate: 
+  EndSellFlg: 1
+  SellToDate: 
+  SalesFromDate: 
+  SalesToDate: 
+  RsrvEnableFlg: 1
+  RsrvAmount: 1
+  NoStockFlg: 1
+  Amount: 1
+  AmountFlg: 1
+  StockStatusCode: 1
+  WrappingFlg: 1
+  DeliveryTypeCode: 1
+  Ranking: 1
+  RankingDateTime: 
+  InitDateTime: 
+
+two:
+  SHOPCODE: MyString
+  CmdtyCode: MyString
+  JanCode: MyString
+  CmdtyName: MyString
+  Description: MyString
+  StockCode: MyString
+  StockUnitPrice: 1
+  UnitPrice: 1
+  SalesUnitPrice: 1
+  TaxFlg: 1
+  AdviceFlg: 1
+  BannerFile: MyString
+  BannerURL: MyString
+  MemberDiscountFlg: 1
+  SrchKeyName1: MyString
+  SrchKeyName2: MyString
+  SrchKeyName3: MyString
+  CmdtySize: MyString
+  SellFromDate: 
+  EndSellFlg: 1
+  SellToDate: 
+  SalesFromDate: 
+  SalesToDate: 
+  RsrvEnableFlg: 1
+  RsrvAmount: 1
+  NoStockFlg: 1
+  Amount: 1
+  AmountFlg: 1
+  StockStatusCode: 1
+  WrappingFlg: 1
+  DeliveryTypeCode: 1
+  Ranking: 1
+  RankingDateTime: 
+  InitDateTime: 

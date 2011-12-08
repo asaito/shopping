@@ -1,10 +1,16 @@
+<style type="text/css">
+table {
+border-collapse: collapse;
+}
+</style>
+
 <td><font color="#F6633" size=4 ><b>商品マスタ</b></font></td><br>
 <table>
   <tbody>
-  <td colspan=3 align="center"><font size=3><b>商品検索</b></font></td>
+  <td colspan=2 align="center"><font size=3><b>商品検索</b></font></td>
   <tr>
   <td>
-    <table style="width:350px;height:100px">
+    <table style="width:320px;height:100px">
       <tbody>
         <th bgcolor="#800000"><font color="#ffffff"><%= t('検索項目') %></font></th>
 	<th colspan=3 bgcolor="#800000"><font color="#ffffff"><%= t('検索条件') %></font></th>
@@ -12,7 +18,7 @@
 	  <tr>
           <td bgcolor="#FFFFCC"><b>商品コード</b></td>
           <td ><%= image_tag("lbl_S_HanSuuji.gif") %></td>
-          <td colspan=2><input name="searchCmdtyCode" style="ime-mode:active">&nbsp;&nbsp;<font color="blue">部分一致</font></td>
+          <td colspan=2 style="border-top:1px #2b2b2b solid; border-bottom:1px #2b2b2b"><input name="searchCmdtyCode" style="ime-mode:active">&nbsp;&nbsp;<font color="blue">部分一致</font></td>
 	  </tr>
         </div>
         <div class="field">
@@ -42,50 +48,84 @@
     </table>
   </td>
   <td>
-    <table style="width:350px;height:100px">
+    <table style="width:340px;height:100px">
       <tbody>
         <th bgcolor="#800000"><font color="#ffffff"><%= t('検索項目') %></font></th>
-	<th colspan=4 bgcolor="#800000"><font color="#ffffff"><%= t('検索条件') %></font></th>
+	<th colspan=2 bgcolor="#800000"><font color="#ffffff"><%= t('検索条件') %></font></th>
         <div class="field">
           <tr>
           <td bgcolor="#FFFFCC"><b>おすすめ商品</b></td>
 	  <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
-	  <td><input type=radio name="searchAdvice" value="0" checked>全件表示</td>
-          <td><input type=radio name="searchAdvice" value="1">通常</td>
-          <td><input type=radio name="searchAdvice" value="2">おすすめ</td>
+	  <td>
+	    <input type=radio name="searchAdvice" value="0" checked>全件表示
+	    <input type=radio name="searchAdvice" value="1">通常
+            <input type=radio name="searchAdvice" value="2">おすすめ
+	  </td>
           </tr>
 	</div>
         <div class="field">
           <tr>
           <td bgcolor="#FFFFCC"><b>会員割引</b></td>
           <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
-          <td><input type=radio name="searchMemberDiscount" value="0" checked>全件表示</td>
-          <td><input type=radio name="searchMemberDiscount" value="1">しない</td>
-          <td><input type=radio name="searchMemberDiscount" value="2">する</td>
+          <td>
+	    <input type=radio name="searchMemberDiscount" value="0" checked>全件表示
+	    <input type=radio name="searchMemberDiscount" value="1">しない
+	    <input type=radio name="searchMemberDiscount" value="2">する
+	  </td>
           </tr>
         </div>
         <div class="field">
           <tr>
           <td bgcolor="#FFFFCC"><b>予約販売</b></td>
           <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
-          <td><input type=radio name="searchRsrvEnable" value="0" checked>全件表示</td>
-          <td><input type=radio name="searchRsrvEnable" value="1">しない</td>
-          <td><input type=radio name="searchRsrvEnable" value="2">する</td>
+          <td>
+	    <input type=radio name="searchRsrvEnable" value="0" checked>全件表示
+	    <input type=radio name="searchRsrvEnable" value="1">しない
+	    <input type=radio name="searchRsrvEnable" value="2">する
+	  </td>
           </tr>
         </div>
         <div class="field">
           <tr>
           <td bgcolor="#FFFFCC"><b>在庫無し販売</b></td>
           <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
-          <td><input type=radio name="searchNoStock" value="0" checked>全件表示</td>
-          <td><input type=radio name="searchNoStock" value="1">しない</td>
-          <td><input type=radio name="searchNoStock" value="2">する</td>
+          <td><input type=radio name="searchNoStock" value="0" checked>全件表示
+          <input type=radio name="searchNoStock" value="1">しない
+          <input type=radio name="searchNoStock" value="2">する
+	  </td>
           </tr>
         </div>
       </tbody>
     </table>
+  <td>
     <table style="width:100;height:100px">
       <tbody>
+        <div class="field">
+          <tr>
+          <td>&nbsp;</td>
+          </tr>
+        </div>
+        <div class="field">
+          <tr>
+	  <td>
+	    <%= link_to image_tag("mallmgr/btn_L_Serch.gif"), "http://../comdty/index.html" %>
+	  </td>
+          </tr>
+        </div>
+        <div class="field">
+          <tr>
+          <td>
+            <%= link_to image_tag("mallmgr/btn_L_AddNewCmdty.gif"), "http://../comdty/index.html" %>
+          </td>
+          </tr>
+        </div>
+        <div class="field">
+          <tr>
+          <td>
+            <%= link_to image_tag("mallmgr/btn_L_OutputCsv.gif"), "http://../comdty/index.html" %>
+          </td>
+          </tr>
+        </div>
       </tbody>
     </table>
   </td>

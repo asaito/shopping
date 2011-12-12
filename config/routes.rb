@@ -1,5 +1,8 @@
 Shopping::Application.routes.draw do
-  resources :comdties
+  resources :comdties do
+    put :new, :on => :member
+    put :edit, :on => :member
+  end
 
   devise_for :malladmins
 

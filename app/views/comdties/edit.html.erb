@@ -1,4 +1,12 @@
 <h1>Editing comdty</h1>
+<% logger.debug 'request.remote_addr:' + request.remote_addr %>
+<% logger.debug 'request.query_string:' + request.query_string %>
+<% 
+  logger.debug 'request.query_parameters.code:' + request.query_parameters['copy'] 
+  logger.debug 'request.query_parameters.cmdtycode:' + request.query_parameters['cmdtycode'] 
+  $copy =  request.query_parameters['copy']
+  $cmdtycode =  request.query_parameters['cmdtycode']
+%>
 
 <%= render 'form' %>
 

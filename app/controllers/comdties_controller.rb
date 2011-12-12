@@ -1,9 +1,10 @@
+# -*- encoding: utf-8 -*-
 class ComdtiesController < ApplicationController
   # GET /comdties
   # GET /comdties.xml
   def index
     #@comdties = Comdty.all
-    @comdties = Comdty.paginate(:page => params[:page], :order => 'created_at desc', :per_page => 10)
+    @comdties = Comdty.paginate(:page => params[:page], :order => 'cmdtycode asc', :per_page => 10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -58,14 +59,23 @@ class ComdtiesController < ApplicationController
   # PUT /comdties/1.xml
   def update
     @comdty = Comdty.find(params[:id])
-
+    logger.debug "something interesting information"
+    logger.debug '$copy:' + $copy
+    logger.debug '$cmdtycode:' + $cmdtycode
+    logger.debug '@comdty.cmdtycode:' + @comdty.cmdtycode
     respond_to do |format|
-      if @comdty.update_attributes(params[:comdty])
-        format.html { redirect_to(@comdty, :notice => 'Comdty was successfully updated.') }
-        format.xml  { head :ok }
+      if ($copy == '1') && (@comdty.cmdtycode == $cmdtycode)
+	logger.debug 'come to fail'
+        format.html { redirect_to(@comdty, :notice => '登録に失敗しました。商品コードを変更して下さい！') }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @comdty.errors, :status => :unprocessable_entity }
+	logger.debug 'come to success'
+	if @comdty.update_attributes(params[:comdty])
+          format.html { redirect_to(@comdty, :notice => 'Comdty was successfully updated.') }
+          format.xml  { head :ok }
+        else
+	  format.html { render :action => "edit" }
+	  format.xml  { render :xml => @comdty.errors, :status => :unprocessable_entity }
+	end
       end
     end
   end

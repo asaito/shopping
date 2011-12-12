@@ -39,9 +39,10 @@ border: 1px #2b2b2b solid;
 	<div class="field">
 	  <tr>
           <td bgcolor="#FFFFCC"><b>在庫数量</b></td>
-          <td colspan=1><input name="searchCmdtyStockCount1" style="ime-mode:active" size="4">&nbsp;～
+          <td colspan=1>
 	    <%= image_tag("lbl_S_HanSuuji.gif") %>
-			<input name="searchCmdtyStockCount2" style="ime-mode:active" size="4"></td>
+	    <input name="searchCmdtyStockCount1" style="ime-mode:active" size="4">&nbsp;～
+	    <input name="searchCmdtyStockCount2" style="ime-mode:active" size="4"></td>
           </tr>
         </div>
         <div class="field">
@@ -124,7 +125,7 @@ border: 1px #2b2b2b solid;
         <div class="field">
           <tr style="border:0px">
           <td style="border:0px">
-            <%= link_to image_tag("mallmgr/btn_L_AddNewCmdty.gif"), "http://../comdty/index.html" %>
+	    <a href=<%= new_comdty_path%>?copy=0&cmdtycode=0><%= image_tag("mallmgr/btn_L_AddNewCmdty.gif") %></a>
           </td>
           </tr>
         </div>
@@ -142,91 +143,61 @@ border: 1px #2b2b2b solid;
   </tbody>
 </table>
 
-<table>
-  <tr>
-    <th>Shopcode</th>
-    <th><%= t('Cmdtycode') %></th>
-    <th>Jancode</th>
-    <th>Cmdtyname</th>
-    <th>Description</th>
-    <th>Stockcode</th>
-    <th>Stockunitprice</th>
-    <th>Unitprice</th>
-    <th>Salesunitprice</th>
-    <th>Taxflg</th>
-    <th>Adviceflg</th>
-    <th>Bannerfile</th>
-    <th>Bannerurl</th>
-    <th>Memberdiscountflg</th>
-    <th>Srchkeyname1</th>
-    <th>Srchkeyname2</th>
-    <th>Srchkeyname3</th>
-    <th>Cmdtysize</th>
-    <th>Sellfromdate</th>
-    <th>Endsellflg</th>
-    <th>Selltodate</th>
-    <th>Salesfromdate</th>
-    <th>Salestodate</th>
-    <th>Rsrvenableflg</th>
-    <th>Nostockflg</th>
-    <th>Amount</th>
-    <th>Stockstatuscode</th>
-    <th>Wrappingflg</th>
-    <th>Deliverytypecode</th>
-    <th>Amountflg</th>
-    <th>Rsrvamount</th>
-    <th>Ranking</th>
-    <th>Rankingdatetime</th>
-    <th>Initdatetime</th>
-    <th></th>
-    <th></th>
-    <th></th>
+<table width=90%>
+  <tr style="color:white; background-color:#800000">
+    <td>&nbsp;</td>
+    <th><%= t('CmdtyCode') %></th>
+    <th><%= t('Cmdtyname') %></th>
+    <th><%= t('Unitprice') %></th>
+    <th><%= t('Amount') %></th>
+    <th><%= t('Adviceflg') %></th>
+    <th><%= t('Memberdiscountflg') %></th>
+    <th><%= t('RsrvEnableFlg') %></th>
+    <th><%= t('Nostockflg') %></th>
+    <th>カテ</th>
+    <th>規格</th>
+    <th>関連</th>
+    <th>コピー</th>
   </tr>
 
 <% @comdties.each do |comdty| %>
   <tr>
-    <td><%= comdty.shopcode %></td>
-    <td><%= comdty.cmdtycode %></td>
-    <td><%= comdty.jancode %></td>
+    <td><input type="checkbox"></td>
+    <td>
+      <a href=<%= edit_comdty_path(comdty)%>?copy=0&cmdtycode=0><%= comdty.cmdtycode %></a>
+    </td>
     <td><%= comdty.cmdtyname %></td>
-    <td><%= comdty.description %></td>
-    <td><%= comdty.stockcode %></td>
-    <td><%= comdty.stockunitprice %></td>
-    <td><%= comdty.unitprice %></td>
-    <td><%= comdty.salesunitprice %></td>
-    <td><%= comdty.taxflg %></td>
-    <td><%= comdty.adviceflg %></td>
-    <td><%= comdty.bannerfile %></td>
-    <td><%= comdty.bannerurl %></td>
-    <td><%= comdty.memberdiscountflg %></td>
-    <td><%= comdty.srchkeyname1 %></td>
-    <td><%= comdty.srchkeyname2 %></td>
-    <td><%= comdty.srchkeyname3 %></td>
-    <td><%= comdty.cmdtysize %></td>
-    <td><%= comdty.sellfromdate %></td>
-    <td><%= comdty.endsellflg %></td>
-    <td><%= comdty.selltodate %></td>
-    <td><%= comdty.salesfromdate %></td>
-    <td><%= comdty.salestodate %></td>
-    <td><%= comdty.rsrvenableflg %></td>
-    <td><%= comdty.nostockflg %></td>
-    <td><%= comdty.amount %></td>
-    <td><%= comdty.stockstatuscode %></td>
-    <td><%= comdty.wrappingflg %></td>
-    <td><%= comdty.deliverytypecode %></td>
-    <td><%= comdty.amountflg %></td>
-    <td><%= comdty.rsrvamount %></td>
-    <td><%= comdty.ranking %></td>
-    <td><%= comdty.rankingdatetime %></td>
-    <td><%= comdty.initdatetime %></td>
-    <td><%= link_to 'Show', comdty %></td>
-    <td><%= link_to 'Edit', edit_comdty_path(comdty) %></td>
-    <td><%= link_to 'Destroy', comdty, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td align="right"><%= comdty.unitprice %></td>
+    <td align="right"><%= comdty.amount %></td>
+    <td align="center">
+      <% if comdty.adviceflg == 1 %>
+        ○
+      <% end %>
+    </td>
+    <td align="center">
+      <% if comdty.memberdiscountflg == 1 %>
+        ○
+      <% end %>
+    </td>
+    <td align="center">
+      <% if comdty.rsrvenableflg == 1 %>
+        ○
+      <% end %>
+    </td>
+    <td align="center">
+      <% if comdty.nostockflg == 1 %>
+	○
+      <% end %>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="center">
+      <a href=<%= new_comdty_path(comdty)%>?copy=1&cmdtycode=<%= comdty.cmdtycode %>><%= image_tag("mallmgr/btn_S_Copy.gif") %></a>
+</td>
   </tr>
 <% end %>
 </table>
 <%= will_paginate @comdties, :prev_label=>'«前', :next_label=>'次»' %> 
 
 <br />
-
-<%= link_to 'New Comdty', new_comdty_path %>

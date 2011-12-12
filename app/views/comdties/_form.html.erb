@@ -147,7 +147,12 @@
     <%= f.label :initdatetime %><br />
     <%= f.datetime_select :initdatetime %>
   </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <% if $copy == '1' %>
+      <input id="comdty_submit" name="commit" type="submit" value="新規登録する">
+    <% else %>
+      <%= f.submit %>
+    <% end %>
   </div>
 <% end %>

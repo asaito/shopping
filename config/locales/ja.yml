@@ -241,5 +241,12 @@ ja:
   NotUse: 使用しない
   Do: する
   Dont: しない
-  Cmdtycode: 商品コード
+  CmdtyCode: 商品コード
+  Cmdtyname: 商品名
+  Unitprice: 販売価格
+  Amount: 在庫数
+  Adviceflg: 推奨
+  Memberdiscountflg: 割引
+  RsrvEnableFlg: 予約
+  Nostockflg: 在無
 

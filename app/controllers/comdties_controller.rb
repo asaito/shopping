@@ -59,6 +59,7 @@ class ComdtiesController < ApplicationController
   # PUT /comdties/1
   # PUT /comdties/1.xml
   def update
+    #@bodyFlash = 0
     $saveSuccess = 1
     if $copy == '1'
       @comdty = Comdty.new(params[:comdty])
@@ -76,6 +77,7 @@ class ComdtiesController < ApplicationController
         urlstr = "?copy=1&cmdtycode=" + @comdty.cmdtycode + "&idcmd=" + $idcmd.to_s
 	logger.debug 'urlstr:' + urlstr
 	if Comdty.find_by_cmdtycode(@comdty.cmdtycode)
+	  #@bodyFlash = 1
 	  $saveSuccess = 0
 	  logger.debug 'come to fail'
 	  @comdty.id = $idcmd
@@ -84,8 +86,8 @@ class ComdtiesController < ApplicationController
 	  logger.debug 'come to success at copy'
           if @comdty.save
 	    $saveSuccess = 1
+	    #@bodyFlash = 1
 	    format.html { redirect_to(edit_comdty_path(@comdty) + urlstr, :notice => 'comdty was successfully created.')}
-	    #format.html { redirect_to(@comdty, :notice => 'Comdty was successfully created.') }
             format.xml  { render :xml => @comdty, :status => :created, :location => @comdty }
 	  else
             format.html { render :action => "new" }
@@ -99,6 +101,7 @@ class ComdtiesController < ApplicationController
 	#@comdty.id = $idcmd.to_i
 	#@comdty.id = ''
 	if @comdty.update_attributes(params[:comdty])
+	  #@bodyFlash = 0
           format.html { redirect_to(@comdty, :notice => 'Comdty was successfully updated.') }
           format.xml  { head :ok }
         else
@@ -120,4 +123,11 @@ class ComdtiesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def plural_destroy
+    items = params[:checked_items].keys
+    Software.destroy(items)
+    redirect_to :action => 'index'
+  end
+
 end

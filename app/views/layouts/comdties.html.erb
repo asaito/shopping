@@ -8,6 +8,7 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
+  <% #if flash[:notice] && @bodyFlash == 1 %>
   <% if flash[:notice] %>
     <% if $saveSuccess == 0 %>
       <p style="color:red"><%= flash[:notice] %></p>

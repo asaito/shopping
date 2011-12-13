@@ -1,6 +1,6 @@
 Shopping::Application.routes.draw do
   resources :comdties do
-    put :new, :on => :member
+    #put :new, :on => :member
     put :edit, :on => :member
   end
 

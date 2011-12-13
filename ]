@@ -1,0 +1,20 @@
+<h1>Editing comdty</h1>
+<% logger.debug 'request.remote_addr:' + request.remote_addr %>
+<% logger.debug 'request.query_string:' + request.query_string %>
+<% 
+  logger.debug 'at Editingrequest.query_parameters.code:' + request.query_parameters['copy'] 
+  logger.debug 'at Editing request.query_parameters.cmdtycode:' + request.query_parameters['cmdtycode'] 
+  $copy =  request.query_parameters['copy']
+  $cmdtycode =  request.query_parameters['cmdtycode']
+  #@comdty = Comdty.find(params[:id])
+  if $copy == '1'
+    @comdtynew = Comdty.new(params[:comdty])
+    #logger.debug '@comdtynew.cmdtycode:' + @comdtynew.cmdtycode
+    #@comdty.cmdtycode = @comdtynew.cmdtycode
+  end
+%>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @comdty %> |
+<%= link_to 'Back', comdties_path %>

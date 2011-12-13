@@ -4,6 +4,7 @@ class ComdtiesController < ApplicationController
   # GET /comdties.xml
   def index
     #@comdties = Comdty.all
+    $saveSuccess = 1
     @comdties = Comdty.paginate(:page => params[:page], :order => 'cmdtycode asc', :per_page => 10)
 
     respond_to do |format|
@@ -58,17 +59,45 @@ class ComdtiesController < ApplicationController
   # PUT /comdties/1
   # PUT /comdties/1.xml
   def update
-    @comdty = Comdty.find(params[:id])
-    logger.debug "something interesting information"
+    $saveSuccess = 1
+    if $copy == '1'
+      @comdty = Comdty.new(params[:comdty])
+    else
+      @comdty = Comdty.find(params[:id])
+    end
+    logger.debug 'update_some interesting information'
     logger.debug '$copy:' + $copy
     logger.debug '$cmdtycode:' + $cmdtycode
     logger.debug '@comdty.cmdtycode:' + @comdty.cmdtycode
     respond_to do |format|
-      if ($copy == '1') && (@comdty.cmdtycode == $cmdtycode)
-	logger.debug 'come to fail'
-        format.html { redirect_to(@comdty, :notice => '登録に失敗しました。商品コードを変更して下さい！') }
+      if $copy == '1'
+	#@comdty.id = $idcmd
+	#logger.debug '@comdty.id:' + @comdty.id.to_s 
+        urlstr = "?copy=1&cmdtycode=" + @comdty.cmdtycode + "&idcmd=" + $idcmd.to_s
+	logger.debug 'urlstr:' + urlstr
+	if Comdty.find_by_cmdtycode(@comdty.cmdtycode)
+	  $saveSuccess = 0
+	  logger.debug 'come to fail'
+	  @comdty.id = $idcmd
+	  format.html { redirect_to(edit_comdty_path(@comdty) + urlstr, :notice => '登録に失敗しました。商品コードを変更して下さい！') }
+	else
+	  logger.debug 'come to success at copy'
+          if @comdty.save
+	    $saveSuccess = 1
+	    format.html { redirect_to(edit_comdty_path(@comdty) + urlstr, :notice => 'comdty was successfully created.')}
+	    #format.html { redirect_to(@comdty, :notice => 'Comdty was successfully created.') }
+            format.xml  { render :xml => @comdty, :status => :created, :location => @comdty }
+	  else
+            format.html { render :action => "new" }
+	    format.xml  { render :xml => @comdty.errors, :status => :unprocessable_entity }
+          end
+	end
       else
 	logger.debug 'come to success'
+	#logger.debug '@comdty.id:' + @comdty.id.to_s
+	#logger.debug '$idcmd:' + $idcmd
+	#@comdty.id = $idcmd.to_i
+	#@comdty.id = ''
 	if @comdty.update_attributes(params[:comdty])
           format.html { redirect_to(@comdty, :notice => 'Comdty was successfully updated.') }
           format.xml  { head :ok }

@@ -9,7 +9,11 @@
 </head>
 <body>
   <% if flash[:notice] %>
+    <% if $saveSuccess == 0 %>
       <p style="color:red"><%= flash[:notice] %></p>
+    <% else %>
+      <p style="color:green"><%= flash[:notice] %></p>
+    <% end %>
   <% end %>
 <section>
 <%= yield %>

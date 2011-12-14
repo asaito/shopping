@@ -125,8 +125,9 @@ class ComdtiesController < ApplicationController
   end
 
   def plural_destroy
-    items = params[:checked_items].keys
-    Software.destroy(items)
+    #items = params[:checked_items].keys
+    items = params[:checked_items][1]
+    Comdty.destroy(items)
     redirect_to :action => 'index'
   end
 

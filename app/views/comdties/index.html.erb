@@ -142,6 +142,7 @@ border: 1px #2b2b2b solid;
   </tr>
   </tbody>
 </table>
+
 <table width=90%>
   <tr style="border:0px">
     <td style="border:0px">
@@ -172,7 +173,10 @@ border: 1px #2b2b2b solid;
 
 <% @comdties.each do |comdty| %>
   <tr>
-    <td><input type="checkbox"></td>
+    <td>
+      <%= hidden_field_tag "checked_items[#{comdty.id}][id]" %>
+      <%= check_box_tag "checked_items[#{comdty.id}][flag]" %>
+    </td>
     <td>
       <a href=<%= edit_comdty_path(comdty)%>?copy=0&cmdtycode=0&idcmd=<%= comdty.id %>><%= comdty.cmdtycode %></a>
     </td>
@@ -229,7 +233,8 @@ border: 1px #2b2b2b solid;
     <td style="border:0px">
     </td>
     <td colspan=4 align="center" style="border:0px">
-      <%= submit_tag "チェックした項目を削除する" %><%= image_tag("mallmgr/btn_L_Delete.gif") %>
+      <%= submit_tag("削除") %>
+      <%= image_tag("mallmgr/btn_L_Delete.gif") %>
     </td>
   </tr>
 </table>

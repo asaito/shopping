@@ -2,7 +2,7 @@ Shopping::Application.routes.draw do
   resources :comdties do
     #put :new, :on => :member
     put :edit, :on => :member
-    put :plural_destroy, :on => :member
+    get :plural_destroy, :on => :member
   end
 
   devise_for :malladmins

@@ -4,6 +4,7 @@ class ComdtiesController < ApplicationController
   # GET /comdties.xml
   def index
     #@comdties = Comdty.all
+    logger.debug '$checked:' + $checked.to_s
     $saveSuccess = 1
     @comdties = Comdty.paginate(:page => params[:page], :order => 'cmdtycode asc', :per_page => 10)
 
@@ -27,6 +28,7 @@ class ComdtiesController < ApplicationController
   # GET /comdties/new
   # GET /comdties/new.xml
   def new
+    logger.debug 'new_some interesting information'
     @comdty = Comdty.new
 
     respond_to do |format|
@@ -43,15 +45,54 @@ class ComdtiesController < ApplicationController
   # POST /comdties
   # POST /comdties.xml
   def create
-    @comdty = Comdty.new(params[:comdty])
+    logger.debug 'create_some interesting information'
+    #logger.debug 'commit:' + params['del_image.x']
+    if params['del_image.x'] 
+      delids = []
+      checked = params[:checked_items]
+      checked.each{|key, value|
+	logger.debug 'checked1.key:' + key
+        delids.push(key)
+        value.each{|key, value|
+	  logger.debug 'checked2.key:' + key
+	  logger.debug 'checked2.value:' + value
+	}
+      }
+      logger.debug 'delids.length:' + delids.length.to_s
+      for i in 0..delids.length - 1
+        logger.debug 'delids' + '[' + i.to_s + ']:' + delids[i]
+      end
+      Comdty.delete(delids) 
 
-    respond_to do |format|
-      if @comdty.save
-        format.html { redirect_to(@comdty, :notice => 'Comdty was successfully created.') }
-        format.xml  { render :xml => @comdty, :status => :created, :location => @comdty }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @comdty.errors, :status => :unprocessable_entity }
+      respond_to do |format|
+	format.html { redirect_to(comdties_url) }
+	format.xml  { head :ok }
+      end
+    elsif params['allsel_image.x']
+      $checked = true
+      respond_to do |format|
+        format.html { redirect_to(comdties_url) }
+        format.xml  { head :ok }
+      end
+
+    elsif params['allrel_image.x']
+      $checked = false
+      respond_to do |format|
+        format.html { redirect_to(comdties_url) }
+        format.xml  { head :ok }
+      end
+    else
+      #create
+      @comdty = Comdty.new(params[:comdty])
+
+      respond_to do |format|
+        if @comdty.save
+	  format.html { redirect_to(@comdty, :notice => 'Comdty was successfully created.') }
+	  format.xml  { render :xml => @comdty, :status => :created, :location => @comdty }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @comdty.errors, :status => :unprocessable_entity }
+	end
       end
     end
   end
@@ -115,6 +156,7 @@ class ComdtiesController < ApplicationController
   # DELETE /comdties/1
   # DELETE /comdties/1.xml
   def destroy
+    logger.debug 'destroy_some interesting information'
     @comdty = Comdty.find(params[:id])
     @comdty.destroy
 

@@ -143,13 +143,14 @@ border: 1px #2b2b2b solid;
   </tbody>
 </table>
 
+<form method="POST" action="comdties" name="indexform">
 <table width=90%>
   <tr style="border:0px">
     <td style="border:0px">
-      <%= image_tag("mallmgr/btn_SS_AllSelect.gif") %>
+      <input id="allselect" name="allsel_image", type="image", src="/images/mallmgr/btn_SS_AllSelect.gif" value="allselect" >
     </td>
     <td style="border:0px">
-      <%= image_tag("mallmgr/btn_SS_NoSelect.gif") %>
+      <input id="allrelease" name="allrel_image", type="image", src="/images/mallmgr/btn_SS_NoSelect.gif" value="allrelease" >
     </td>
     <td style="border:0px">
       <%= will_paginate @comdties, :prev_label=>'«前', :next_label=>'次»' %>
@@ -171,11 +172,10 @@ border: 1px #2b2b2b solid;
     <th>コピー</th>
   </tr>
 
-<% @comdties.each do |comdty| %>
+  <% @comdties.each do |comdty| %>
   <tr>
     <td>
-      <%= hidden_field_tag "checked_items[#{comdty.id}][id]" %>
-      <%= check_box_tag "checked_items[#{comdty.id}][flag]" %>
+      <%= check_box_tag "checked_items[#{comdty.id}][flag]", "0", checked=$checked %>
     </td>
     <td>
       <a href=<%= edit_comdty_path(comdty)%>?copy=0&cmdtycode=0&idcmd=<%= comdty.id %>><%= comdty.cmdtycode %></a>
@@ -213,10 +213,10 @@ border: 1px #2b2b2b solid;
 <% end %>
   <tr style="border:0px">
     <td style="border:0px">
-      <%= image_tag("mallmgr/btn_SS_AllSelect.gif") %>
+      <input id="allselect" name="allsel_image", type="image", src="/images/mallmgr/btn_SS_AllSelect.gif" value="allselect" >
     </td>
     <td style="border:0px">
-      <%= image_tag("mallmgr/btn_SS_NoSelect.gif") %>
+      <input id="allrelease" name="allrel_image", type="image", src="/images/mallmgr/btn_SS_NoSelect.gif" value="allrelease" >
     </td>
     <td style="border:0px">
     </td>
@@ -233,9 +233,9 @@ border: 1px #2b2b2b solid;
     <td style="border:0px">
     </td>
     <td colspan=4 align="center" style="border:0px">
-      <%= submit_tag("削除") %>
-      <%= image_tag("mallmgr/btn_L_Delete.gif") %>
+      <input id="destroy_submit" name="del_image", type="image", src="/images/mallmgr/btn_L_Delete.gif" value="削除" %>
     </td>
   </tr>
 </table>
+</form>
 <br />

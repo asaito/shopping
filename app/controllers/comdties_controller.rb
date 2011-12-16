@@ -14,11 +14,10 @@ class ComdtiesController < ApplicationController
     end
     logger.debug '$paramsSearchCmdtyCode:' + $paramsSearchCmdtyCode.to_s
     logger.debug '$paramsSearchAdvice:' + $paramsSearchAdvice.to_s
-    logger.debug 'at index $serchwhere:' + $serchwhere
+    logger.debug 'at index $serchwhere:' + $serchwhere.to_s
     if $afterIndex != nil
       logger.debug '$afterIndex:' + $afterIndex.to_s
     end
-    #$serchwhere = ''
     $saveSuccess = 1
     @comdties = Comdty.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => 10)
     $afterIndex = 1
@@ -196,43 +195,60 @@ class ComdtiesController < ApplicationController
 	end
         $serchwhere = ''
 	preceed = ''
-        if params[:searchCmdtyCode] != nil && params[:searchCmdtyCode].strip.length != 0
-          $serchwhere += 'cmdtycode like ' + "\'%" + params[:searchCmdtyCode] + "%\'"
+        if params[:searchCmdtyCode] != nil 
 	  $paramsSearchCmdtyCode = params[:searchCmdtyCode]
-	  preceed = ' AND '
+	  if params[:searchCmdtyCode].strip.length != 0
+	    $serchwhere += 'cmdtycode like ' + "\'%" + params[:searchCmdtyCode] + "%\'"
+	    preceed = ' AND '
+	  end
         end
-        if params[:searchCmdtyName] != nil && params[:searchCmdtyName].strip.length != 0
-	  $serchwhere += preceed + 'cmdtyname like ' + "\'%" + params[:searchCmdtyName] + "%\'"
+        if params[:searchCmdtyName] != nil 
 	  $paramsSearchCmdtyName = params[:searchCmdtyName]
-	  preceed = ' AND '
+	  if params[:searchCmdtyName].strip.length != 0
+	    $serchwhere += preceed + 'cmdtyname like ' + "\'%" + params[:searchCmdtyName] + "%\'"
+	    preceed = ' AND '
+	  end
         end
-        if params[:searchCmdtyStockCount1] != nil && params[:searchCmdtyStockCount1].strip.length != 0
-	  $serchwhere += preceed + 'amount >= ' + params[:searchCmdtyStockCount1].to_s
+        if params[:searchCmdtyStockCount1] != nil 
 	  $paramsSearchCmdtyStockCount1 = params[:searchCmdtyStockCount1]
+	  if params[:searchCmdtyStockCount1].strip.length != 0
+	    $serchwhere += preceed + 'amount >= ' + params[:searchCmdtyStockCount1].to_s
+	    preceed = ' AND '
+	  end
         end
-        if params[:searchCmdtyStockCount2] != nil && params[:searchCmdtyStockCount2].strip.length != 0
-          $serchwhere +=  preceed + 'amount <= ' + params[:searchCmdtyStockCount2].to_s
+        if params[:searchCmdtyStockCount2] != nil 
 	  $paramsSearchCmdtyStockCount2 = params[:searchCmdtyStockCount2]
-	  preceed = ' AND '
+	  if params[:searchCmdtyStockCount2].strip.length != 0
+	    $serchwhere +=  preceed + 'amount <= ' + params[:searchCmdtyStockCount2].to_s
+	    preceed = ' AND '
+	  end
         end
-        if params[:searchAdvice] != nil && params[:searchAdvice] != '0' && params[:searchAdvice] != '-1'
-	  $serchwhere += preceed + 'adviceflg = ' + params[:searchAdvice].to_s
+        if params[:searchAdvice] != nil 
 	  $paramsSearchAdvice = params[:searchAdvice]
-	  preceed = ' AND '
+	  if params[:searchAdvice] != '-1'
+	    $serchwhere += preceed + 'adviceflg = ' + params[:searchAdvice].to_s
+	    preceed = ' AND '
+	  end
 	end
-        if params[:searchMemberDiscount] != nil && params[:searchMemberDiscount] != '0' && params[:searchMemberDiscount] != '-1'
-	  $serchwhere += preceed + 'memberdiscountflg = ' + params[:searchMemberDiscount].to_s
+        if params[:searchMemberDiscount] != nil 
 	  $paramsSearchMemberDiscount = params[:searchMemberDiscount]
-	  preceed = ' AND '
+	  if params[:searchMemberDiscount] != '-1'
+	    $serchwhere += preceed + 'memberdiscountflg = ' + params[:searchMemberDiscount].to_s
+	    preceed = ' AND '
+	  end
 	end
-        if params[:searchRsrvEnable] != nil && params[:searchRsrvEnable] != '0' && params[:searchRsrvEnable] != '-1'
-	  $serchwhere += preceed + 'rsrvenableflg = ' + params[:searchRsrvEnable].to_s
+        if params[:searchRsrvEnable] != nil 
 	  $paramsSearchRsrvEnable = params[:searchRsrvEnable]
-	  preceed = ' AND '
+	  if params[:searchRsrvEnable] != '-1'
+	    $serchwhere += preceed + 'rsrvenableflg = ' + params[:searchRsrvEnable].to_s
+	    preceed = ' AND '
+	  end
 	end
-        if params[:searchNoStock] != nil && params[:searchNoStock] != '0' && params[:searchNoStock] != '-1'
-	  $serchwhere += preceed + 'nostockflg = ' + params[:searchNoStock].to_s
+        if params[:searchNoStock] != nil 
 	  $paramsSearchNoStock = params[:searchNoStock]
+	  if params[:searchNoStock] != '-1'
+	    $serchwhere += preceed + 'nostockflg = ' + params[:searchNoStock].to_s
+	  end
 	end
         logger.debug 'at getConditions $serchwhere:' + $serchwhere
         logger.debug '$paramsSearchCmdtyCode:' + $paramsSearchCmdtyCode.to_s

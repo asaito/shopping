@@ -4,10 +4,24 @@ class ComdtiesController < ApplicationController
   # GET /comdties.xml
   def index
     #@comdties = Comdty.all
-    logger.debug '$checked:' + $checked.to_s
+    if $afterIndex != 1
+      $serchwhere = ''
+      $paramsSearchAdvice = '-1'
+      $paramsSearchMemberDiscount = '-1'
+      $paramsSearchRsrvEnable = '-1'
+      $paramsSearchNoStock = '-1'
+      getConditions()
+    end
+    logger.debug '$paramsSearchCmdtyCode:' + $paramsSearchCmdtyCode.to_s
+    logger.debug '$paramsSearchAdvice:' + $paramsSearchAdvice.to_s
+    logger.debug 'at index $serchwhere:' + $serchwhere
+    if $afterIndex != nil
+      logger.debug '$afterIndex:' + $afterIndex.to_s
+    end
+    #$serchwhere = ''
     $saveSuccess = 1
-    @comdties = Comdty.paginate(:page => params[:page], :order => 'cmdtycode asc', :per_page => 10)
-
+    @comdties = Comdty.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => 10)
+    $afterIndex = 1
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @comdties }
@@ -47,6 +61,7 @@ class ComdtiesController < ApplicationController
   def create
     logger.debug 'create_some interesting information'
     #logger.debug 'commit:' + params['del_image.x']
+    #$serch = '0'
     if params['del_image.x'] 
       delids = []
       checked = params[:checked_items]
@@ -77,6 +92,14 @@ class ComdtiesController < ApplicationController
 
     elsif params['allrel_image.x']
       $checked = false
+      respond_to do |format|
+        format.html { redirect_to(comdties_url) }
+        format.xml  { head :ok }
+      end
+    elsif params['serch_image.x']
+      #if request.query_parameters['serch']
+	#$serch = request.query_parameters['serch']
+      getConditions()
       respond_to do |format|
         format.html { redirect_to(comdties_url) }
         format.xml  { head :ok }
@@ -166,11 +189,53 @@ class ComdtiesController < ApplicationController
     end
   end
 
-  def plural_destroy
-    #items = params[:checked_items].keys
-    items = params[:checked_items][1]
-    Comdty.destroy(items)
-    redirect_to :action => 'index'
+  def getConditions
+        logger.debug 'at getConditions:'
+	if params[:searchCmdtyCode] != nil
+	  logger.debug 'params[:searchCmdtyCode].strip.length:' + params[:searchCmdtyCode].strip.length.to_s
+	end
+        $serchwhere = ''
+	preceed = ''
+        if params[:searchCmdtyCode] != nil && params[:searchCmdtyCode].strip.length != 0
+          $serchwhere += 'cmdtycode like ' + "\'%" + params[:searchCmdtyCode] + "%\'"
+	  $paramsSearchCmdtyCode = params[:searchCmdtyCode]
+	  preceed = ' AND '
+        end
+        if params[:searchCmdtyName] != nil && params[:searchCmdtyName].strip.length != 0
+	  $serchwhere += preceed + 'cmdtyname like ' + "\'%" + params[:searchCmdtyName] + "%\'"
+	  $paramsSearchCmdtyName = params[:searchCmdtyName]
+	  preceed = ' AND '
+        end
+        if params[:searchCmdtyStockCount1] != nil && params[:searchCmdtyStockCount1].strip.length != 0
+	  $serchwhere += preceed + 'amount >= ' + params[:searchCmdtyStockCount1].to_s
+	  $paramsSearchCmdtyStockCount1 = params[:searchCmdtyStockCount1]
+        end
+        if params[:searchCmdtyStockCount2] != nil && params[:searchCmdtyStockCount2].strip.length != 0
+          $serchwhere +=  preceed + 'amount <= ' + params[:searchCmdtyStockCount2].to_s
+	  $paramsSearchCmdtyStockCount2 = params[:searchCmdtyStockCount2]
+	  preceed = ' AND '
+        end
+        if params[:searchAdvice] != nil && params[:searchAdvice] != '0' && params[:searchAdvice] != '-1'
+	  $serchwhere += preceed + 'adviceflg = ' + params[:searchAdvice].to_s
+	  $paramsSearchAdvice = params[:searchAdvice]
+	  preceed = ' AND '
+	end
+        if params[:searchMemberDiscount] != nil && params[:searchMemberDiscount] != '0' && params[:searchMemberDiscount] != '-1'
+	  $serchwhere += preceed + 'memberdiscountflg = ' + params[:searchMemberDiscount].to_s
+	  $paramsSearchMemberDiscount = params[:searchMemberDiscount]
+	  preceed = ' AND '
+	end
+        if params[:searchRsrvEnable] != nil && params[:searchRsrvEnable] != '0' && params[:searchRsrvEnable] != '-1'
+	  $serchwhere += preceed + 'rsrvenableflg = ' + params[:searchRsrvEnable].to_s
+	  $paramsSearchRsrvEnable = params[:searchRsrvEnable]
+	  preceed = ' AND '
+	end
+        if params[:searchNoStock] != nil && params[:searchNoStock] != '0' && params[:searchNoStock] != '-1'
+	  $serchwhere += preceed + 'nostockflg = ' + params[:searchNoStock].to_s
+	  $paramsSearchNoStock = params[:searchNoStock]
+	end
+        logger.debug 'at getConditions $serchwhere:' + $serchwhere
+        logger.debug '$paramsSearchCmdtyCode:' + $paramsSearchCmdtyCode.to_s
   end
 
 end

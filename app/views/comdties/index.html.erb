@@ -14,6 +14,7 @@ border: 1px #2b2b2b solid;
   <td colspan=2 align="center" style="border:0px"><font size=3><b>商品検索</b></font></td>
   <tr style="border:0px">
   <td style="border:0px">
+  <form method="POST" action="comdties" name="searchform">
     <table style="width:320px;height:100px">
       <tbody>
         <th bgcolor="#800000"><font color="#ffffff"><%= t('検索項目') %></font></th>
@@ -23,7 +24,7 @@ border: 1px #2b2b2b solid;
           <td bgcolor="#FFFFCC"><b>商品コード</b></td>
           <td colspan=1 style="border-top:1px #2b2b2b solid; border-bottom:1px #2b2b2b">
             <%= image_tag("lbl_S_HanSuuji.gif") %>
-	    <input name="searchCmdtyCode" style="ime-mode:active">&nbsp;&nbsp;<font color="blue">部分一致</font>
+	    <input name="searchCmdtyCode" style="ime-mode:disabled" value=<%= $paramsSearchCmdtyCode.to_s %>>&nbsp;&nbsp;<font color="blue">部分一致</font>
 	  </td>
 	  </tr>
         </div>
@@ -32,7 +33,7 @@ border: 1px #2b2b2b solid;
 	  <td bgcolor="#FFFFCC"><b>商品名</b></td>
           <td colspan=1>
 	    <%= image_tag("lbl_S_Zen.gif") %>
-	    <input name="searchCmdtyName" style="ime-mode:active">&nbsp;&nbsp;<font color="blue">部分一致</font>
+	    <input name="searchCmdtyName" style="ime-mode:active" value=<%= $paramsSearchCmdtyName.to_s %>>&nbsp;&nbsp;<font color="blue">部分一致</font>
 	  </td>
           </tr>
         </div>
@@ -41,8 +42,9 @@ border: 1px #2b2b2b solid;
           <td bgcolor="#FFFFCC"><b>在庫数量</b></td>
           <td colspan=1>
 	    <%= image_tag("lbl_S_HanSuuji.gif") %>
-	    <input name="searchCmdtyStockCount1" style="ime-mode:active" size="4">&nbsp;～
-	    <input name="searchCmdtyStockCount2" style="ime-mode:active" size="4"></td>
+	    <input name="searchCmdtyStockCount1" style="ime-mode:disabled" size="4" value=<%= $paramsSearchCmdtyStockCount1.to_s %>>&nbsp;～
+	    <input name="searchCmdtyStockCount2" style="ime-mode:disabled" size="4" value=<%= $paramsSearchCmdtyStockCount2.to_s %>>
+	  </td>
           </tr>
         </div>
         <div class="field">
@@ -66,9 +68,9 @@ border: 1px #2b2b2b solid;
           <td bgcolor="#FFFFCC"><b>おすすめ商品</b></td>
 	  <td>
 	    <%= image_tag("lbl_S_Tanitu.gif") %>
-	    <input type=radio name="searchAdvice" value="0" checked>全件表示
-	    <input type=radio name="searchAdvice" value="1">通常
-            <input type=radio name="searchAdvice" value="2">おすすめ
+	    <input type=radio name="searchAdvice" value="-1" <%= $paramsSearchAdvice == '-1' ? "checked" : "" %>>全件表示
+	    <input type=radio name="searchAdvice" value="0" <%= $paramsSearchAdvice == '0' ? "checked" : "" %>>通常
+            <input type=radio name="searchAdvice" value="1" <%= $paramsSearchAdvice == '1' ? "checked" : "" %>>おすすめ
 	  </td>
           </tr>
 	</div>
@@ -77,9 +79,9 @@ border: 1px #2b2b2b solid;
           <td bgcolor="#FFFFCC"><b>会員割引</b></td>
           <td>
 	    <%= image_tag("lbl_S_Tanitu.gif") %>
-	    <input type=radio name="searchMemberDiscount" value="0" checked>全件表示
-	    <input type=radio name="searchMemberDiscount" value="1">しない
-	    <input type=radio name="searchMemberDiscount" value="2">する
+	    <input type=radio name="searchMemberDiscount" value="-1" <%= $paramsSearchMemberDiscount == '-1' ? "checked" : "" %>>全件表示
+	    <input type=radio name="searchMemberDiscount" value="0" <%= $paramsSearchMemberDiscount == '0' ? "checked" : "" %>>しない
+	    <input type=radio name="searchMemberDiscount" value="1" <%= $paramsSearchMemberDiscount == '1' ? "checked" : "" %>>する
 	  </td>
           </tr>
         </div>
@@ -88,9 +90,9 @@ border: 1px #2b2b2b solid;
           <td bgcolor="#FFFFCC"><b>予約販売</b></td>
           <td>
 	    <%= image_tag("lbl_S_Tanitu.gif") %>
-	    <input type=radio name="searchRsrvEnable" value="0" checked>全件表示
-	    <input type=radio name="searchRsrvEnable" value="1">しない
-	    <input type=radio name="searchRsrvEnable" value="2">する
+	    <input type=radio name="searchRsrvEnable" value="-1" <%= $paramsSearchRsrvEnable == '-1' ? "checked" : "" %>>全件表示
+	    <input type=radio name="searchRsrvEnable" value="0" <%= $paramsSearchRsrvEnable == '0' ? "checked" : "" %>>しない
+	    <input type=radio name="searchRsrvEnable" value="1" <%= $paramsSearchRsrvEnable == '1' ? "checked" : "" %>>する
 	  </td>
           </tr>
         </div>
@@ -99,9 +101,9 @@ border: 1px #2b2b2b solid;
           <td bgcolor="#FFFFCC"><b>在庫無し販売</b></td>
           <td>
 	    <%= image_tag("lbl_S_Tanitu.gif") %>
-	    <input type=radio name="searchNoStock" value="0" checked>全件表示
-            <input type=radio name="searchNoStock" value="1">しない
-            <input type=radio name="searchNoStock" value="2">する
+	    <input type=radio name="searchNoStock" value="-1" <%= $paramsSearchNoStock == '-1' ? "checked" : "" %>>全件表示
+	    <input type=radio name="searchNoStock" value="0" <%= $paramsSearchNoStock == '0' ? "checked" : "" %>>しない
+	    <input type=radio name="searchNoStock" value="1" <%= $paramsSearchNoStock == '1' ? "checked" : "" %>>する
 	  </td>
           </tr>
         </div>
@@ -118,7 +120,7 @@ border: 1px #2b2b2b solid;
         <div class="field">
           <tr style="border:0px">
 	  <td style="border:0px">
-	    <%= link_to image_tag("mallmgr/btn_L_Serch.gif"), "http://../comdty/index.html" %>
+	    <input id="serch" name="serch_image", type="image", src="/images/mallmgr/btn_L_Serch.gif" value="serch" >
 	  </td>
           </tr>
         </div>
@@ -142,6 +144,7 @@ border: 1px #2b2b2b solid;
   </tr>
   </tbody>
 </table>
+</form>
 
 <form method="POST" action="comdties" name="indexform">
 <table width=90%>

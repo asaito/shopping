@@ -3,6 +3,7 @@
 require File.expand_path('../application', __FILE__)
 require 'encoding_patch'
 require 'will_paginate'
+#require 'fastercsv'
 # Initialize the rails application
 Shopping::Application.initialize!
 WillPaginate::ViewHelpers.pagination_options[:previous_label] = '&lt 前へ'

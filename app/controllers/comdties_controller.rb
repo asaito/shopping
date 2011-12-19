@@ -1,9 +1,12 @@
 # -*- encoding: utf-8 -*-
+require 'rubygems'
+require 'csv'
 class ComdtiesController < ApplicationController
   # GET /comdties
   # GET /comdties.xml
   def index
     #@comdties = Comdty.all
+    logger.debug 'outputcsv_image.x:'
     if $afterIndex != 1
       $serchwhere = ''
       $paramsSearchAdvice = '-1'
@@ -12,14 +15,19 @@ class ComdtiesController < ApplicationController
       $paramsSearchNoStock = '-1'
       getConditions()
     end
-    logger.debug '$paramsSearchCmdtyCode:' + $paramsSearchCmdtyCode.to_s
-    logger.debug '$paramsSearchAdvice:' + $paramsSearchAdvice.to_s
-    logger.debug 'at index $serchwhere:' + $serchwhere.to_s
-    if $afterIndex != nil
-      logger.debug '$afterIndex:' + $afterIndex.to_s
+    if params['serch_image.x']
+      logger.debug '$paramsSearchCmdtyCode:' + $paramsSearchCmdtyCode.to_s
+      logger.debug '$paramsSearchAdvice:' + $paramsSearchAdvice.to_s
+      logger.debug 'at index $serchwhere:' + $serchwhere.to_s
+      if $afterIndex != nil
+        logger.debug '$afterIndex:' + $afterIndex.to_s
+      end
+    elsif params['outputcsv_image.x']
+      logger.debug 'outputcsv_image.x:'
     end
     $saveSuccess = 1
     @comdties = Comdty.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => 10)
+    $comdties = @comdties
     $afterIndex = 1
     respond_to do |format|
       format.html # index.html.erb
@@ -96,13 +104,14 @@ class ComdtiesController < ApplicationController
         format.xml  { head :ok }
       end
     elsif params['serch_image.x']
-      #if request.query_parameters['serch']
-	#$serch = request.query_parameters['serch']
       getConditions()
       respond_to do |format|
         format.html { redirect_to(comdties_url) }
         format.xml  { head :ok }
       end
+    elsif params['outputcsv_image.x']
+      logger.debug 'csv:'
+      csv
     else
       #create
       @comdty = Comdty.new(params[:comdty])
@@ -252,6 +261,22 @@ class ComdtiesController < ApplicationController
 	end
         logger.debug 'at getConditions $serchwhere:' + $serchwhere
         logger.debug '$paramsSearchCmdtyCode:' + $paramsSearchCmdtyCode.to_s
+  end
+
+  def csv
+    filename = "comdties#{Time.now.strftime('%Y_%m_%d_%H_%M_%S')}.csv"
+    filepath = "tmp/csv/" + filename
+    output = CSV.open(filepath, "a") do |csv|
+#    output = CSV.generate(filepath, "a") do |csv|
+      csv << ['ID', 'ショップコード', '商品コード', 'ＪＡＮコード', '商品名', '商品説明', '仕入先コード', '仕入価格', '本体価格', '特別価格', '本体価格税区分', 'おすすめフラグ', '商品バナーファイル', 'リンク先アドレス', '会員値引フラグ', '検索キーワード1', '検索キーワード2', '検索キーワード3', '商品サイズ', '販売開始日', '販売終了日設定フラグ', '販売終了日', '特別価格開始日', '特別価格終了日', '予約販売フラグ', '予約可能数', '在庫無販売フラグ', '在庫数量', '在庫数管理フラグ', '在庫状況番号', 'ラッピングフラグ', '配送種別コード', 'ランキング順位', 'ランキング集計日時', '登録日時', '更新日時']
+    #output = CSV.open(filepath, "a") do |csv|
+      $comdties.each do |comdty|
+	csv << [comdty.id, comdty.shopcode, comdty.cmdtycode, comdty.jancode, comdty.cmdtyname, comdty.description, comdty.stockcode, comdty.stockunitprice, comdty.unitprice, comdty.salesunitprice, comdty.taxflg, comdty.adviceflg, comdty.bannerfile, comdty.bannerurl, comdty.memberdiscountflg, comdty.srchkeyname1, comdty.srchkeyname2, comdty.srchkeyname3, comdty.cmdtysize, comdty.sellfromdate, comdty.endsellflg, comdty.selltodate, comdty.salesfromdate, comdty.salestodate, comdty.rsrvenableflg, comdty.nostockflg, comdty.amount, comdty.stockstatuscode, comdty.wrappingflg, comdty.deliverytypecode, comdty.amountflg, comdty.rsrvamount, comdty.ranking, comdty.rankingdatetime, comdty.initdatetime, comdty.updated_at]
+      end
+    end
+    send_file(filepath,
+              :type => 'text/csv',
+    	      :filename => filename)
   end
 
 end

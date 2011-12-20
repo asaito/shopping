@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  ctgrycode: MyString
+  parentctgrycode: MyString
+  ctgryname: MyString
+  abbvctgryname: MyString
+
+two:
+  ctgrycode: MyString
+  parentctgrycode: MyString
+  ctgryname: MyString
+  abbvctgryname: MyString

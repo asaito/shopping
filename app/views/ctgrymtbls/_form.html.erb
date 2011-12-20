@@ -1,0 +1,33 @@
+<%= form_for(@ctgrymtbl) do |f| %>
+  <% if @ctgrymtbl.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ctgrymtbl.errors.count, "error") %> prohibited this ctgrymtbl from being saved:</h2>
+
+      <ul>
+      <% @ctgrymtbl.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ctgrycode %><br />
+    <%= f.text_field :ctgrycode %>
+  </div>
+  <div class="field">
+    <%= f.label :parentctgrycode %><br />
+    <%= f.text_field :parentctgrycode %>
+  </div>
+  <div class="field">
+    <%= f.label :ctgryname %><br />
+    <%= f.text_field :ctgryname %>
+  </div>
+  <div class="field">
+    <%= f.label :abbvctgryname %><br />
+    <%= f.text_field :abbvctgryname %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

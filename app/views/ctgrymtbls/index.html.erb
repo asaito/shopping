@@ -1,0 +1,21 @@
+<h1>Listing ctgrymtbls</h1>
+
+<table>
+  <tr>
+    <th>Ctgryname</th>
+  </tr>
+
+<% @ctgrymtbls.each do |ctgrymtbl| %>
+  <tr>
+    <td><%= ctgrymtbl.ctgryname %></td>
+    <td><%= link_to 'Show', ctgrymtbl %></td>
+    <td><%= link_to 'Edit', edit_ctgrymtbl_path(ctgrymtbl) %></td>
+    <td><%= link_to 'Destroy', ctgrymtbl, :confirm => 'Are you sure?', :method => :delete %></td>
+
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ctgrymtbl', new_ctgrymtbl_path %>

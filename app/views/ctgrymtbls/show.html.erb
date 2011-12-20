@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Ctgrycode:</b>
+  <%= @ctgrymtbl.ctgrycode %>
+</p>
+
+<p>
+  <b>Parentctgrycode:</b>
+  <%= @ctgrymtbl.parentctgrycode %>
+</p>
+
+<p>
+  <b>Ctgryname:</b>
+  <%= @ctgrymtbl.ctgryname %>
+</p>
+
+<p>
+  <b>Abbvctgryname:</b>
+  <%= @ctgrymtbl.abbvctgryname %>
+</p>
+
+
+<%= link_to 'Edit', edit_ctgrymtbl_path(@ctgrymtbl) %> |
+<%= link_to 'Back', ctgrymtbls_path %>

@@ -1,4 +1,6 @@
 Shopping::Application.routes.draw do
+  resources :ctgrymtbls
+
   resources :comdties do
     #put :new, :on => :member
     put :edit, :on => :member

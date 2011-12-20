@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111207054822) do
+ActiveRecord::Schema.define(:version => 20111220000142) do
 
   create_table "comdties", :force => true do |t|
     t.string   "shopcode"
@@ -50,6 +50,17 @@ ActiveRecord::Schema.define(:version => 20111207054822) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "ctgrymtbls", :force => true do |t|
+    t.string   "ctgrycode",       :null => false
+    t.string   "parentctgrycode", :null => false
+    t.string   "ctgryname",       :null => false
+    t.string   "abbvctgryname",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ctgrymtbls", ["id", "updated_at"], :name => "index_ctgrymtbls_on_id_and_updated_at"
 
   create_table "malladmins", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

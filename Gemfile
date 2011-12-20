@@ -9,6 +9,7 @@ gem 'pg'
 gem 'devise'
 gem 'will_paginate'
 gem 'fastercsv'
+gem 'jquery-rails'
 
 # Use unicorn as the web server
 # gem 'unicorn'

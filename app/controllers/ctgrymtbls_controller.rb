@@ -81,6 +81,32 @@ class CtgrymtblsController < ApplicationController
     end
   end
 
+  def get_ctg_list
+    logger.debug 'get_ctg_list:'
+    root_flg = (params["root"] == "source") ? true : false
+    path = "./"
+    path = params["root"] unless root_flg
+    arry = []
+    d = ctg_list(path, arry)
+    render :json => arry || [], :layout => false
+  end
+
+protected
+  def ctg_list(path, arry=[], root_flg=false)
+    logger.debug 'path:' + path
+    #ary = []
+    #ary = find_by_sql(["select children_of_ctg('1');"])
+    #logger.debug 'ary:' + ary
+    Dir.glob("#{path}/*").map do |d|
+      classes = "file"
+      classes = "folder" if FileTest.directory?(d)
+      hasChildren = (FileTest.directory?(d)) ? true : false
+      h = {"id" => d, "text" => File.basename(d), "path" => File.dirname(d), "expanded" => false, "classes" => classes, "hasChildren" => hasChildren, "children" => []}
+      arry << h
+    end
+    arry
+  end
+
   def get_dir_list
     logger.debug 'get_dir_list:'
     root_flg = (params["root"] == "source") ? true : false

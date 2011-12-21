@@ -3,9 +3,10 @@
 <script type="text/javascript">
 $(document).ready(function(){
   $("#example").treeview({});
-  $("#example2").treeview({
-    url: "<%= ctgrymtbls_get_dir_list_path %>"
+  $("#example3").treeview({
+    url: "<%= ctgrymtbls_get_ctg_list_path %>"
   });
+
 });
 </script>
  
@@ -36,9 +37,9 @@ $(document).ready(function(){
   <li><span class="file">File 4</span></li>
 </ul>
  
- 
-<h4>sync させたツリービュー表示</h4>
-<ul id="example2" class="filetree"></ul>
+<h4>ctgryツリービュー表示</h4>
+<ul id="example3" class="filetree"></ul>
+
 <table>
   <tr>
     <th>Ctgryname</th>

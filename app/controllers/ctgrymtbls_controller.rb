@@ -130,7 +130,7 @@ protected
       if pathsize < ary[j].size
 	pathsize = ary[j].size
       end
-      ary[j][0] = 0
+      ary[j][0] = 0 
     end
     logd('pathsize:', pathsize) 
     
@@ -148,6 +148,7 @@ protected
     
     seq = 0
     cur = 0
+    ctg_ary = Array.new
     cont = Array.new()
     tree = Tree.new
     for j in 0 .. i - 1
@@ -156,103 +157,33 @@ protected
 	if ary[j][k] != nil
 	  logd("mn j k ary[][]:", j.to_s+' '+k.to_s+' '+ary[j][k].to_s+' '+to_s_nil(ary[j][k-1]))
 	  logd('sr ary[j][k]:', ary[j][k])
+	  if k == 1 && ary[j][k + 1] == nil
+	    t << '/'
+	  end
 	  t << ary[j][k]
+	  if ary[j][k + 1] == nil
+	    ctg_ary[j] = ary[j][k]
+	  end
 	end
       end
       logcont(t)
       tree << t
     end
+    logcont(ctg_ary)
+    logcont(name_ary)
     logd('tree:', '')
     logd('', tree)
 
-    for k in 1..pathsize
-      subseq = 0
-      elder = 0
-      for j in 0 .. i - 1
-	if ary[j][0] == 0 && ary[j][k] != nil && ary[j][k + 1] == nil
-	  logd("mn j k ary[][]:", j.to_s+' '+k.to_s+' '+ary[j][k].to_s+' '+to_s_nil(ary[j][k-1]))
-	  logd('sr ary[j][k]:', ary[j][k])
-	  if k == 1
-	    cont << ary[j][k]
-	    logcont(cont)
-	  else
-	    insertAry(cont, ary[j][k], ary[j][k - 1], elder)
-	    if k > 1
-	      #cntAncestor(ary[j][k])	      
-	      arys[j] += 1
-	    end
-	    logcont(cont)
-	  end
-	  ary[j][0] = 1
-	end
-	if elder != ary[j][k]
-	  elder = ary[j][k]
-	end
-	
-      end
-    end
-    logcont(cont)
-    #cntCh(ary, arys, cont, pathsize)
+    logd('name tree:', '')
+    logd('', tree.to_s1(3, fmt = "%s+- %s\n", ctg_ary, name_ary))
   end
 
-  def cntCh(ary, arys, cont, pathsize)
-    i = 0
-    while i < cont.size
-      youger = serch(ary, cont[i], pathsize)
-      j = i
-      while j > i && j < cont.size
-	if youger == cont[j]
-	  arys[j] = j - i
-	end
-	j += 1
-      end
-      i += 1
-    end        
-  end
-  def serch(ary, ctgcd, pathsize)
-    for k in 1..pathsize
-      elder = 0
-      l = 8
-      for j in 0 .. l - 1
-        if ary[j][k] != nil && ary[j][k + 1] == nil
-          logd("mn j k ary[][]:", j.to_s+' '+k.to_s+' '+ary[j][k].to_s+' '+to_s_nil(ary[j][k-1]))
-          logd('sr ary[j][k]:', ary[j][k])
-	  if ary[j][k] == ctgcd
-	  end
-        end
-        if elder != ary[j][k]
-          elder = ary[j][k]
-        end
-      end
-    end
-  end
-  
-  def insertAry(cont, ctgcd, parcd, elder)
-    logd('elder:', elder)
-    i = 0
-    while i < cont.size
-      if cont[i] == parcd
-	j = i + 1
-	while j < cont.size 
-	  if cont[j] == elder
-	    cont[j + 1, 0] = [ctgcd]
-	    return
-	  end
-	  j += 1
-	end
-	cont[i + 1, 0] = [ctgcd]
-	return 
-      end
-      i += 1
-    end
-    cont << ctgcd
-  end
   def logcont(cont)
     str = ''
     i = 0
     logd('cont.size:', cont.size.to_s)
     while i < cont.size
-      str += cont[i] + ' '
+      str += cont[i].to_s + ' '
       i += 1
     end
     logd('str:', str)

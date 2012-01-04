@@ -149,6 +149,22 @@ protected
     seq = 0
     cur = 0
     cont = Array.new()
+    tree = Tree.new
+    for j in 0 .. i - 1
+      t = Array.new
+      for k in 1..pathsize
+	if ary[j][k] != nil
+	  logd("mn j k ary[][]:", j.to_s+' '+k.to_s+' '+ary[j][k].to_s+' '+to_s_nil(ary[j][k-1]))
+	  logd('sr ary[j][k]:', ary[j][k])
+	  t << ary[j][k]
+	end
+      end
+      logcont(t)
+      tree << t
+    end
+    logd('tree:', '')
+    logd('', tree)
+
     for k in 1..pathsize
       subseq = 0
       elder = 0
@@ -172,6 +188,7 @@ protected
 	if elder != ary[j][k]
 	  elder = ary[j][k]
 	end
+	
       end
     end
     logcont(cont)

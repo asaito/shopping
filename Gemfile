@@ -10,6 +10,7 @@ gem 'devise'
 gem 'will_paginate'
 gem 'fastercsv'
 gem 'jquery-rails'
+gem 'acts_as_tree'
 
 # Use unicorn as the web server
 # gem 'unicorn'

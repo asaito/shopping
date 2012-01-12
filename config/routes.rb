@@ -1,6 +1,7 @@
 Shopping::Application.routes.draw do
   #match '/ctgrymtbls/get_dir_list' => 'ctgrymtbls#get_dir_list'
   match '/ctgrymtbls/get_ctg_list' => 'ctgrymtbls#get_ctg_list'
+  match '/ctgrymtbls/list_tree' => 'ctgrymtbls#list_tree'
   resources :ctgrymtbls
 
   resources :comdties do

@@ -146,7 +146,9 @@ class Tree  < ActionController::Base
 
   def initialize(ary = nil)
     @children = Hash.new([])
+    $children = Hash.new([])
     @parents = Hash.new([])
+    $parents = Hash.new([])
     self << ary if ary
   end
 
@@ -160,6 +162,8 @@ class Tree  < ActionController::Base
       if parent
 	@children[parent] += [x] unless @children[parent].include?(x)
 	@parents[x] += [parent] unless @parents[x].include?(parent)
+	$children = @children
+	$parents = @parents
       end
       parent = x
     end
@@ -236,6 +240,14 @@ class Tree  < ActionController::Base
     end
   end
 
+  def hasChildren?(item)
+    if @parents.has_key?(item)
+      return true
+    else
+      return false
+    end
+  end
+
   def to_s(limit = nil, fmt = "%s+- %s\n", indent = "  ")
     @fmt = fmt
     @indent = indent
@@ -264,7 +276,28 @@ class Tree  < ActionController::Base
       result += wk
     end
     #result
-    #logger.debug 'name_tree3:' + name_tree
+    #stlogger.debug 'name_tree3:' + name_tree
+    name_tree
+  end
+  #def to_s2(limit = nil, fmt = "%s+- %s\n", indent = "  ", ctg_ary, name_ary)
+  def to_s2(limit = nil, fmt = "%s %s\n", indent = "  ", ctg_ary, name_ary)
+    @fmt = fmt
+    @indent = indent
+    #@indent = "\t"
+    @limit = nil
+    @limit = @indent * limit if limit
+    name_tree = ""
+    result = ""
+    roots.each do |x|
+      wk, wk1 = _subtree2(x, "", ctg_ary, name_ary)
+      name = getname(ctg_ary, name_ary, x)
+      name_tree = name_tree + wk1 + name
+      #logger.debug 'name:' + name
+      #logger.debug 'name_tree2:' + name_tree
+      result += wk
+    end
+    #result
+    #stlogger.debug 'name_tree3:' + name_tree
     name_tree
   end
 
@@ -292,19 +325,19 @@ private
       if @children.has_key?(x)
 	wk, wk1 = _subtree1(x, depth, ctg_ary, name_ary)
 	name = getname(ctg_ary, name_ary, x)
-	logger.debug 'wk1:' + wk1
-	logger.debug 'name1:' + name
-	logger.debug 'name_tree0:' + name_tree
+	#logger.debug 'wk1:' + wk1
+	#logger.debug 'name1:' + name
+	#logger.debug 'name_tree0:' + name_tree
 	name_tree = name_tree + name + wk1
-	logger.debug 'name_tree1:' + name_tree
+	#logger.debug 'name_tree1:' + name_tree
         result += wk
       else
 	name = getname(ctg_ary, name_ary, x)
 	#logger.debug 'name1:' + name
 	#logger.debug 'name_tree1:' + name_tree
         name_tree += @fmt % [depth, name]
-	logger.debug 'name:' + name
-	logger.debug 'name_tree:' + name_tree
+	#logger.debug 'name:' + name
+	#logger.debug 'name_tree:' + name_tree
         result += @fmt % [depth, x]
       end
     end
@@ -312,12 +345,46 @@ private
     return result, name_tree
   end
 
-  def getname(ctg_ary, name_ary, ctgcd)
+  def _subtree2(node, depth, ctg_ary, name_ary)
+    result = @fmt % [depth, node]
+    name_tree = @fmt % [depth, node]
+    depth += @indent
+    return result + @fmt % [depth, "..."], result + @fmt % [depth, "..."] if @limit && @limit < depth
+    @children[node].each do |x|
+      if @children.has_key?(x)
+        wk, wk1 = _subtree2(x, depth, ctg_ary, name_ary)
+        name = getname(ctg_ary, name_ary, x)
+        logger.debug 'wk1:' + wk1
+        logger.debug 'name1:' + name
+        logger.debug 'name_tree0:' + name_tree
+        #logger.debug '$htmlstr:' + $htmlstr
+        name_tree = name_tree + name + wk1
+	#name_tree = '<ul>\n' + depth + name + '<li>\n'
+        logger.debug 'name_tree1:' + name_tree
+        result += wk
+      else
+        name = getname(ctg_ary, name_ary, x)
+        #logger.debug 'wk1:' + wk1
+        #logger.debug 'name1:' + name
+        #logger.debug 'name_tree1:' + name_tree
+        name_tree += @fmt % [depth, name]
+	#name_tree += '<ul>\n' + depth + name + '<li>\n' + '</ul>\n'
+        logger.debug 'name:' + name
+        #logger.debug 'name_tree:' + name_tree
+        #logger.debug '$htmlstr:' + $htmlstr
+        result += @fmt % [depth, x]
+      end
+    end
+    #result
+    return result, name_tree
+  end
+
+  def getname(ctgcd_ary, name_ary, ctgcd)
     if ctgcd == '/'
       return '/'
     end
-    for i in 0..ctg_ary.size - 1
-      if ctg_ary[i] == ctgcd
+    for i in 0..ctgcd_ary.size - 1
+      if ctgcd_ary[i] == ctgcd
 	return name_ary[i]
       end
     end

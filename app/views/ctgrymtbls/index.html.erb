@@ -3,8 +3,11 @@
 <script type="text/javascript">
 $(document).ready(function(){
   $("#example").treeview({});
-  $("#example3").treeview({
-    url: "<%= ctgrymtbls_get_ctg_list_path %>"
+  //$("#example3").treeview({
+  //  url: "<%= ctgrymtbls_get_ctg_list_path %>"
+  //});
+  $("#example4").treeview({
+    url: "<%= ctgrymtbls_list_tree_path %>"
   });
 
 });
@@ -38,12 +41,12 @@ $(document).ready(function(){
 </ul>
  
 <h4>ctgryツリービュー表示</h4>
-<ul id="example3" class="filetree"></ul>
 
 <table>
   <tr>
     <th>Ctgryname</th>
   </tr>
+<ul id="example4" class="filetree"></ul>
 
 <% @ctgrymtbls.each do |ctgrymtbl| %>
   <tr>

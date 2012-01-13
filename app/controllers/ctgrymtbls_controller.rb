@@ -4,6 +4,8 @@ class CtgrymtblsController < ApplicationController
   def index
     @ctgrymtbls = Ctgrymtbl.all
     $tree = Tree.new
+    @depth = 0
+    list_tree
 
     respond_to do |format|
       format.html # index.html.erb
@@ -85,8 +87,8 @@ class CtgrymtblsController < ApplicationController
   def get_ctg_list
     logger.debug 'get_ctg_list:'
     root_flg = (params["root"] == "source") ? true : false
-    path = "./"
     path = params["root"] unless root_flg
+    path = "./"
     arry = []
     d = ctg_list(path, arry)
     #render :json => arry || [], :layout => false
@@ -107,11 +109,12 @@ class CtgrymtblsController < ApplicationController
     logd('', $children)
     #$htmlstr = ''
 
+    $htmlstr = ""
     d = ls_tree(path)
-    #logd('$htmlstr:', $htmlstr)
+    logd('$htmlstr:', $htmlstr)
     #logcont("@arry:", @arry)
     #render "*/*" => $tree.to_s || [], :layout => false
-    render :json => @arry || [], :layout => false
+    #render :json => @arry || [], :layout => false
     #$tree.to_s
     #@htmlstr = $tree.to_s
   end
@@ -127,8 +130,16 @@ protected
   end
 
   def _sbtree(node)
+    if @depth == 0
+        $htmlstr << "\n<ul id=\"navigation\" class=\"navigation\">"
+    else
+        $htmlstr << "\n" + gettab(@depth) + "<ul>"
+    end
+    @depth += 1
     logcont('$children[node]:', $children[node])
     $children[node].map do |c|
+      $htmlstr << "\n" + gettab(@depth) + "<li>"
+      $htmlstr << "<span>" + c + "</span>"
       classes = "file"
       classes = "folder" if $children.has_key?(c)
       hasChildren = $children.has_key?(c) ? true : false
@@ -140,18 +151,34 @@ protected
       h = {"id" => iddata, "text" => c, "path" => dirname, "expanded" => false, "classes" => classes, "hasChildren" => hasChildren, "children" => []}
       #h = {"id" => iddata, "text" => c, "path" => dirname, "expanded" => false, "classes" => classes, "hasChildren" => hasChildren, "children" => $children[c]}
       if hasChildren
-  @arry << h
-  _sbtree(c)
-  logcont('@arry', @arry)
-  #@arry << _sbtree(c)
+	@arry << h
+	_sbtree(c)
+	$htmlstr << "\n" + gettab(@depth) + "</li>"
+	logcont('@arry', @arry)
+	#@arry << _sbtree(c)
       else
-  @arry << h
+	$htmlstr << "</li>"
+	#$htmlstr << "\n" + gettab(@depth) + "</li>"
+	@arry << h
       end
     end
+    @depth -= 1
+    $htmlstr << "\n" + gettab(@depth) + "</ul>"
+  end
+
+  def gettab(depth)
+    if depth == 0
+      return ""
+    end
+    tab = ""
+    for i in 0..depth - 1
+      tab += "\t"
+    end
+    return tab
   end
 
   def ctg_list(path, arry=[], root_flg=false)
-    Rails.logger.debug 'path:' + path
+    logger.debug 'path:' + path
     @ctgrylists = Ctgrylist.find_by_sql(["select * from ctg_paths order by ctgryname, path;"])
     @ctgrylistssort = Ctgrylist.new
     ary = Array.new
@@ -207,7 +234,7 @@ protected
     pathsize = 0
     for j in 0..i - 1
       if pathsize < ary[j].size
-  pathsize = ary[j].size
+	pathsize = ary[j].size
       end
       ary[j][0] = 0 
     end
@@ -241,21 +268,20 @@ protected
     for j in 0 .. i - 1
       t = Array.new
       for k in 1..pathsize
-  if ary[j][k] != nil
-    logd("mn j k ary[][]:", j.to_s+' '+k.to_s+' '+ary[j][k].to_s+' '+to_s_nil(ary[j][k-1]))
-    logd('sr ary[j][k]:', ary[j][k])
-    if k == 1 && ary[j][k + 1] == nil
-      t << '/'
+	if ary[j][k] != nil
+	  logd("mn j k ary[][]:", j.to_s+' '+k.to_s+' '+ary[j][k].to_s+' '+to_s_nil(ary[j][k-1]))
+	  logd('sr ary[j][k]:', ary[j][k])
+	  if k == 1 && ary[j][k + 1] == nil
+	    t << '/'
       #t << '<ul>\n' + '/' + '<li>\n'
-    end
-    t << ary[j][k]
+	  end
+	  t << ary[j][k]
     #depth = ''
     #(k - 1).times{depth += '\t'}
-    #t << '<ul>\n' + depth + ary[j][k] + '<li>\n'
-    if ary[j][k + 1] == nil
-      ctg_ary[j] = ary[j][k]
-    end
-  end
+	  if ary[j][k + 1] == nil
+	    ctg_ary[j] = ary[j][k]
+	  end
+	end
       end
       logcont('t', t)
       $tree << t
@@ -272,6 +298,7 @@ protected
     logd('$tree:', '')
     logd('', $tree)
     logd('$tree.to_s:', $tree.to_s)
+    #$htmlstr = tree_to_html($tree)
     
     #logd('$parents:', '')
     #logd('', $parents)
@@ -281,6 +308,30 @@ protected
     #logd('name tree:', '')
     #logd('', $tree.to_s2(3, fmt = "%s %s\n", ctg_ary, name_ary))
     #logd('', $tree.to_s2(3, fmt = "%s %s\n", ctg_ary, name_ary))
+  end
+
+  def tree_to_html(items)
+    tab = ""
+    @depth += 1
+    if items != nil
+      if @depth == 1
+        html = "\n<ul id=\"red\" class=\"treeview-red\">"
+      else
+        for i in 0..@depth - 1
+          tab += "\t"
+        end
+        html = "\n" + tab + "<ul>"
+      end
+      items.each do |item|
+        html << "\n" + tab + "<li>"
+        html << "<span>" + h(item.name) + "</span>"
+        if item.children.size > 0
+          html << list_trees(item.children)
+        end
+        html << "</li>"
+      end
+      html << "</ul>"
+    end
   end
 
   def getname(ctgcd_ary, name_ary, ctgcd)

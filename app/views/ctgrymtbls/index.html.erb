@@ -6,9 +6,9 @@ $(document).ready(function(){
   //$("#example3").treeview({
   //  url: "<%= ctgrymtbls_get_ctg_list_path %>"
   //});
-  $("#example4").treeview({
-    url: "<%= ctgrymtbls_list_tree_path %>"
-  });
+  //$("#example4").treeview({
+  //  url: "<%= ctgrymtbls_list_tree_path %>"
+  //});
 
 });
 </script>
@@ -46,8 +46,7 @@ $(document).ready(function(){
   <tr>
     <th>Ctgryname</th>
   </tr>
-<ul id="example4" class="filetree"></ul>
-
+<%= raw $htmlstr %>
 <% @ctgrymtbls.each do |ctgrymtbl| %>
   <tr>
     <td><%= ctgrymtbl.ctgryname %></td>

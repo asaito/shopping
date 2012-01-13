@@ -1,9 +1,12 @@
+# -*- encoding: utf-8 -*-
 class CtgrymtblsController < ApplicationController
   # GET /ctgrymtbls
   # GET /ctgrymtbls.xml
   def index
     @ctgrymtbls = Ctgrymtbl.all
     $tree = Tree.new
+    @name_ary = Array.new
+    @ctgcd_ary = Array.new
     @depth = 0
     list_tree
 
@@ -122,8 +125,12 @@ class CtgrymtblsController < ApplicationController
 protected
   def ls_tree(path)
     d = $tree.roots
+    @count = 0
     logd('$tree.root:', d)
     _sbtree(d[0])
+    logd('@count:', @count)
+    $htmlstr << "\n" + gettab(@depth) + "</li>"
+    $htmlstr << "\n" + gettab(@depth) + "</ul>"
     #logcont('@arry', @arry)
     #@arry
     $tree
@@ -131,7 +138,11 @@ protected
 
   def _sbtree(node)
     if @depth == 0
-        $htmlstr << "\n<ul id=\"navigation\" class=\"navigation\">"
+      $htmlstr << "\n<ul id=\"navigation\" class=\"navigation\">"
+      $htmlstr << "\n" + gettab(@depth) + "<li>"
+      $htmlstr << "<a href=\"" + "基本" + "\">" + "基本" + "</a>" +
+		  "【 "+ "件】(" + getctgcd(@ctgcd_ary, @name_ary, node) + ")"
+      $htmlstr << "\n" + gettab(@depth) + "<ul>"
     else
         $htmlstr << "\n" + gettab(@depth) + "<ul>"
     end
@@ -139,7 +150,8 @@ protected
     logcont('$children[node]:', $children[node])
     $children[node].map do |c|
       $htmlstr << "\n" + gettab(@depth) + "<li>"
-      $htmlstr << "<span>" + c + "</span>"
+      $htmlstr << "<a href=\"" + c + "\">" + c + "</a>" +
+		  "【 "+ "件】(" + getctgcd(@ctgcd_ary, @name_ary, c) + ")"
       classes = "file"
       classes = "folder" if $children.has_key?(c)
       hasChildren = $children.has_key?(c) ? true : false
@@ -149,21 +161,20 @@ protected
       #logger.debug 'iddata:'+ iddata
       logcont('$children[c]:', $children[c])
       h = {"id" => iddata, "text" => c, "path" => dirname, "expanded" => false, "classes" => classes, "hasChildren" => hasChildren, "children" => []}
-      #h = {"id" => iddata, "text" => c, "path" => dirname, "expanded" => false, "classes" => classes, "hasChildren" => hasChildren, "children" => $children[c]}
       if hasChildren
 	@arry << h
-	_sbtree(c)
+	@count = _sbtree(c)
 	$htmlstr << "\n" + gettab(@depth) + "</li>"
 	logcont('@arry', @arry)
-	#@arry << _sbtree(c)
       else
+	@count += 1
 	$htmlstr << "</li>"
-	#$htmlstr << "\n" + gettab(@depth) + "</li>"
 	@arry << h
       end
     end
     @depth -= 1
     $htmlstr << "\n" + gettab(@depth) + "</ul>"
+    return @count
   end
 
   def gettab(depth)
@@ -182,23 +193,23 @@ protected
     @ctgrylists = Ctgrylist.find_by_sql(["select * from ctg_paths order by ctgryname, path;"])
     @ctgrylistssort = Ctgrylist.new
     ary = Array.new
-    name_ary = Array.new
+    #name_ary = Array.new
     #@tree = Tree.new
     i = 0
     first = 1
     @ctgrylists.each do |ctg|
       if first == 1
-  first = 0
+	first = 0
       else
-  logd('              ', ctg.ctgryname)
+	logd('              ', ctg.ctgryname)
         logd('path:', ctg.path) 
         ary[i] = ctg.path.split(/\//)
-        name_ary[i] = ctg.ctgryname
-  logd('name_ary:', name_ary[i]) 
-  i += 1
+        @name_ary[i] = ctg.ctgryname
+	logd('name_ary:', @name_ary[i]) 
+	i += 1
       end
     end
-    sortctg(ary, name_ary, i)
+    sortctg(ary, @name_ary, i)
 
     #treelist(@tree, arry)
     #treelist1(path, arry)
@@ -210,10 +221,10 @@ protected
     set_ctg_ary(ary, ctgcd_ary, ctgname_ary, name_ary, i) 
     for j in 0..i - 1
       for k in 0..ary[j].size
-  a = Array.new
-  if ary[j][k] != nil && ary[j][k] != 0
-    ctgname_ary[j][k] = getname(ctgcd_ary, name_ary, ary[j][k])
-  end
+	a = Array.new
+	if ary[j][k] != nil && ary[j][k] != 0
+	  ctgname_ary[j][k] = getname(ctgcd_ary, name_ary, ary[j][k])
+	end
       end
     end
   end
@@ -221,9 +232,9 @@ protected
   def set_ctg_ary(ary, ctgcd_ary, ctgname_ary, name_ary, i) 
     for j in 0..i - 1
       for k in 0..ary[j].size - 1
-  if ary[j][k] != nil && ary[j][k + 1] == nil
-    ctgcd_ary[j] = ary[j][k] 
-  end
+	if ary[j][k] != nil && ary[j][k + 1] == nil
+	  ctgcd_ary[j] = ary[j][k] 
+	end
       end
     end
   end
@@ -247,7 +258,7 @@ protected
     end
 
     ctgname_ary = ary.clone
-    ctgcd_ary = Array.new
+    #ctgcd_ary = Array.new
     ctg_ary = Array.new
 
     logd('before cd_to_name ary:', '')
@@ -255,7 +266,7 @@ protected
       logary('ary'+'['+j.to_s+']', ary[j], j)
     end
 
-    cd_to_name(ary, ctgcd_ary, ctgname_ary, name_ary, i)
+    cd_to_name(ary, @ctgcd_ary, ctgname_ary, name_ary, i)
 
     logd('after cd_to_name ary:', '')
     for j in 0..i - 1
@@ -286,7 +297,7 @@ protected
       logcont('t', t)
       $tree << t
     end
-    logcont('ctgcd_ary:', ctgcd_ary)
+    logcont('@ctgcd_ary:', @ctgcd_ary)
     logd('after tree ary:', '')
     for j in 0..i - 1
       logary('ary'+'['+j.to_s+']:', ary[j], j)
@@ -341,6 +352,17 @@ protected
     for i in 0..ctgcd_ary.size - 1
       if ctgcd_ary[i] == ctgcd
         return name_ary[i]
+      end
+    end
+  end
+
+  def getctgcd(ctgcd_ary, name_ary, ctgname)
+    if ctgname == '/'
+      return '/'
+    end
+    for i in 0..ctgcd_ary.size - 1
+      if name_ary[i] == ctgname
+        return ctgcd_ary[i]
       end
     end
   end

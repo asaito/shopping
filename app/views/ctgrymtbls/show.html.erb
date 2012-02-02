@@ -1,25 +1,223 @@
-<p id="notice"><%= notice %></p>
+<script type="text/javascript">
+//    alert("ctgrySearch:");
+//$("#searchCondS1").click(function(){
+//    alert("change:");
+//    $.post('#{/ctgrymtbls/piyo}?param_one'+$(this.val());
+//});
 
-<p>
-  <b>Ctgrycode:</b>
-  <%= @ctgrymtbl.ctgrycode %>
-</p>
+$(function(){
+    $("#jalert").click(function(){
+        jAlert('カスタムアラーとボックスです', 'あらーと');
+    })
+});
 
-<p>
-  <b>Parentctgrycode:</b>
-  <%= @ctgrymtbl.parentctgrycode %>
-</p>
+function change_search_cond(){
+for (var i = 0; i < document.srchCond.searchCondSel1.length; i++){
+if(document.srchCond.searchCondSel1[i].checked == true){
+el = document.srchCond.searchCondSel1[i].value;
+alert(el);
+}
+}
+//alert(element);
+$.get('#{/ctgrymtbls/piyo}?param_one'+$(el));
+//$.post('#{/ctgrymtbls/piyo}?param_one'+$(this.val());
+//location.reload();
+}
+function submit_func() {
+//alert("submit_func:");
+document.forms["addEdit"].submit();
+//addEdit.submit();
+}
+</script>
+<tr>
+<td><font color="#F6633" size=4 ><b>カテゴリマスタ</b></font></td><br><br>
+</tr>
+<% if flash[:notice] != "" %>
+  <div id="flash" style="color: green; border: green solid">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<form name="addEdit" action="ctgryMode" method="GET">
+<table>
+<tr valign="top">
+<td style="border:0px"> 
+<table>
+<tr align="center">
+  <td style="border-top:1px" align="center" bgcolor="#800000"><b><font color="#ffffff">編集モード</font></b></td>
+</tr>
+<tr>
+  <td style="border-top:1px">
+    <input type=radio name="categoryAddEdit" value="0" <%= $categoryAddEdit == '0' ? "checked" : "" %> onclick="submit_func();" >追加
+    <input type=radio name="categoryAddEdit" value="1" <%= $categoryAddEdit == '1' ? "checked" : "" %> onclick="submit_func();" >編集
+  </td>
+</tr>
+</table>
+</td>
+<td style="border:0px">
+&nbsp;&nbsp;
+</td>
+<td style="border:0px">
+<table style="width:640px;height:100px">
+<th style="width:150px" bgcolor="#800000"><font color="#ffffff"><%= t('項目') %></font></th>
+<th bgcolor="#800000"><font color="#ffffff"><%= t('値') %></font></th>
+<div class="field">
+<tr>
+  <td bgcolor="#FFFFCC"><b>親カテゴリ</b></td>
+  <td colspan=1 style="border-top:1px #2b2b2b solid; border-bottom:1px #2b2b2b">
+    <input name="parentCtgryName" style="ime-mode:active" value="<%= @parentCtgryName %>" >&nbsp;&nbsp;
+  </td>
+</tr>
+</div>
+<div class="field">
+<tr>
+  <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %><b>カテゴリコード</b></td>
+  <td colspan=1>
+    <%= image_tag("lbl_S_HanSuuji.gif") %>
+    <input name="searchCtgryCode" style="ime-mode:disabled" value="<%= @ctgryCode %>" >&nbsp;&nbsp;
+  </td>
+</tr>
+</div>
+<div class="field">
+<tr>
+  <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %><b>カテゴリ名称</b></td>
+  <td colspan=1>
+    <%= image_tag("lbl_S_Zen.gif") %>
+    <input name="searchCtgryName" style="ime-mode:active" value="<%= @ctgryName %>" >&nbsp;
+  </td>
+</tr>
+</div>
+<div class="field">
 
-<p>
-  <b>Ctgryname:</b>
-  <%= @ctgrymtbl.ctgryname %>
-</p>
+<tr>
+  <td bgcolor="#FFFFCC"><b>タブ表示名称</b></td>
+  <td colspan=1>
+    <%= image_tag("lbl_S_Zen.gif") %>
+    <input name="tabDisplayName" style="ime-mode:active" value="<%= @tabDisplayName %>" >&nbsp;
+  </td>
+</tr>
+</div>
+<div class="field">
+<tr>
+  <td style="border:0px">&nbsp;</td>
+  <td style="border:0px">&nbsp;</td>
+  <td colspan=2 style="border:0px">&nbsp;&nbsp;
+  </td>
+</tr>
+</div>
+</table>
+</td>
+</tr>
 
-<p>
-  <b>Abbvctgryname:</b>
-  <%= @ctgrymtbl.abbvctgryname %>
-</p>
+<tr>
+<td style="border:0px">
+<table>
+<%= raw $htmlstr %>
+</table>
+</td>
+<td style="border:0px">
+&nbsp;&nbsp;
+</td>
+<td style="border:0px">
+<table width=700>
+<th width=100 bgcolor="#800000"><font color="#ffffff"><%= t('項順') %></font></th>
+<th width=200 bgcolor="#800000"><font color="#ffffff"><%= t('検索条件名称') %></font></th>
+<th colspan=2 width=340 bgcolor="#800000"><font color="#ffffff"><%= t('入力方式') %></font></th>
+<tr>
+  <td align="center">1
+  </td>
+  <div id="result">
+  <td>
+    <% if @paramsCtgrySearchCond1 == "0" %>
+      <%= image_tag("lbl_S_Zen.gif") %>
+      <input name="searchCond1" style="ime-mode:active" value="<%= @searchCond1 %>" >&nbsp;
+    <% elsif @paramsCtgrySearchCond1 == nil || @paramsCtgrySearchCond1 == "-1" %>
+      &nbsp; 
+    <% else %>
+      <%= select_tag "searchCond1",options_from_collection_for_select(@srchkeyword1, :cmdtycode, :srchkeyname1, @srchkeyword1_sel), :include_blank => true %>
+	    <% end %>
+	  </td>
+	  </div>
+	  <div >
+          <td colspan=2>
+            <input type=radio name="searchCondSel1" id="searchCondSel1" value="-1" <%= @paramsCtgrySearchCond1 == '-1' ? "checked" : "" %> onclick="submit_func();" >使わない
+            <input type=radio name="searchCondSel1" id="searchCondSel1" value="0" <%= @paramsCtgrySearchCond1 == '0' ? "checked" : "" %> onclick="submit_func();" >直接入力
+            <input type=radio name="searchCondSel1" id="searchCondSel1" value="1" <%= @paramsCtgrySearchCond1 == '1' ? "checked" : "" %> onclick="submit_func();" >一覧選択
+          </td>
+	  </div>
+	</tr>
+        <tr>
+          <td align="center">2
+          </td>
+          <td>
+            <% if @paramsCtgrySearchCond2 == "0" %>
+	      <%= image_tag("lbl_S_Zen.gif") %>
+	      <input name="searchCond2" style="ime-mode:active" value="<%= @searchCond2 %>">&nbsp;
+	    <% elsif @paramsCtgrySearchCond2 == nil || @paramsCtgrySearchCond2 == "-1" %>
+	      &nbsp; 
+            <% else %>
+              <%= select_tag "searchCond2",options_from_collection_for_select(@srchkeyword2, :cmdtycode, :srchkeyname2, @srchkeyword2_sel), :include_blank => true %>
+            <% end %>
+          </td>
+          <td colspan=2>
+            <input type=radio name="searchCondSel2" value="-1" <%= @paramsCtgrySearchCond2 == '-1' ? "checked" : "" %> onclick="submit_func();" >使わない
+            <input type=radio name="searchCondSel2" value="0" <%= @paramsCtgrySearchCond2 == '0' ? "checked" : "" %> onclick="submit_func();" >直接入力
+            <input type=radio name="searchCondSel2" value="1" <%= @paramsCtgrySearchCond2 == '1' ? "checked" : "" %> onclick="submit_func();" >一覧選択
+          </td>
+        </tr>
+        <tr>
+          <td align="center">3
+          </td>
+          <td>
+            <% if @paramsCtgrySearchCond3 == "0" %>
+	      <%= image_tag("lbl_S_Zen.gif") %>
+	      <input name="searchCond3" style="ime-mode:active" value="<%= @searchCond3 %>" >&nbsp;
+	    <% elsif @paramsCtgrySearchCond3 == nil || @paramsCtgrySearchCond3 == "-1" %>
+	      &nbsp; 
+            <% else %>
+              <%= select_tag "searchCond3",options_from_collection_for_select(@srchkeyword3, :cmdtycode, :srchkeyname3, @srchkeyword3_sel), :include_blank => true %>
+            <% end %>
+          </td>
+          <td colspan=2>
+            <input type=radio name="searchCondSel3" value="-1" <%= @paramsCtgrySearchCond3 == '-1' ? "checked" : "" %> onclick="submit_func();" >使わない
+            <input type=radio name="searchCondSel3" value="0" <%= @paramsCtgrySearchCond3 == '0' ? "checked" : "" %> onclick="submit_func();" >直接入力
+            <input type=radio name="searchCondSel3" value="1" <%= @paramsCtgrySearchCond3 == '1' ? "checked" : "" %> onclick="submit_func();" >一覧選択
+          </td>
+        </tr>
+	<tr style="border:0px">
+          <td colspan=1 align="center" style="border:0px">
+	    <input id="affiliate_submit" name="affiliate_image", type="image", src="/images/mallmgr/btn_L_AffiliateCmdty.gif" value="関連" %>
+	  </td>
+          <td colspan=1 align="center" style="border:0px">
+            <input id="delete_submit" name="del_image", type="image", src="/images/mallmgr/btn_L_DeleteCtgry.gif" value="削除" %>
+          </td>
+          <td colspan=1 align="center" style="border:0px">
+            <input id="change_submit" name="change_image", type="image", src="/images/mallmgr/btn_L_ChangeCtgry.gif" value="変更" %>
+          </td>
+          <td colspan=1 align="center" style="border:0px">
+            <input id="confirm_submit" name="confirm_image", type="image", src="/images/mallmgr/btn_L_Submit.gif" value="確定" %>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</form>
 
 
-<%= link_to 'Edit', edit_ctgrymtbl_path(@ctgrymtbl) %> |
-<%= link_to 'Back', ctgrymtbls_path %>
+<table>
+<% @ctgrymtbls.each do |ctgrymtbl| %>
+  <tr>
+    <td><%= ctgrymtbl.ctgryname %></td>
+    <td><%= link_to 'Show', ctgrymtbl %></td>
+    <td><%= link_to 'Edit', edit_ctgrymtbl_path(ctgrymtbl) %></td>
+    <td><%= link_to 'Destroy', ctgrymtbl, :confirm => 'Are you sure?', :method => :delete %></td>
+
+  </tr>
+<% end %>
+  </td>
+  </tr>
+</table>
+
+<br />
+
+<%= link_to 'New Ctgrymtbl', new_ctgrymtbl_path %>

@@ -2,7 +2,9 @@ Shopping::Application.routes.draw do
   #match '/ctgrymtbls/get_dir_list' => 'ctgrymtbls#get_dir_list'
   match '/ctgrymtbls/get_ctg_list' => 'ctgrymtbls#get_ctg_list'
   match '/ctgrymtbls/list_tree' => 'ctgrymtbls#list_tree'
-  resources :ctgrymtbls
+  resources :ctgrymtbls do
+    get :piyo, :on => :member
+  end
 
   resources :comdties do
     #put :new, :on => :member
@@ -71,5 +73,5 @@ Shopping::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id(.:format)))'
+   match ':controller(/:action(/:id(.:format)))'
 end

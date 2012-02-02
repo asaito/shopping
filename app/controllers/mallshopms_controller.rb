@@ -5,7 +5,8 @@ class MallshopmsController < ApplicationController
   def index
     #@mallshopms = Mallshopm.all
     @malladmin = current_malladmin
-    @mallshopms = Mallshopm.where("malladmin_id=?",@malladmin.id).latest
+    #@mallshopms = Mallshopm.where("malladmin_id=?",@malladmin.id).latest
+    @mallshopms = Mallshopm.where("malladmin_id=?",1).latest
     @func = ''
 
     respond_to do |format|

@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  ctgrycode: MyString
+  srchkeycode: 1
+  srchkeyname: MyString
+  disptype: 1
+
+two:
+  ctgrycode: MyString
+  srchkeycode: 1
+  srchkeyname: MyString
+  disptype: 1

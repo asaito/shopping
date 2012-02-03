@@ -28,6 +28,16 @@ function submit_func() {
 document.forms["addEdit"].submit();
 //addEdit.submit();
 }
+function confirm_func() {
+//confirm("削除してよろしいてすか？")
+if(confirm("削除してよろしいてすか？")==true){
+  //alert("true");
+  document.forms["addEdit"].submit();
+} else {
+  //alert("false");
+  return false;
+}
+}
 </script>
 <tr>
 <td><font color="#F6633" size=4 ><b>カテゴリマスタ</b></font></td><br><br>
@@ -127,10 +137,10 @@ document.forms["addEdit"].submit();
   </td>
   <div id="result">
   <td>
-    <% if @paramsCtgrySearchCond1 == "0" %>
+    <% if @paramsCtgrySearchCond1 == "1" %>
       <%= image_tag("lbl_S_Zen.gif") %>
       <input name="searchCond1" style="ime-mode:active" value="<%= @searchCond1 %>" >&nbsp;
-    <% elsif @paramsCtgrySearchCond1 == nil || @paramsCtgrySearchCond1 == "-1" %>
+    <% elsif @paramsCtgrySearchCond1 == nil || @paramsCtgrySearchCond1 == "0" %>
       &nbsp; 
     <% else %>
       <%= select_tag "searchCond1",options_from_collection_for_select(@srchkeyword1, :cmdtycode, :srchkeyname1, @srchkeyword1_sel), :include_blank => true %>
@@ -139,9 +149,9 @@ document.forms["addEdit"].submit();
 	  </div>
 	  <div >
           <td colspan=2>
-            <input type=radio name="searchCondSel1" id="searchCondSel1" value="-1" <%= @paramsCtgrySearchCond1 == '-1' ? "checked" : "" %> onclick="submit_func();" >使わない
-            <input type=radio name="searchCondSel1" id="searchCondSel1" value="0" <%= @paramsCtgrySearchCond1 == '0' ? "checked" : "" %> onclick="submit_func();" >直接入力
-            <input type=radio name="searchCondSel1" id="searchCondSel1" value="1" <%= @paramsCtgrySearchCond1 == '1' ? "checked" : "" %> onclick="submit_func();" >一覧選択
+            <input type=radio name="searchCondSel1" id="searchCondSel1" value="0" <%= @paramsCtgrySearchCond1 == '0' ? "checked" : "" %> onclick="submit_func();" >使わない
+            <input type=radio name="searchCondSel1" id="searchCondSel1" value="1" <%= @paramsCtgrySearchCond1 == '1' ? "checked" : "" %> onclick="submit_func();" >直接入力
+            <input type=radio name="searchCondSel1" id="searchCondSel1" value="2" <%= @paramsCtgrySearchCond1 == '2' ? "checked" : "" %> onclick="submit_func();" >一覧選択
           </td>
 	  </div>
 	</tr>
@@ -149,52 +159,52 @@ document.forms["addEdit"].submit();
           <td align="center">2
           </td>
           <td>
-            <% if @paramsCtgrySearchCond2 == "0" %>
+            <% if @paramsCtgrySearchCond2 == "1" %>
 	      <%= image_tag("lbl_S_Zen.gif") %>
 	      <input name="searchCond2" style="ime-mode:active" value="<%= @searchCond2 %>">&nbsp;
-	    <% elsif @paramsCtgrySearchCond2 == nil || @paramsCtgrySearchCond2 == "-1" %>
+	    <% elsif @paramsCtgrySearchCond2 == nil || @paramsCtgrySearchCond2 == "0" %>
 	      &nbsp; 
             <% else %>
               <%= select_tag "searchCond2",options_from_collection_for_select(@srchkeyword2, :cmdtycode, :srchkeyname2, @srchkeyword2_sel), :include_blank => true %>
             <% end %>
           </td>
           <td colspan=2>
-            <input type=radio name="searchCondSel2" value="-1" <%= @paramsCtgrySearchCond2 == '-1' ? "checked" : "" %> onclick="submit_func();" >使わない
-            <input type=radio name="searchCondSel2" value="0" <%= @paramsCtgrySearchCond2 == '0' ? "checked" : "" %> onclick="submit_func();" >直接入力
-            <input type=radio name="searchCondSel2" value="1" <%= @paramsCtgrySearchCond2 == '1' ? "checked" : "" %> onclick="submit_func();" >一覧選択
+            <input type=radio name="searchCondSel2" value="0" <%= @paramsCtgrySearchCond2 == '0' ? "checked" : "" %> onclick="submit_func();" >使わない
+            <input type=radio name="searchCondSel2" value="1" <%= @paramsCtgrySearchCond2 == '1' ? "checked" : "" %> onclick="submit_func();" >直接入力
+            <input type=radio name="searchCondSel2" value="2" <%= @paramsCtgrySearchCond2 == '2' ? "checked" : "" %> onclick="submit_func();" >一覧選択
           </td>
         </tr>
         <tr>
           <td align="center">3
           </td>
           <td>
-            <% if @paramsCtgrySearchCond3 == "0" %>
+            <% if @paramsCtgrySearchCond3 == "1" %>
 	      <%= image_tag("lbl_S_Zen.gif") %>
 	      <input name="searchCond3" style="ime-mode:active" value="<%= @searchCond3 %>" >&nbsp;
-	    <% elsif @paramsCtgrySearchCond3 == nil || @paramsCtgrySearchCond3 == "-1" %>
+	    <% elsif @paramsCtgrySearchCond3 == nil || @paramsCtgrySearchCond3 == "0" %>
 	      &nbsp; 
             <% else %>
               <%= select_tag "searchCond3",options_from_collection_for_select(@srchkeyword3, :cmdtycode, :srchkeyname3, @srchkeyword3_sel), :include_blank => true %>
             <% end %>
           </td>
           <td colspan=2>
-            <input type=radio name="searchCondSel3" value="-1" <%= @paramsCtgrySearchCond3 == '-1' ? "checked" : "" %> onclick="submit_func();" >使わない
-            <input type=radio name="searchCondSel3" value="0" <%= @paramsCtgrySearchCond3 == '0' ? "checked" : "" %> onclick="submit_func();" >直接入力
-            <input type=radio name="searchCondSel3" value="1" <%= @paramsCtgrySearchCond3 == '1' ? "checked" : "" %> onclick="submit_func();" >一覧選択
+            <input type=radio name="searchCondSel3" value="0" <%= @paramsCtgrySearchCond3 == '0' ? "checked" : "" %> onclick="submit_func();" >使わない
+            <input type=radio name="searchCondSel3" value="1" <%= @paramsCtgrySearchCond3 == '1' ? "checked" : "" %> onclick="submit_func();" >直接入力
+            <input type=radio name="searchCondSel3" value="2" <%= @paramsCtgrySearchCond3 == '2' ? "checked" : "" %> onclick="submit_func();" >一覧選択
           </td>
         </tr>
 	<tr style="border:0px">
           <td colspan=1 align="center" style="border:0px">
-	    <input id="affiliate_submit" name="affiliate_image", type="image", src="/images/mallmgr/btn_L_AffiliateCmdty.gif" value="関連" %>
+	    <input id="affiliate_submit" name="affiliate_image", type="image", src="/images/mallmgr/btn_L_AffiliateCmdty.gif" value="関連" >
 	  </td>
           <td colspan=1 align="center" style="border:0px">
-            <input id="delete_submit" name="del_image", type="image", src="/images/mallmgr/btn_L_DeleteCtgry.gif" value="削除" %>
+            <input id="delete_submit" name="del_image", type="image", src="/images/mallmgr/btn_L_DeleteCtgry.gif" value="削除" onclick="return confirm_func();">
           </td>
           <td colspan=1 align="center" style="border:0px">
-            <input id="change_submit" name="change_image", type="image", src="/images/mallmgr/btn_L_ChangeCtgry.gif" value="変更" %>
+            <input id="change_submit" name="change_image", type="image", src="/images/mallmgr/btn_L_ChangeCtgry.gif" value="変更" >
           </td>
           <td colspan=1 align="center" style="border:0px">
-            <input id="confirm_submit" name="confirm_image", type="image", src="/images/mallmgr/btn_L_Submit.gif" value="確定" %>
+            <input id="confirm_submit" name="confirm_image", type="image", src="/images/mallmgr/btn_L_Submit.gif" value="確定" >
           </td>
         </tr>
       </table>

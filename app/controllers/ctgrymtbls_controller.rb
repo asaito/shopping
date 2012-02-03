@@ -83,7 +83,7 @@ class CtgrymtblsController < ApplicationController
 	@ctgryCode = @ctgrymtbl.ctgrycode
 	@ctgryName = @ctgrymtbl.ctgryname
 	@tabDisplayName = @ctgrymtbl.abbvctgryname
-	setSearchCondition
+	setSearchCondition(@ctgrymtbl.ctgrycode)
       else
         @parentCtgryName = params[:id] 
         @ctgryCode = ""
@@ -119,11 +119,13 @@ class CtgrymtblsController < ApplicationController
     if @ctgrymtbl != nil 
       logd("@ctgrymtbl not nil:", "")
       @parentCtgryCode = @ctgrymtbl.parentctgrycode
-      if @ctgrymtbl.parentctgrycode != ""
-	@parentctgry = Ctgrymtbl.find_by_ctgrycode(@parentCtgryCode)
-	@parentCtgryName = @parentctgry.ctgryname
-      else
-	@parentCtgryName = ""
+      if params['change_image.x'] == nil
+	if @ctgrymtbl.parentctgrycode != ""
+	  @parentctgry = Ctgrymtbl.find_by_ctgrycode(@parentCtgryCode)
+	  @parentCtgryName = @parentctgry.ctgryname
+	else
+	  @parentCtgryName = ""
+	end
       end
       if params[:searchCtgryCode] == ""
 	@ctgryCode = @ctgrymtbl.ctgrycode
@@ -158,28 +160,24 @@ class CtgrymtblsController < ApplicationController
       if $categoryAddEdit == "0"
         newctg
       else
-	updatectg
+	updatectg(0)
       end
+    elsif params['change_image.x'].to_i > 1
+      updatectg(1)
+      $categoryAddEdit = 1 #強制的に編集モードに設定
+    elsif params['del_image.x'].to_i > 1
+      @ctgrymtbl.destroy
+      Srchctgrymtbl.where("ctgrycode = ?", @ctgrymtbl.ctgrycode).destroy_all
     end
-
-    #list_tree
 
     index
   end
 
-  def updatectg
+  def updatectg(change_parent)
     logd("updatectg:", "")
     logd("$ctgryCode:", $ctgryCode)
     logd("params[:searchCtgryCode]:", params[:searchCtgryCode])
     @ctgrymtbl = Ctgrymtbl.new
-    #checkctgrname = Ctgrymtbl.find_by_ctgryname(params[:searchCtgryName])
-    #if checkctgrname != nil && checkctgrname.ctgrycode == params[:searchCtgryCode]
-      #logd("checkctgrname 重複:", "")
-      #flash[:notice] = "カテゴリ名が重複しています。"
-      #logd("flash[:notice]:", flash[:notice])
-      #return
-    #end
-    #logd("flash[:notice]:", flash[:notice])
     parentctgrycode = ""
     if params[:parentCtgryName] != ""
       if params[:parentCtgryName] == "基本"
@@ -191,9 +189,15 @@ class CtgrymtblsController < ApplicationController
     else
       parentctgrycode = ""
     end
-    #ctgrymtbl = Ctgrymtbl.find_by_ctgrycode(params[:searchCtgryCode])
-    #new_attrs = {:parentctgrycode => parentctgrycode, :ctgryname => params[:searchCtgryName], :abbvctgryname => params[:tabDisplayName]}
-    #ctgrymtbl.update_attributes!(new_attrs)
+    ctg =  Ctgrymtbl.find_by_ctgryname(params[:searchCtgryName])
+    logd("ctg.parentctgrycode:", ctg.parentctgrycode)
+    logd("parentctgrycode:", parentctgrycode)
+    if ctg.parentctgrycode != parentctgrycode
+      if change_parent == 0
+	flash[:notice] = "親カテゴリ名が変更されています。"
+	return
+      end
+    end
     Ctgrymtbl.where("ctgrycode = ?", params[:searchCtgryCode]).update_all(:parentctgrycode => parentctgrycode, :ctgryname => params[:searchCtgryName], :abbvctgryname => params[:tabDisplayName])
 
     update_srchctgrymtbl
@@ -660,16 +664,18 @@ protected
     srchctgrymtbl.ctgrycode = params[:searchCtgryCode]
     srchctgrymtbl.srchkeycode = i
     if i == 1
-      if params[:searchCondSel1] == "1"
+      if params[:searchCondSel1] == "2"
 	srchkeyword = Comdty.find_by_sql("SELECT cmdtycode, srchkeyname1 FROM comdties WHERE cmdtycode = '" + params[:searchCond1] + "'") 
 	srchctgrymtbl.srchkeyname = srchkeyword.first["srchkeyname1"]
 	#@srchkeyword1_selected = 
 	logd("srchctgrymtbl.srchkeyname:", srchctgrymtbl.srchkeyname)
-      else
+      elsif params[:searchCondSel1] == "1"
 	srchctgrymtbl.srchkeyname = params[:searchCond1]
+      else
+	return
       end
       if params[:searchCondSel1] == nil
-	srchctgrymtbl.disptype = -1
+	srchctgrymtbl.disptype = 0
       else
 	srchctgrymtbl.disptype = params[:searchCondSel1].to_i
       end
@@ -679,29 +685,35 @@ protected
       logd("srchctgrymtbl.disptype:", srchctgrymtbl.disptype)
       srchctgrymtbl.save
     elsif i == 2
-      if params[:searchCondSel2] == "1"
+      if params[:searchCondSel2] == "2"
         srchkeyword = Comdty.find_by_sql("SELECT cmdtycode, srchkeyname2 FROM comdties WHERE cmdtycode = '" + params[:searchCond2] + "'")
         srchctgrymtbl.srchkeyname = srchkeyword.first["srchkeyname2"]
         logd("srchctgrymtbl.srchkeyname:", srchctgrymtbl.srchkeyname)
-      else
+      elsif params[:searchCondSel2] == "1"
         srchctgrymtbl.srchkeyname = params[:searchCond2]
+      else
+        return
       end
+
       if params[:searchCondSel2] == nil
-	srchctgrymtbl.disptype = -1
+	srchctgrymtbl.disptype = 0
       else
 	srchctgrymtbl.disptype = params[:searchCondSel2].to_i
       end
       srchctgrymtbl.save
     elsif i == 3
-      if params[:searchCondSel3] == "1"
+      if params[:searchCondSel3] == "2"
         srchkeyword = Comdty.find_by_sql("SELECT cmdtycode, srchkeyname3 FROM comdties WHERE cmdtycode = '" + params[:searchCond3] + "'")
         srchctgrymtbl.srchkeyname = srchkeyword.first["srchkeyname3"]
         logd("srchctgrymtbl.srchkeyname:", srchctgrymtbl.srchkeyname)
-      else
+      elsif params[:searchCondSel3] == "1"
         srchctgrymtbl.srchkeyname = params[:searchCond3]
+      else
+        return
       end
+
       if params[:searchCondSel3] == nil
-	srchctgrymtbl.disptype = -1
+	srchctgrymtbl.disptype = 0
       else
 	srchctgrymtbl.disptype = params[:searchCondSel3].to_i
       end
@@ -709,7 +721,68 @@ protected
     end
   end
 
-  def setSearchCondition
-    #srchctgrymtbl = Srchctgrymtbl.find_by_ctgryname(params[:id])
+  def setSearchCondition(ctgcode)
+    srchctgrymtbl = Srchctgrymtbl.find_by_sql("SELECT * FROM srchctgrymtbls WHERE ctgrycode = '" + ctgcode + "'")
+    logd("srchctgrymtbl.size:", srchctgrymtbl.size)
+    if srchctgrymtbl.size == 0
+      return
+    end
+    j = 1
+    while j <= 3
+      i = srchctgrymtbl.first["srchkeycode"] 
+      logd("i:", i)
+      case i
+      when 1 then
+	@paramsCtgrySearchCond1 = srchctgrymtbl.first["disptype"].to_s
+	setCondValue(srchctgrymtbl.first, i)
+      when 2 then
+	@paramsCtgrySearchCond2 = srchctgrymtbl.first["disptype"].to_s
+	setCondValue(srchctgrymtbl.first, i)
+      when 3 then
+	@paramsCtgrySearchCond3 = srchctgrymtbl.first["disptype"].to_s
+	setCondValue(srchctgrymtbl.first, i)
+      else
+      end
+      srchctgrymtbl.shift
+      j += 1
+    end
+  end
+  
+  def setCondValue(hs, i)
+    name = hs["srchkeyname"]
+    logd("name:", name)
+    case i
+    when 1 then
+      if hs["disptype"] == 1
+	@searchCond1 = name
+      elsif hs["disptype"] == 2
+	@srchkeyword1 = Comdty.find_by_sql("SELECT cmdtycode, srchkeyname1 FROM comdties WHERE srchkeyname1 IS NOT NULL") 
+	srchkeyword1a = Comdty.find_by_sql("SELECT cmdtycode, srchkeyname1 FROM comdties WHERE srchkeyname1 = '" + name + "'") 
+	@srchkeyword1_sel = srchkeyword1a.first["cmdtycode"].to_i
+	logd("srchkeyword1a.first[cmdtycode]:", srchkeyword1a.first["cmdtycode"])
+      end
+    when 2 then
+      if hs["disptype"] == 1
+        @searchCond2 = name
+      elsif hs["disptype"] == 2
+        @srchkeyword2 = Comdty.find_by_sql("SELECT cmdtycode, srchkeyname2 FROM comdties WHERE srchkeyname2 IS NOT NULL")
+	srchkeyword2a = Comdty.find_by_sql("SELECT cmdtycode, srchkeyname2 FROM comdties WHERE srchkeyname2 = '" + name + "'") 
+	@srchkeyword2_sel = srchkeyword2a.first["cmdtycode"].to_i
+	logd("srchkeyword2a.first[cmdtycode]:", srchkeyword2a.first["cmdtycode"])
+      end
+    when 3 then
+      if hs["disptype"] == 1
+        @searchCond3 = name
+      elsif hs["disptype"] == 2
+        @srchkeyword3 = Comdty.find_by_sql("SELECT cmdtycode, srchkeyname3 FROM comdties WHERE srchkeyname3 IS NOT NULL")
+	srchkeyword3a = Comdty.find_by_sql("SELECT cmdtycode, srchkeyname3 FROM comdties WHERE srchkeyname3 = '" + name + "'") 
+	@srchkeyword3_sel = srchkeyword3a.first["cmdtycode"].to_i
+	logd("srchkeyword3a.first[cmdtycode]:", srchkeyword3a.first["cmdtycode"])
+      end
+    else
+    end
+    logd("@srchkeyword1_sel:", @srchkeyword1_sel)
+    logd("@srchkeyword2_sel:", @srchkeyword2_sel)
+    logd("@srchkeyword3_sel:", @srchkeyword3_sel)
   end
 end

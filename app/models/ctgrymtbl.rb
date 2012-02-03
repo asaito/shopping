@@ -1,3 +1,3 @@
 class Ctgrymtbl < ActiveRecord::Base
-  #acts_as_tree 
+  has_many :srchctgrymtbls
 end

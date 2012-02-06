@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  shopcode: MyString
+  cmdtycode: MyString
+  ctgrycode: MyString
+
+two:
+  shopcode: MyString
+  cmdtycode: MyString
+  ctgrycode: MyString

@@ -1,0 +1,106 @@
+<style type="text/css">
+table {
+margin-bottom: 20px;
+border-collapse: collapse;
+}
+td, th {
+border: 1px #2b2b2b solid;
+}
+</style>
+
+<tr>
+<td><font color="#F6633" size=4 ><b>カテゴリー商品関連付け</b></font></td><br><br>
+</tr>
+<% if flash[:notice] != "" %>
+  <div id="flash" style="color: green; border: green solid">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+function submit_func() {
+//alert("submit_func:");
+document.forms["addCmdty"].submit();
+}
+
+</script>
+
+<table>
+  <tbody>
+<form method="POST" action="cmdtyctgries" name="addCmdty">
+<tr align="center" style="border:0px">
+<table width=70% style="height:50">
+<th colspan=2 style="width:250px" bgcolor="#800000"><font color="#ffffff">カテゴリー名</font></th>
+<th style="width:150px" bgcolor="#800000"><font color="#ffffff">商品コード</font></th>
+<th style="width:100px" bgcolor="#800000"><font color="#ffffff"></font></th>
+<tr>
+  <td colspan=2 style="border-top:1px"><b><%= $ctgryname %></b></td>
+    <input type="hidden" name="ctgryName" value=<%= $ctgryname %> >
+    <input type="hidden" name="ctgryCode" value=<%= $ctgrymtbl.ctgrycode %> >
+  <td style="border-top:1px">
+    <input name="comdtyCode" style="ime-mode:disabled" value=<%= @cmdtycode%> >
+  </td>
+  <td align="center" style="border-top:1px">
+    <input id="confirm_submit" name="addnew_image", type="image", src="/images/mallmgr/btn_S_AddNew.gif" value="登録" onclick="submit_func();" >
+  </td>
+</tr>
+</table>
+</tr>
+</form>
+
+
+<form method="POST" action="cmdtyctgries" name="indexform">
+<tr align="center" style="border:0px">
+<table width=70%>
+  <tr style="border:0px">
+    <td style="border:0px">
+      <input id="allselect" name="allsel_image", type="image", src="/images/mallmgr/btn_SS_AllSelect.gif" value="allselect" >
+    </td>
+    <td style="border:0px">
+      <input id="allrelease" name="allrel_image", type="image", src="/images/mallmgr/btn_SS_NoSelect.gif" value="allrelease" >
+    </td>
+    <td style="border:0px">
+      <%= will_paginate @cmdtyctgries, :prev_label=>'«前', :next_label=>'次»' %>
+    </td>
+    <td style="border:0px">
+      <input id="reload" name="reload_image", type="image", src="/images/mallmgr/btn_S_Reload.gif" value="reload" >
+    </td>
+    <td style="border:0px">検索結果<%= @cmdtycount%>件
+    </td>
+  </tr>
+  <tr style="color:white; background-color:#800000">
+    <th style="width:80">&nbsp;</th>
+    <th style="width:150px"><%= t('CmdtyCode') %></th>
+    <th colspan=3 style="width:250px"><%= t('Cmdtyname') %></th>
+  </tr>
+
+<% @cmdtyctgries.each do |cmct| %>
+  <tr>
+    <td>
+      <%= check_box_tag "checked_items[#{cmct.id}][flag]", "0", checked=$checked %>
+    </td>
+    <td><%= cmct.cmdtycode %></td>
+    <td colspan=3><%= cmct.cmdtyname %></td>
+<% end %>
+
+  <tr style="border:0px">
+    <td style="border:0px">
+      <input id="allselect" name="allsel_image", type="image", src="/images/mallmgr/btn_SS_AllSelect.gif" value="allselect" >
+    </td>
+    <td style="border:0px">
+      <input id="allrelease" name="allrel_image", type="image", src="/images/mallmgr/btn_SS_NoSelect.gif" value="allrelease" >
+    </td>
+    <td align="center" style="border:0px">
+      <input id="destroy_submit" name="del_image", type="image", src="/images/mallmgr/btn_L_Delete.gif" value="削除" %>
+    </td>
+    <td align="center" style="border:0px">
+      <input id="close_submit" name="close_image", type="image", src="/images/mallmgr/btn_L_Close.gif" value="削除" %>
+    </td>
+  </tr>
+</table>
+</form>
+</tbody>
+</table>
+</tr>
+
+

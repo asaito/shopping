@@ -65,6 +65,10 @@ class CtgrymtblsController < ApplicationController
       if params[:ctgryMode] != nil && params[:categoryAddEdit] == nil
 	$categoryAddEdit = "1"	#編集
       end
+      @ctgrymtbl = Ctgrymtbl.find_by_id(params[:id])
+      if @ctgrymtbl == nil
+	@ctgrymtbl = Ctgrymtbl.find_by_ctgryname(params[:id])
+      end
       if $categoryAddEdit == "1" 
 	if params[:id] == "基本"
 	  @parentCtgryName = ""
@@ -73,7 +77,6 @@ class CtgrymtblsController < ApplicationController
 	  @tabDisplayName = ""
 	  return
 	end
-	@ctgrymtbl = Ctgrymtbl.find_by_ctgryname(params[:id])
 	parentctgry = Ctgrymtbl.find_by_ctgrycode(@ctgrymtbl.parentctgrycode)
 	if parentctgry.ctgryname == '1'
 	  @parentCtgryName = "基本"
@@ -168,6 +171,11 @@ class CtgrymtblsController < ApplicationController
     elsif params['del_image.x'].to_i > 1
       @ctgrymtbl.destroy
       Srchctgrymtbl.where("ctgrycode = ?", @ctgrymtbl.ctgrycode).destroy_all
+    elsif params['affiliate_image.x'].to_i > 1
+      $ctgryname = params[:searchCtgryName]
+      $ctgrymtbl = @ctgrymtbl
+      redirect_to cmdtyctgries_url
+      return
     end
 
     index

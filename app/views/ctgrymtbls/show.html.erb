@@ -39,6 +39,17 @@ if(confirm("削除してよろしいてすか？")==true){
 }
 }
 </script>
+
+<style type="text/css">
+table {
+margin-bottom: 20px;
+border-collapse: collapse;
+}
+td, th {
+border: 1px #2b2b2b solid;
+}
+</style>
+
 <tr>
 <td><font color="#F6633" size=4 ><b>カテゴリマスタ</b></font></td><br><br>
 </tr>
@@ -73,7 +84,7 @@ if(confirm("削除してよろしいてすか？")==true){
 <div class="field">
 <tr>
   <td bgcolor="#FFFFCC"><b>親カテゴリ</b></td>
-  <td colspan=1 style="border-top:1px #2b2b2b solid; border-bottom:1px #2b2b2b">
+  <td colspan=1 style="border-top:1px">
     <input name="parentCtgryName" style="ime-mode:active" value="<%= @parentCtgryName %>" >&nbsp;&nbsp;
   </td>
 </tr>

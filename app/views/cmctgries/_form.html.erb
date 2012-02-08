@@ -1,0 +1,26 @@
+<%= form_for(@comdty) do |f| %>
+  <% if @comdty.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comdty.errors.count, "error") %> prohibited this comdty from being saved:</h2>
+
+      <ul>
+      <% @comdty.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :shopcode %><br />
+    <%= f.text_field :shopcode %>
+  </div>
+
+  <div class="actions">
+    <% if $copy == '1' %>
+      <input id="comdty_submit" name="commit" type="submit" value="新規登録する">
+    <% else %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+<% end %>

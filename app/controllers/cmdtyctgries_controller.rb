@@ -25,7 +25,7 @@ class CmdtyctgriesController < ApplicationController
     elsif params['close_image.x']
       logd("params[:ctgryCode]:", params[:ctgryCode])
       $ctgryname = params[:ctgryCode]
-      @ctgrymtbl = Ctgrymtbl.find_by_ctgrycode(params[:ctgryCode])
+      $ctgrymtbl = Ctgrymtbl.find_by_ctgrycode(params[:ctgryCode])
       respond_to do |format|
         format.html { redirect_to $ctgrymtbl }
         format.xml  { head :ok }
@@ -60,8 +60,8 @@ class CmdtyctgriesController < ApplicationController
     serchwhere = "ctgrycode = '" + $ctgrymtbl.ctgrycode + "'"
     @cmdtyctgries = Cmdtyctgry.paginate(:page => params[:page], :conditions => serchwhere, :order => 'cmdtycode asc', :per_page => 10)
     
-    cmdtyctgries = Cmdtyctgry.find_by_sql(["select * from cmdtyctgries where ctgrycode = '" + $ctgrymtbl.ctgrycode + "'"]) 
-    @cmdtycount = cmdtyctgries.size
+    #cmdtyctgries = Cmdtyctgry.find_by_sql(["select * from cmdtyctgries where ctgrycode = '" + $ctgrymtbl.ctgrycode + "'"]) 
+    #cmdtycmunt = cmdtyctgries.size
     logd("$ctgryname:", $ctgryname)
     logd("$ctgryCode:", $ctgryCode)
     logd("serchwhere:", serchwhere)

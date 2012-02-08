@@ -1,0 +1,2 @@
+module CmctgriesHelper
+end

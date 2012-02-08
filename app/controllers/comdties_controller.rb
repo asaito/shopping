@@ -27,12 +27,39 @@ class ComdtiesController < ApplicationController
     end
     $saveSuccess = 1
     @comdties = Comdty.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => 10)
+    @comdtyviews = CmdtyCtgryView.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => 10)
+    @aryctg = cmctgv(@comdties, @comdtyviews)
     $comdties = @comdties
+    logd("@comdties.size:", @comdties.size)
+    logd("@comdties.first.cmdtycode:", @comdties.first.cmdtycode)
+    logd("@comdtyviews.first.ctgrycode:", @comdtyviews.first.ctgrycode)
+    logd("@aryctg.first:", @aryctg.first)
     $afterIndex = 1
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @comdties }
     end
+  end
+
+  def cmctgv(cms, cmctgavs)
+    a = []
+    cms.each do |cm|
+      find = 0
+      ctg = ""
+      cmctgavs.each do |cmct|
+	if cm.cmdtycode == cmct.cmdtycode
+	  ctg = cmct.ctgrycode
+	  find = 1
+	end
+	if find == 1
+	  break;
+	end
+      end
+      if find == 1
+	a.unshift(ctg)
+      end
+    end  
+    a
   end
 
   # GET /comdties/1

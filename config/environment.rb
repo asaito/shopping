@@ -3,6 +3,8 @@
 require File.expand_path('../application', __FILE__)
 require 'encoding_patch'
 require 'will_paginate'
+#require 'rubygems'
+#require 'rails_sql_views'
 #require 'fastercsv'
 # Initialize the rails application
 Shopping::Application.initialize!

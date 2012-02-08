@@ -1,5 +1,8 @@
 Shopping::Application.routes.draw do
 
+  resources :cmctgries do
+    put :edit, :on => :member
+  end
   #match '/ctgrymtbls/get_dir_list' => 'ctgrymtbls#get_dir_list'
   match '/ctgrymtbls/get_ctg_list' => 'ctgrymtbls#get_ctg_list'
   match '/ctgrymtbls/list_tree' => 'ctgrymtbls#list_tree'

@@ -55,9 +55,9 @@ class ComdtiesController < ApplicationController
 	  break;
 	end
       end
-      if find == 1
-	a.unshift(ctg)
-      end
+      #if find == 1
+	a.push(ctg)
+      #end
     end  
     a
   end

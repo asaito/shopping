@@ -334,16 +334,10 @@ class CtgrymtblsController < ApplicationController
     logd('', $parents)
     logd('list $children:', '')
     logd('', $children)
-    #$htmlstr = ''
 
     $htmlstr = ""
     d = ls_tree(path)
     logd('$htmlstr:', $htmlstr)
-    #logcont("@arry:", @arry)
-    #render "*/*" => $tree.to_s || [], :layout => false
-    #render :json => @arry || [], :layout => false
-    #$tree.to_s
-    #@htmlstr = $tree.to_s
   end
 
 protected

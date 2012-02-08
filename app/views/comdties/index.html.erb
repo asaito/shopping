@@ -206,7 +206,7 @@ border: 1px #2b2b2b solid;
       <% end %>
     </td>
     <td align="center">
-      <a href=<%= edit_cmctgry_path(comdty)%>?cmdtycode=<%= comdty.cmdtycode %>&idcmd=<%= comdty.id %>><%= @aryctg.first != nil ? image_tag("mallmgr/btn_SS_Exist.gif") : image_tag("mallmgr/btn_SS_Nothing.gif") %></a>
+      <a href=<%= edit_cmctgry_path(comdty)%>?cmdtycode=<%= comdty.cmdtycode %>&idcmd=<%= comdty.id %>><%= @aryctg.first != "" ? image_tag("mallmgr/btn_SS_Exist.gif") : image_tag("mallmgr/btn_SS_Nothing.gif") %></a>
     </td>
     <td align="center">&nbsp;</td>
     <td align="center">&nbsp;</td>

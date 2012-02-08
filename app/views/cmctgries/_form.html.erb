@@ -1,26 +1,68 @@
-<%= form_for(@comdty) do |f| %>
-  <% if @comdty.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@comdty.errors.count, "error") %> prohibited this comdty from being saved:</h2>
+<style type="text/css">
+table {
+margin-left: 20px;
+margin-bottom: 20px;
+border-collapse: collapse;
+}
+td, th {
+border: 1px #2b2b2b solid;
+}
+</style>
 
-      <ul>
-      <% @comdty.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<tr>
+  <table>
+    <tr>
+      <td style="border:0px"><font color="#F6633" size=4 ><b>商品-カテゴリ関連付け</b></font></td>
+      <td style="border:0px">&nbsp;&nbsp;
+      </td>
+      <td style="border:0px">
+	<table style="width:480px;">
+	  <tr>
+	    <th style="width:150px;" bgcolor="#800000"><font color="#ffffff">商品コード</font></th>
+	    <th bgcolor="#800000"><font color="#ffffff">商品名</font></th>
+	  </tr>
+	  <tr>
+	    <td colspan=1><%= @comdty.cmdtycode %></td>
+	    <td colspan=1><%= @comdty.cmdtyname %></td>
+	  </tr>
+	</table>
+      </td>
+    </tr>
+    <tr>
+      <td style="border:0px">
+	<table style="width:260px;">
+	  <%= raw $htmlstr %>
+	</table>
+      </td>
+      <td style="border:0px">&nbsp;&nbsp;
+      </td>
+      <td style="border:0px">
+	<table style="width:480px;">
+	  <tr>
+	    <th style="width:400px;" bgcolor="#800000"><font color="#ffffff">関連付けカテゴリ名</font></th>
+	    <th bgcolor="#800000"><font color="#ffffff"></font></th>
+	  </tr>
+	  <% @cmdtyctgries.each do |cmctg| %>
+	  <tr>
+	    <td colspan=1><%= cmctg.ctgryname %></td>
+	    <td colspan=1 align="center">
+	      <input id="del_submit" name="del_image", type="image", src="/images/mallmgr/btn_S_Delete.gif" value="削除" >
+	    </td>
+	  </tr>
+	  <% end %>
+	</table>
+      </td>
+    </tr>
+    <tr>
+      <td colspan=1 align="center" style="border:0px">
+        <input id="del_submit" name="del_image", type="image", src="/images/mallmgr/btn_L_Submit.gif" value="登録" >
+      </td>
+      <td style="border:0px">&nbsp;&nbsp;
+      </td>
+      <td colspan=1 align="right" style="border:0px">
+        <input id="del_submit" name="del_image", type="image", src="/images/mallmgr/btn_L_Close.gif" value="閉じる" >
+      </td>
+    </tr>
+  </table>
+</tr>
 
-  <div class="field">
-    <%= f.label :shopcode %><br />
-    <%= f.text_field :shopcode %>
-  </div>
-
-  <div class="actions">
-    <% if $copy == '1' %>
-      <input id="comdty_submit" name="commit" type="submit" value="新規登録する">
-    <% else %>
-      <%= f.submit %>
-    <% end %>
-  </div>
-<% end %>

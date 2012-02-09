@@ -9,7 +9,14 @@ border: 1px #2b2b2b solid;
 }
 </style>
 
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#ctgrytree).treeview({ collapsed : false, unique  : false, animated : "fast" });
+});
+</script>
+
 <tr>
+  <form name="cmctg" action="ctgryReg" method="GET">
   <table>
     <tr>
       <td style="border:0px"><font color="#F6633" size=4 ><b>商品-カテゴリ関連付け</b></font></td>
@@ -29,11 +36,13 @@ border: 1px #2b2b2b solid;
       </td>
     </tr>
     <tr>
+      <div id="ctgrytree">
       <td style="border:0px">
 	<table style="width:260px;">
 	  <%= raw $htmlstr %>
 	</table>
       </td>
+      </div>
       <td style="border:0px">&nbsp;&nbsp;
       </td>
       <td style="border:0px">
@@ -64,5 +73,6 @@ border: 1px #2b2b2b solid;
       </td>
     </tr>
   </table>
+  </form>
 </tr>
 

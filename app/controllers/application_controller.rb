@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 class ApplicationController < ActionController::Base
   protect_from_forgery
   #before_filter :authenticate_malladmin!
@@ -32,7 +33,29 @@ class ApplicationController < ActionController::Base
     else
       logger.debug a + concats(b)
     end
-  end 
+  end
+
+  def logary(a, ary, j)
+    str = ''
+    i = 0
+    while i < ary.size
+      str += ary[i].to_s + ' '
+      i += 1
+    end
+    logd(a+'['+j.to_s+']:', str)
+  end
+
+  def logcont(a, cont)
+    str = ''
+    i = 0
+    logd(a+'.size:', cont.size.to_s)
+    while i < cont.size
+      str += cont[i].to_s + ' '
+      i += 1
+    end
+    logd(a+':', str)
+  end
+
   def concats(b)
       s = ''
       for i in 0..b.size - 1
@@ -51,6 +74,238 @@ class ApplicationController < ActionController::Base
     end
     return a.to_s
   end
+# Ctgry tree -- start
+  def list_tree
+    logger.debug 'come to list_tree:'
+    get_ctg_list
+    @children = $children
+    @parents = $parents
+    path = './'
+    @arry = []
+    #logd('list $tree:', '')
+    #logd('', $tree)
+    logd('list $parents:', '')
+    logd('', $parents)
+    logd('list $children:', '')
+    logd('', $children)
+
+    $htmlstr = ""
+    d = ls_tree(path)
+    logd('$htmlstr:', $htmlstr)
+  end
+
+  def get_ctg_list
+    logger.debug 'get_ctg_list:'
+    root_flg = (params["root"] == "source") ? true : false
+    path = params["root"] unless root_flg
+    path = "./"
+    arry = []
+    d = ctg_list(path, arry)
+    #render :json => arry || [], :layout => false
+  end
+
+  def ctg_list(path, arry=[], root_flg=false)
+    logger.debug 'path:' + path
+    @ctgrylists = Ctgrylist.find_by_sql(["select * from ctg_paths order by ctgryname, path;"])
+    @ctgrylistssort = Ctgrylist.new
+    ary = Array.new
+    i = 0
+    first = 1
+    @ctgrylists.each do |ctg|
+      if first == 1
+        first = 0
+      else
+        logd('              ', ctg.ctgryname)
+        logd('path:', ctg.path)
+        ary[i] = ctg.path.split(/\//)
+        @name_ary[i] = ctg.ctgryname
+        logd('name_ary:', @name_ary[i])
+        i += 1
+      end
+    end
+    sortctg(ary, @name_ary, i)
+    arry
+  end
+
+  def sortctg(ary, name_ary, i)
+    logd('i:', i.to_s)
+    #logary('name_ary:', name_ary)
+    pathsize = 0
+    for j in 0..i - 1
+      if pathsize < ary[j].size
+        pathsize = ary[j].size
+      end
+      ary[j][0] = 0
+    end
+    logd('pathsize:', pathsize)
+
+    for j in 0..i - 1
+      for l in 0..pathsize
+        logd('bf ary['+j.to_s+']['+l.to_s+']:', ary[j][l])
+      end
+    end
+
+    ctgname_ary = ary.clone
+    #ctgcd_ary = Array.new
+    ctg_ary = Array.new
+
+    logd('before cd_to_name ary:', '')
+    for j in 0..i - 1
+      logary('ary'+'['+j.to_s+']', ary[j], j)
+    end
+
+    cd_to_name(ary, @ctgcd_ary, ctgname_ary, name_ary, i)
+
+    logd('after cd_to_name ary:', '')
+    for j in 0..i - 1
+      logary('ary'+'['+j.to_s+']', ary[j], j)
+    end
+
+    seq = 0
+    cur = 0
+    cont = Array.new()
+    for j in 0 .. i - 1
+      t = Array.new
+      for k in 1..pathsize
+        if ary[j][k] != nil
+          logd("mn j k ary[][]:", j.to_s+' '+k.to_s+' '+ary[j][k].to_s+' '+to_s_nil(ary[j][k-1]))
+          logd('sr ary[j][k]:', ary[j][k])
+          if k == 1 && ary[j][k + 1] == nil
+            t << '/'
+          end
+          t << ary[j][k]
+          if ary[j][k + 1] == nil
+            ctg_ary[j] = ary[j][k]
+          end
+        end
+      end
+      logcont('t', t)
+      $tree << t
+    end
+    logcont('@ctgcd_ary:', @ctgcd_ary)
+    logd('after tree ary:', '')
+    for j in 0..i - 1
+      logary('ary'+'['+j.to_s+']:', ary[j], j)
+    end
+    logd('after tree ctgname_ary:', '')
+    for j in 0..i - 1
+      #logary('ctgname_ary'+'['+j.to_s+']:', ctgname_ary[j], j)
+    end
+    logd('$tree:', '')
+    logd('', $tree)
+    logd('$tree.to_s:', $tree.to_s)
+  end
+
+  def ls_tree(path)
+    d = $tree.roots
+    @count = 0
+    logd('$tree.root:', d)
+    _sbtree(d[0])
+    logd('@count:', @count)
+    $htmlstr << "\n" + gettab(@depth) + "</li>"
+    $htmlstr << "\n" + gettab(@depth) + "</ul>"
+    #logcont('@arry', @arry)
+    #@arry
+    $tree
+  end
+
+  def _sbtree(node)
+    if @depth == 0
+      $htmlstr << "\n<ul id=\"navigation\" class=\"navigation\">"
+      $htmlstr << "\n" + gettab(@depth) + "<li>"
+      $htmlstr << "<a href=\"" + "基本" + "\">" + "基本" + "</a>" +
+                  "【 "+ "件】(" + getctgcd(@ctgcd_ary, @name_ary, node) + ")"
+      $htmlstr << "\n" + gettab(@depth) + "<ul>"
+    else
+        $htmlstr << "\n" + gettab(@depth) + "<ul>"
+    end
+    @depth += 1
+    logcont('$children[node]:', $children[node])
+    $children[node].map do |c|
+      $htmlstr << "\n" + gettab(@depth) + "<li>"
+      $htmlstr << "<a href=\"" + c + "\">" + c + "</a>" +
+                  "【 "+ "件】(" + getctgcd(@ctgcd_ary, @name_ary, c) + ")"
+      classes = "file"
+      classes = "folder" if $children.has_key?(c)
+      hasChildren = $children.has_key?(c) ? true : false
+      iddata = './/' + c
+      #dirname = '.'
+      dirname = $parents[c][0]
+      #logger.debug 'iddata:'+ iddata
+      logcont('$children[c]:', $children[c])
+      h = {"id" => iddata, "text" => c, "path" => dirname, "expanded" => false, "classes" => classes, "hasChildren" => hasChildren, "children" => []}
+      if hasChildren
+        @arry << h
+        @count = _sbtree(c)
+        $htmlstr << "\n" + gettab(@depth) + "</li>"
+        logcont('@arry', @arry)
+      else
+        @count += 1
+        $htmlstr << "</li>"
+        @arry << h
+      end
+    end
+    @depth -= 1
+    $htmlstr << "\n" + gettab(@depth) + "</ul>"
+    return @count
+  end
+
+  def cd_to_name(ary, ctgcd_ary, ctgname_ary, name_ary, i)
+    set_ctg_ary(ary, ctgcd_ary, ctgname_ary, name_ary, i)
+    for j in 0..i - 1
+      for k in 0..ary[j].size
+        a = Array.new
+        if ary[j][k] != nil && ary[j][k] != 0
+          ctgname_ary[j][k] = getname(ctgcd_ary, name_ary, ary[j][k])
+        end
+      end
+    end
+  end
+
+  def set_ctg_ary(ary, ctgcd_ary, ctgname_ary, name_ary, i)
+    for j in 0..i - 1
+      for k in 0..ary[j].size - 1
+        if ary[j][k] != nil && ary[j][k + 1] == nil
+          ctgcd_ary[j] = ary[j][k]
+        end
+      end
+    end
+  end
+
+  def gettab(depth)
+    if depth == 0
+      return ""
+    end
+    tab = ""
+    for i in 0..depth - 1
+      tab += "\t"
+    end
+    return tab
+  end
+
+  def getname(ctgcd_ary, name_ary, ctgcd)
+    if ctgcd == '/'
+      return '/'
+    end
+    for i in 0..ctgcd_ary.size - 1
+      if ctgcd_ary[i] == ctgcd
+        return name_ary[i]
+      end
+    end
+  end
+
+  def getctgcd(ctgcd_ary, name_ary, ctgname)
+    if ctgname == '/'
+      return '/'
+    end
+    for i in 0..ctgcd_ary.size - 1
+      if name_ary[i] == ctgname
+        return ctgcd_ary[i]
+      end
+    end
+  end
+# Ctgry tree -- end
+
 end
 
 class CtgNet < ActionController::Base

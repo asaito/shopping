@@ -57,6 +57,9 @@ class CtgrymtblsController < ApplicationController
     logd("params[:categoryAddEdit]:", params[:categoryAddEdit])
     logd("params[:ctgryMode]:", params[:ctgryMode])
     logd("params[:addEdit]:", params[:addEdit])
+    logd("params[:searchCond1]:", params[:searchCond1])
+    logd("params[:searchCond2]:", params[:searchCond2])
+    logd("params[:searchCond3]:", params[:searchCond3])
     @srchkeyword1_sel = params[:searchCond1].to_i
     @srchkeyword2_sel = params[:searchCond2].to_i
     @srchkeyword3_sel = params[:searchCond3].to_i
@@ -311,6 +314,7 @@ class CtgrymtblsController < ApplicationController
     end
   end
 
+=begin
   def get_ctg_list
     logger.debug 'get_ctg_list:'
     root_flg = (params["root"] == "source") ? true : false
@@ -456,7 +460,7 @@ protected
       end
     end
   end
-  
+ 
   def sortctg(ary, name_ary, i)
     logd('i:', i.to_s)
     #logary('name_ary:', name_ary) 
@@ -502,11 +506,8 @@ protected
 	  logd('sr ary[j][k]:', ary[j][k])
 	  if k == 1 && ary[j][k + 1] == nil
 	    t << '/'
-      #t << '<ul>\n' + '/' + '<li>\n'
 	  end
 	  t << ary[j][k]
-    #depth = ''
-    #(k - 1).times{depth += '\t'}
 	  if ary[j][k + 1] == nil
 	    ctg_ary[j] = ary[j][k]
 	  end
@@ -527,16 +528,6 @@ protected
     logd('$tree:', '')
     logd('', $tree)
     logd('$tree.to_s:', $tree.to_s)
-    #$htmlstr = tree_to_html($tree)
-    
-    #logd('$parents:', '')
-    #logd('', $parents)
-    #logd('$children:', '')
-    #logd('', $children)
-
-    #logd('name tree:', '')
-    #logd('', $tree.to_s2(3, fmt = "%s %s\n", ctg_ary, name_ary))
-    #logd('', $tree.to_s2(3, fmt = "%s %s\n", ctg_ary, name_ary))
   end
 
   def tree_to_html(items)
@@ -648,6 +639,7 @@ protected
     end
     arry
   end
+=end
 
   def ctgryMode
     logd("ctgryModea:", "")

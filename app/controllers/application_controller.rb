@@ -77,6 +77,10 @@ class ApplicationController < ActionController::Base
 # Ctgry tree -- start
   def list_tree
     logger.debug 'come to list_tree:'
+    if $ctgrymtbl_changed != nil || $ctgrymtbl_changed == 0
+      return
+    end
+    $ctgrymtbl_changed = 0
     get_ctg_list
     @children = $children
     @parents = $parents

@@ -249,6 +249,7 @@ class CtgrymtblsController < ApplicationController
     @ctgrymtbl.abbvctgryname = params[:tabDisplayName] #.encode("utf-8")
     if @ctgrymtbl.ctgrycode != ""
       @ctgrymtbl.save
+      $ctgrymtbl_changed = 1
       new_srchctgrymtbl(1)
       new_srchctgrymtbl(2)
       new_srchctgrymtbl(3)
@@ -277,6 +278,7 @@ class CtgrymtblsController < ApplicationController
 
     respond_to do |format|
       if @ctgrymtbl.save
+	$ctgrymtbl_changed = 1
         format.html { redirect_to(@ctgrymtbl, :notice => 'Ctgrymtbl was successfully created.') }
         format.xml  { render :xml => @ctgrymtbl, :status => :created, :location => @ctgrymtbl }
       else

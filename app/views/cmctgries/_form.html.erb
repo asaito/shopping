@@ -10,8 +10,15 @@ border: 1px #2b2b2b solid;
 </style>
 
 <script type="text/javascript">
+function callRuby(actionName) {
+query = 'skp:get_data@' + actionName;
+window.location.href = query;
+}
+function delctg(){
+  //document.forms["ctgryReg"].submit();
+}
 $(document).ready(function() {
-    $("#ctgrytree).treeview({ collapsed : false, unique  : false, animated : "fast" });
+    $("#ctgrytree").treeview({ collapsed : false, unique  : false });
 });
 </script>
 
@@ -20,6 +27,13 @@ $(document).ready(function() {
   <table>
     <tr>
       <td style="border:0px"><font color="#F6633" size=4 ><b>商品-カテゴリ関連付け</b></font></td>
+
+    <% if flash[:notice] != "" %>
+      <div id="flash" style="color: green; border: green solid">
+      <%= flash[:notice] %>
+      </div>
+    <% end %>
+
       <td style="border:0px">&nbsp;&nbsp;
       </td>
       <td style="border:0px">
@@ -51,25 +65,39 @@ $(document).ready(function() {
 	    <th style="width:400px;" bgcolor="#800000"><font color="#ffffff">関連付けカテゴリ名</font></th>
 	    <th bgcolor="#800000"><font color="#ffffff"></font></th>
 	  </tr>
+	  <% i = 0 %>
 	  <% @cmdtyctgries.each do |cmctg| %>
 	  <tr>
 	    <td colspan=1><%= cmctg.ctgryname %></td>
+	    <input type="hidden" name="del_data<%= i %>" value=<%= cmctg.ctgryname %> >
 	    <td colspan=1 align="center">
-	      <input id="del_submit" name="del_image", type="image", src="/images/mallmgr/btn_S_Delete.gif" value="削除" >
+	      <input id="del_submit" name="del_image<%= i %>", type="image", src="/images/mallmgr/btn_S_Delete.gif" value="Refresh" onclick="delctg();">
 	    </td>
 	  </tr>
+	  <% i += 1 %>
+	  <% end %>
+	  <% if $ctgname != nil %>
+	    <% $ctgname.each do |nm| %>
+	  <tr>
+	    <td colspan=1>
+	    <%= nm %>
+	    </td>
+	    <td>
+	    </td>
+	  </tr>
+	    <% end %>
 	  <% end %>
 	</table>
       </td>
     </tr>
     <tr>
       <td colspan=1 align="center" style="border:0px">
-        <input id="del_submit" name="del_image", type="image", src="/images/mallmgr/btn_L_Submit.gif" value="登録" >
+        <input id="add_submit" name="add_image", type="image", src="/images/mallmgr/btn_L_Submit.gif" value="登録" >
       </td>
       <td style="border:0px">&nbsp;&nbsp;
       </td>
       <td colspan=1 align="right" style="border:0px">
-        <input id="del_submit" name="del_image", type="image", src="/images/mallmgr/btn_L_Close.gif" value="閉じる" >
+        <input id="close_submit" name="close_image", type="image", src="/images/mallmgr/btn_L_Close.gif" value="閉じる" >
       </td>
     </tr>
   </table>

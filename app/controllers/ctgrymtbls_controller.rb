@@ -201,9 +201,11 @@ class CtgrymtblsController < ApplicationController
       parentctgrycode = ""
     end
     ctg =  Ctgrymtbl.find_by_ctgryname(params[:searchCtgryName])
-    logd("ctg.parentctgrycode:", ctg.parentctgrycode)
+    if ctg != nil
+      logd("ctg.parentctgrycode:", ctg.parentctgrycode)
+    end
     logd("parentctgrycode:", parentctgrycode)
-    if ctg.parentctgrycode != parentctgrycode
+    if ctg != nil && ctg.parentctgrycode != parentctgrycode
       if change_parent == 0
 	flash[:notice] = "親カテゴリ名が変更されています。"
 	return

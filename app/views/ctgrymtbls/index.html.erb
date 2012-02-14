@@ -1,8 +1,8 @@
 <script type="text/javascript">
 
-$(document).ready(function() {
-    $("#ctgrytree).treeview();
-});
+//$(document).ready(function() {
+  //  $("#ctgrytree).treeview();
+//});
 
 $(function(){
     $("#jalert").click(function(){
@@ -140,10 +140,10 @@ border: 1px #2b2b2b solid;
 &nbsp;&nbsp;
 </td>
 <td style="border:0px">
-<table style="width:480px;">
-<th style="width:60px" bgcolor="#800000"><font color="#ffffff"><%= t('項順') %></font></th>
-<th style="width:150px" bgcolor="#800000"><font color="#ffffff"><%= t('検索条件名称') %></font></th>
-<th colspan=2 style="width:270px" bgcolor="#800000"><font color="#ffffff"><%= t('入力方式') %></font></th>
+<table style="width:580px;">
+<th style="width:80px" bgcolor="#800000"><font color="#ffffff"><%= t('項順') %></font></th>
+<th style="width:260px" bgcolor="#800000"><font color="#ffffff"><%= t('検索条件名称') %></font></th>
+<th colspan=2 style="width:240px" bgcolor="#800000"><font color="#ffffff"><%= t('入力方式') %></font></th>
 <tr>
   <td align="center">1
   </td>
@@ -224,22 +224,3 @@ border: 1px #2b2b2b solid;
   </tr>
 </table>
 </form>
-
-
-<table>
-<% @ctgrymtbls.each do |ctgrymtbl| %>
-  <tr>
-    <td><%= ctgrymtbl.ctgryname %></td>
-    <td><%= link_to 'Show', ctgrymtbl %></td>
-    <td><%= link_to 'Edit', edit_ctgrymtbl_path(ctgrymtbl) %></td>
-    <td><%= link_to 'Destroy', ctgrymtbl, :confirm => 'Are you sure?', :method => :delete %></td>
-
-  </tr>
-<% end %>
-  </td>
-  </tr>
-</table>
-
-<br />
-
-<%= link_to 'New Ctgrymtbl', new_ctgrymtbl_path %>

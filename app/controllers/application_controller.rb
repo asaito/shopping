@@ -164,7 +164,6 @@ class ApplicationController < ActionController::Base
     logd('after cd_to_name ary:', '')
     for j in 0..i - 1
       logary('ary', ary[j], j)
-      #logary('ary'+'['+j.to_s+']', ary[j], j)
     end
 
     seq = 0
@@ -172,11 +171,14 @@ class ApplicationController < ActionController::Base
     cont = Array.new()
     for j in 0 .. i - 1
       t = Array.new
-      for k in 1..pathsize
+      #for k in 1..pathsize
+      for k in 0..pathsize - 1
         if ary[j][k] != nil
-          logd("mn j k ary[][]:", j.to_s+' '+k.to_s+' '+ary[j][k].to_s+' '+to_s_nil(ary[j][k-1]))
-          logd('sr ary[j][k]:', ary[j][k])
-          if k == 1 && ary[j][k + 1] == nil
+          logd("mn ary["+j.to_s+"]["+k.to_s+"] ary["+j.to_s+"]["+(k-1).to_s+"]:", ary[j][k].to_s+' '+(k==0 ? "" : to_s_nil(ary[j][k-1])))
+          #logd("mn j k ary[][]:", j.to_s+' '+k.to_s+' '+ary[j][k].to_s+' '+to_s_nil(ary[j][k-1]))
+          #logd("sr ary["+j.to_s+"]["+k.to_s+"]:", ary[j][k])
+          #if k == 1 && ary[j][k + 1] == nil
+          if k == 1 && ary[j][k - 1] == "0"   #####
             t << '/'
           end
           t << ary[j][k]
@@ -187,6 +189,8 @@ class ApplicationController < ActionController::Base
       end
       logcont('t', t)
       $tree << t
+      logd('$tree:', '')
+      logd('', $tree)
     end
     logcont('@ctgcd_ary:', @ctgcd_ary)
     logd('after tree ary:', '')
@@ -199,13 +203,17 @@ class ApplicationController < ActionController::Base
     end
     logd('$tree:', '')
     logd('', $tree)
-    logd('$tree.to_s:', $tree.to_s)
+    #logd('$tree.to_s:', $tree.to_s)
   end
 
   def ls_tree(path)
     d = $tree.roots
     @count = 0
     logd('$tree.root:', d)
+    logd('@depth:', @depth)
+    logcont('d[0]::', d[0])
+    logd('@name_ary:', @name_ary)
+    logd('@ctgcd_ary:', @ctgcd_ary)
     _sbtree(d[0])
     logd('@count:', @count)
     $htmlstr << "\n" + gettab(@depth) + "</li>"
@@ -218,14 +226,18 @@ class ApplicationController < ActionController::Base
   def _sbtree(node)
     if @depth == 0
       $htmlstr << "\n<ul id=\"navigation\" class=\"navigation\">"
+#=begin
       $htmlstr << "\n" + gettab(@depth) + "<li>"
-      $htmlstr << "<a href=\"" + "基本" + "\">" + "基本" + "</a>" +
-                  "【 "+ "件】(" + getctgcd(@ctgcd_ary, @name_ary, node) + ")"
+      $htmlstr << "<a href=\"" + node + "\">" + node + "</a>" + "【 "+ "件】(" + getctgcd(@ctgcd_ary, @name_ary, node).to_s + ")"
+      #$htmlstr << "<a href=\"" + "基本" + "\">" + "基本" + "</a>" + "【 "+ "件】(" + getctgcd(@ctgcd_ary, @name_ary, node).to_s + ")"
       $htmlstr << "\n" + gettab(@depth) + "<ul>"
     else
         $htmlstr << "\n" + gettab(@depth) + "<ul>"
+#=end
     end
+        #$htmlstr << "\n" + gettab(@depth) + "<ul>"
     @depth += 1
+    logd('node:', node)
     logcont('$children[node]:', $children[node])
     $children[node].map do |c|
       $htmlstr << "\n" + gettab(@depth) + "<li>"
@@ -261,7 +273,8 @@ class ApplicationController < ActionController::Base
     for j in 0..i - 1
       for k in 0..ary[j].size
         a = Array.new
-        if ary[j][k] != nil && ary[j][k] != 0
+        #if ary[j][k] != nil && ary[j][k] != 0
+        if ary[j][k] != nil #&& ary[j][k] != 0
           ctgname_ary[j][k] = getname(ctgcd_ary, name_ary, ary[j][k])
         end
       end
@@ -290,9 +303,9 @@ class ApplicationController < ActionController::Base
   end
 
   def getname(ctgcd_ary, name_ary, ctgcd)
-    if ctgcd == '/'
-      return '/'
-    end
+    #if ctgcd == '/' #不要？
+    #  return '/'    #不要？
+    #end		    #不要？
     for i in 0..ctgcd_ary.size - 1
       if ctgcd_ary[i] == ctgcd
         return name_ary[i]
@@ -301,14 +314,15 @@ class ApplicationController < ActionController::Base
   end
 
   def getctgcd(ctgcd_ary, name_ary, ctgname)
-    if ctgname == '/'
-      return '/'
-    end
+    #if ctgname == '/'
+     # return '/'
+    #end
     for i in 0..ctgcd_ary.size - 1
       if name_ary[i] == ctgname
         return ctgcd_ary[i]
       end
     end
+    return '/'
   end
 # Ctgry tree -- end
 
@@ -521,47 +535,6 @@ class Tree  < ActionController::Base
     result
   end
   
-  def to_s1(limit = nil, fmt = "%s+- %s\n", indent = "  ", ctg_ary, name_ary)
-    @fmt = fmt
-    @indent = indent
-    @limit = nil
-    @limit = @indent * limit if limit
-    name_tree = ""
-    result = ""
-    roots.each do |x|
-      wk, wk1 = _subtree1(x, "", ctg_ary, name_ary)
-      name = getname(ctg_ary, name_ary, x)
-      name_tree = name_tree + wk1 + name
-      #logger.debug 'name:' + name
-      #logger.debug 'name_tree2:' + name_tree
-      result += wk
-    end
-    #result
-    #stlogger.debug 'name_tree3:' + name_tree
-    name_tree
-  end
-  #def to_s2(limit = nil, fmt = "%s+- %s\n", indent = "  ", ctg_ary, name_ary)
-  def to_s2(limit = nil, fmt = "%s %s\n", indent = "  ", ctg_ary, name_ary)
-    @fmt = fmt
-    @indent = indent
-    #@indent = "\t"
-    @limit = nil
-    @limit = @indent * limit if limit
-    name_tree = ""
-    result = ""
-    roots.each do |x|
-      wk, wk1 = _subtree2(x, "", ctg_ary, name_ary)
-      name = getname(ctg_ary, name_ary, x)
-      name_tree = name_tree + wk1 + name
-      #logger.debug 'name:' + name
-      #logger.debug 'name_tree2:' + name_tree
-      result += wk
-    end
-    #result
-    #stlogger.debug 'name_tree3:' + name_tree
-    name_tree
-  end
-
 private
   def _subtree(node, depth)
     result = @fmt % [depth, node]
@@ -576,70 +549,7 @@ private
     end
     result
   end
-
-  def _subtree1(node, depth, ctg_ary, name_ary)
-    result = @fmt % [depth, node]
-    name_tree = @fmt % [depth, node]
-    depth += @indent
-    return result + @fmt % [depth, "..."], result + @fmt % [depth, "..."] if @limit && @limit < depth
-    @children[node].each do |x|
-      if @children.has_key?(x)
-	wk, wk1 = _subtree1(x, depth, ctg_ary, name_ary)
-	name = getname(ctg_ary, name_ary, x)
-	#logger.debug 'wk1:' + wk1
-	#logger.debug 'name1:' + name
-	#logger.debug 'name_tree0:' + name_tree
-	name_tree = name_tree + name + wk1
-	#logger.debug 'name_tree1:' + name_tree
-        result += wk
-      else
-	name = getname(ctg_ary, name_ary, x)
-	#logger.debug 'name1:' + name
-	#logger.debug 'name_tree1:' + name_tree
-        name_tree += @fmt % [depth, name]
-	#logger.debug 'name:' + name
-	#logger.debug 'name_tree:' + name_tree
-        result += @fmt % [depth, x]
-      end
-    end
-    #result
-    return result, name_tree
-  end
-
-  def _subtree2(node, depth, ctg_ary, name_ary)
-    result = @fmt % [depth, node]
-    name_tree = @fmt % [depth, node]
-    depth += @indent
-    return result + @fmt % [depth, "..."], result + @fmt % [depth, "..."] if @limit && @limit < depth
-    @children[node].each do |x|
-      if @children.has_key?(x)
-        wk, wk1 = _subtree2(x, depth, ctg_ary, name_ary)
-        name = getname(ctg_ary, name_ary, x)
-        logger.debug 'wk1:' + wk1
-        logger.debug 'name1:' + name
-        logger.debug 'name_tree0:' + name_tree
-        #logger.debug '$htmlstr:' + $htmlstr
-        name_tree = name_tree + name + wk1
-	#name_tree = '<ul>\n' + depth + name + '<li>\n'
-        logger.debug 'name_tree1:' + name_tree
-        result += wk
-      else
-        name = getname(ctg_ary, name_ary, x)
-        #logger.debug 'wk1:' + wk1
-        #logger.debug 'name1:' + name
-        #logger.debug 'name_tree1:' + name_tree
-        name_tree += @fmt % [depth, name]
-	#name_tree += '<ul>\n' + depth + name + '<li>\n' + '</ul>\n'
-        logger.debug 'name:' + name
-        #logger.debug 'name_tree:' + name_tree
-        #logger.debug '$htmlstr:' + $htmlstr
-        result += @fmt % [depth, x]
-      end
-    end
-    #result
-    return result, name_tree
-  end
-
+=begin
   def getname(ctgcd_ary, name_ary, ctgcd)
     if ctgcd == '/'
       return '/'
@@ -650,7 +560,7 @@ private
       end
     end
   end
-
+=end
 end
 
 if __FILE__ == $0

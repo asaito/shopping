@@ -116,16 +116,16 @@ class ApplicationController < ActionController::Base
     i = 0
     first = 1
     @ctgrylists.each do |ctg|
-      if first == 1
+      #if first == 1
         first = 0
-      else
-        logd('              ', ctg.ctgryname)
-        logd('path:', ctg.path)
+      #else
+        #logd('              ', ctg.ctgryname)
+        #logd('path:', ctg.path)
         ary[i] = ctg.path.split(/\//)
         @name_ary[i] = ctg.ctgryname
-        logd('name_ary:', @name_ary[i])
+        logd('path name:', ctg.path + "          " + @name_ary[i])
         i += 1
-      end
+      #end
     end
     sortctg(ary, @name_ary, i)
     arry
@@ -144,7 +144,7 @@ class ApplicationController < ActionController::Base
     logd('pathsize:', pathsize)
 
     for j in 0..i - 1
-      for l in 0..pathsize
+      for l in 0..pathsize - 1
         logd('bf ary['+j.to_s+']['+l.to_s+']:', ary[j][l])
       end
     end
@@ -155,14 +155,16 @@ class ApplicationController < ActionController::Base
 
     logd('before cd_to_name ary:', '')
     for j in 0..i - 1
-      logary('ary'+'['+j.to_s+']', ary[j], j)
+      logary('ary', ary[j], j)
+      #logary('ary'+'['+j.to_s+']', ary[j], j)
     end
 
     cd_to_name(ary, @ctgcd_ary, ctgname_ary, name_ary, i)
 
     logd('after cd_to_name ary:', '')
     for j in 0..i - 1
-      logary('ary'+'['+j.to_s+']', ary[j], j)
+      logary('ary', ary[j], j)
+      #logary('ary'+'['+j.to_s+']', ary[j], j)
     end
 
     seq = 0

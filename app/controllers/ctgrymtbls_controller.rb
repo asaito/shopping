@@ -72,7 +72,9 @@ class CtgrymtblsController < ApplicationController
       if @ctgrymtbl == nil
 	@ctgrymtbl = Ctgrymtbl.find_by_ctgryname(params[:id])
       end
+      logd("@ctgrymtbl:", @ctgrymtbl)
       if $categoryAddEdit == "1" 
+=begin
 	if params[:id] == "基本"
 	  @parentCtgryName = ""
 	  @ctgryCode = "1"
@@ -80,12 +82,20 @@ class CtgrymtblsController < ApplicationController
 	  @tabDisplayName = ""
 	  return
 	end
-	parentctgry = Ctgrymtbl.find_by_ctgrycode(@ctgrymtbl.parentctgrycode)
+=end
+	if @ctgrymtbl.parentctgrycode == ""
+	  @parentCtgryName = ""
+	else
+	  parentctgry = Ctgrymtbl.find_by_ctgrycode(@ctgrymtbl.parentctgrycode)
+	  @parentCtgryName = parentctgry.ctgryname
+	end
+=begin
 	if parentctgry.ctgryname == '1'
 	  @parentCtgryName = "基本"
 	else
 	  @parentCtgryName = parentctgry.ctgryname
 	end
+=end
 	@ctgryCode = @ctgrymtbl.ctgrycode
 	@ctgryName = @ctgrymtbl.ctgryname
 	@tabDisplayName = @ctgrymtbl.abbvctgryname
@@ -104,6 +114,7 @@ class CtgrymtblsController < ApplicationController
     @parentCtgryName = params[:parentCtgryName]
     @ctgryCode = params[:searchCtgryCode]
     @ctgryName = params[:searchCtgryName]
+=begin
     if params[:searchCtgryName] == "" || params[:searchCtgryName] == "基本"
       logd("ヌル文字 or 基本:", "")
       @ctgrymtbl.ctgrycode = "1"
@@ -122,13 +133,18 @@ class CtgrymtblsController < ApplicationController
       @ctgrymtbl.ctgryname = "基本"
       @ctgrymtbl.parentctgrycode = "" 
     end
+=end    
+    if params[:searchCtgryName] != nil
+      @ctgrymtbl = Ctgrymtbl.find_by_ctgryname(params[:searchCtgryName])
+    else
+      @ctgrymtbl = Ctgrymtbl.find_by_ctgryname(params[:id])
+    end
+
     if @ctgrymtbl != nil 
       logd("@ctgrymtbl not nil:", "")
       @parentCtgryCode = @ctgrymtbl.parentctgrycode
       if params['change_image.x'] == nil
 	if @ctgrymtbl.parentctgrycode != ""
-	  @parentctgry = Ctgrymtbl.find_by_ctgrycode(@parentCtgryCode)
-	  @parentCtgryName = @parentctgry.ctgryname
 	else
 	  @parentCtgryName = ""
 	end
@@ -337,7 +353,12 @@ class CtgrymtblsController < ApplicationController
     if i == 1
       if params[:searchCondSel1] == "2"
 	srchkeyword = Comdty.find_by_sql("SELECT cmdtycode, srchkeyname1 FROM comdties WHERE cmdtycode = '" + params[:searchCond1] + "'") 
-	srchctgrymtbl.srchkeyname = srchkeyword.first["srchkeyname1"]
+	logd("srchkeyword:", srchkeyword)
+	if srchkeyword == []
+	  srchctgrymtbl.srchkeyname = ""
+	else
+	  srchctgrymtbl.srchkeyname = srchkeyword.first["srchkeyname1"]
+	end
 	#@srchkeyword1_selected = 
 	logd("srchctgrymtbl.srchkeyname:", srchctgrymtbl.srchkeyname)
       elsif params[:searchCondSel1] == "1"
@@ -358,7 +379,11 @@ class CtgrymtblsController < ApplicationController
     elsif i == 2
       if params[:searchCondSel2] == "2"
         srchkeyword = Comdty.find_by_sql("SELECT cmdtycode, srchkeyname2 FROM comdties WHERE cmdtycode = '" + params[:searchCond2] + "'")
-        srchctgrymtbl.srchkeyname = srchkeyword.first["srchkeyname2"]
+	if srchkeyword == []
+	  srchctgrymtbl.srchkeyname = ""
+	else
+	  srchctgrymtbl.srchkeyname = srchkeyword.first["srchkeyname2"]
+	end
         logd("srchctgrymtbl.srchkeyname:", srchctgrymtbl.srchkeyname)
       elsif params[:searchCondSel2] == "1"
         srchctgrymtbl.srchkeyname = params[:searchCond2]
@@ -375,7 +400,11 @@ class CtgrymtblsController < ApplicationController
     elsif i == 3
       if params[:searchCondSel3] == "2"
         srchkeyword = Comdty.find_by_sql("SELECT cmdtycode, srchkeyname3 FROM comdties WHERE cmdtycode = '" + params[:searchCond3] + "'")
-        srchctgrymtbl.srchkeyname = srchkeyword.first["srchkeyname3"]
+	if srchkeyword == []
+	  srchctgrymtbl.srchkeyname = ""
+	else
+	  srchctgrymtbl.srchkeyname = srchkeyword.first["srchkeyname3"]
+	end
         logd("srchctgrymtbl.srchkeyname:", srchctgrymtbl.srchkeyname)
       elsif params[:searchCondSel3] == "1"
         srchctgrymtbl.srchkeyname = params[:searchCond3]

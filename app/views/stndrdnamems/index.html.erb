@@ -1,0 +1,109 @@
+<style type="text/css">
+table {
+margin-bottom: 20px;
+margin-left: 20px;
+border-collapse: collapse;
+}
+td, th {
+border: 1px #2b2b2b solid;
+}
+</style>
+
+<td><font color="#F6633" size=4 ><b>規格分類マスタ</b></font></td><br>
+
+<form method="POST" action="stndrdnamems" name="stndrd">
+
+<table>
+  <tr>
+    <table style="width:640px;height:10px">
+      <tr>
+	<th style="width:150px" bgcolor="#800000"><font color="#ffffff">検索項目</font></th>
+	<th bgcolor="#800000"><font color="#ffffff">検索条件</font></th>
+        <td rowspan=2 align="center" style="border:0px">
+          <input id="srch_submit" name="srch_image", type="image", src="/images/mallmgr/btn_L_Serch.gif" value="検索" >
+        </td>
+      </tr>
+      <tr>
+	<td bgcolor="#FFFFCC"><b>規格分類名称</b></td>
+	<td colspan=1 style="border-top:1px">
+	   <%= image_tag("lbl_S_Zen.gif") %>
+	  <input name="srchStndrdName" style="ime-mode:active" value=<%= @srchStndrdName %>><font color="#0000FF">※部分一致 </font>
+	</td>
+      </tr>
+    </table>
+  </tr>
+  <tr>
+    <table style="width:640px;height:10px">
+      <tr>
+	<td style="border:0px">
+	  <font color="#0000FF">規格分類コードをクリックすると規格マスターを設定できます。</font> 
+	</td>
+      </tr>
+      <tr>
+	<td style="border:0px">
+	  <font color=#FF0000><%= @msg %></font>
+	</td>
+      </tr>
+      <tr>
+	<td style="border:0px">
+	  <% if @msg != "" %>
+	  <font color=#FF0000>(<%= Time.now %>)</font>
+	  <% end %>
+	</td>
+      </tr>
+    </table>
+  </tr>
+  <tr>
+    <table style="width:640px;height:10px">
+      <tr>
+        <td colspan=2 align="center" style="border:0px">
+          <%= will_paginate @stndrdnamems, :prev_label=>@prev, :next_label=>@next %>
+        </td>
+        <td style="border:0px">
+          <%= select_tag("line_no", options_for_select(@num_list, $sel_no)) %>
+        </td>
+        <td style="border:0px">
+          検索結果<%= @total %>件
+        </td>
+      </tr>
+      <tr>
+        <th style="width:150px" bgcolor="#800000"><font color="#ffffff">規格分類コード</font></th>
+        <th bgcolor="#800000"><font color="#ffffff">規格分類名称</font></th>
+	<th bgcolor="#800000"></th>
+	<th bgcolor="#800000"></th>
+      </tr>
+    <% i = 0 %>
+    <% @stndrdnamems.each do |stnd| %>
+      <tr>
+	<td class="stndrdcode">
+          <input name="stndrdcode[<%= i.to_s %>]" style="ime-mode:disabled" value=<%= stnd.stndrdcode %>>
+          <input name="stndrdid[<%= i.to_s %>]" type="hidden" value=<%= stnd.id %>>
+	</td>
+	<td class="stndrdcode">
+          <input name="stndrdname[<%= i.to_s %>]" style="ime-mode:active" value=<%= stnd.stndrdname %>>
+	</td>
+        <td align="center">
+          <input id="upd_submit" name="upd_image[<%= i.to_s %>]", type="image", src="/images/mallmgr/btn_S_Update.gif" value="更新" >
+	</td>
+        <td align="center">
+          <input id="del_submit" name="del_image[<%= i.to_s %>]", type="image", src="/images/mallmgr/btn_S_Delete.gif" value="削除" >
+        </td>
+      </tr>
+    <% i += 1 %>
+    <% end %>
+      <tr>
+	<td>	
+          <input name="stndrdcodeNew" style="ime-mode:disabled" value="" >
+	</td>	
+	<td>	
+          <input name="stndrdnameNew" style="ime-mode:active" value="" >
+	</td>	
+        <td colspan=2 align="center">
+          <input id="add_submit" name="add_image", type="image", src="/images/mallmgr/btn_S_AddNew.gif" value="登録" >
+        </td>
+      </tr>
+    </table>
+  </tr>
+</table>
+
+

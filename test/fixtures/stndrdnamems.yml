@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  shopcode: MyString
+  stndrdcode: MyString
+  stndrdname: MyString
+
+two:
+  shopcode: MyString
+  stndrdcode: MyString
+  stndrdname: MyString

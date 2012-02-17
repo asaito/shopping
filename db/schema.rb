@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120208064359) do
+ActiveRecord::Schema.define(:version => 20120216000343) do
 
   create_table "cmdtyctgries", :force => true do |t|
     t.string   "shopcode",   :null => false
@@ -169,6 +169,14 @@ ActiveRecord::Schema.define(:version => 20120208064359) do
     t.integer  "srchkeycode",                :null => false
     t.string   "srchkeyname",                :null => false
     t.integer  "disptype",    :default => 0, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stndrdnamems", :force => true do |t|
+    t.string   "shopcode",   :null => false
+    t.string   "stndrdcode", :null => false
+    t.string   "stndrdname", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

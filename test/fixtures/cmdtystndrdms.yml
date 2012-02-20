@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  shopcode: MyString
+  cmdtycode: MyString
+  stndrdcode1: MyString
+  elementcode1: MyString
+  stndrdcode2: MyString
+  elementcode2: MyString
+  amount: 1
+
+two:
+  shopcode: MyString
+  cmdtycode: MyString
+  stndrdcode1: MyString
+  elementcode1: MyString
+  stndrdcode2: MyString
+  elementcode2: MyString
+  amount: 1

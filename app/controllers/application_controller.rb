@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-
+  
   def logary(a, b)
     if a == nil && b == nil
       logger.debug 'nil' + 'nil'

@@ -1,0 +1,100 @@
+<style type="text/css">
+table {
+margin-bottom: 20px;
+margin-left: 20px;
+border-collapse: collapse;
+}
+td, th {
+border: 1px #2b2b2b solid;
+}
+</style>
+
+<td><font color="#F6633" size=4 ><b>規格マスタ</b></font></td><br>
+
+<form method="POST" action="stndrdcontentms" name="stndrdcontent">
+
+<table>
+  <tr>
+    <table style="width:640px;height:10px">
+      <tr>
+        <th style="width:150px" bgcolor="#800000"><font color="#ffffff">規格分類コード</font></th>
+        <th bgcolor="#800000"><font color="#ffffff">規格分類名称</font></th>
+        <td rowspan=2 align="center" style="border:0px">
+        </td>
+      </tr>
+      <tr>
+        <td bgcolor="#FFFFFF"><b>s1</b></td>
+        <td colspan=1 style="border-top:1px">
+	  サイズ
+        </td>
+      </tr>
+    </table>
+  </tr>
+  <tr>
+    <td style="border:0px">
+      <font color="#0000FF">すでに商品に紐づいている規格は、規格関連付けを解除しなければ削除できません。
+</font>
+    <br><br>
+    </td>
+  </tr>
+  <tr>
+    <td style="border:0px">
+      <font color=#FF0000><%= @msg %></font>
+    </td>
+  </tr>
+  <tr>
+    <table style="width:640px;height:10px">
+      <tr>
+        <th style="width:150px" bgcolor="#800000"><font color="#ffffff">規格コー
+ド</font></th>
+        <th bgcolor="#800000"><font color="#ffffff">規格名称</font></th>
+        <th bgcolor="#800000"><font color="#ffffff">表示順</font></th>
+        <th bgcolor="#800000"><font color="#ffffff">規格数</font></th>
+        <th bgcolor="#800000"></th>
+        <th bgcolor="#800000"></th>
+      </tr>
+    <% i = 0 %>
+    <% @stndrdcontentms.each do |stnd| %>
+        <td class="stndrdcontentm">
+          <input name="elementcode[<%= i.to_s %>]" readonly value=<%= stnd.elementcode %>>
+          <input name="stndrdcontentid[<%= i.to_s %>]" type="hidden" value=<%= stnd.id %>>
+        </td>
+        <td class="stndrdcontentm">
+          <input name="elementname[<%= i.to_s %>]" style="ime-mode:active" value=<%= stnd.elementname %>>
+        </td>
+        <td class="stndrdcontentm">
+          <input type="text" style="text-align:right" name="disporder[<%= i.to_s %>]" style="ime-mode:active" value=<%= stnd.disporder %>>
+        </td>
+        <td align="right" class="stndrdcontentm">
+	  <%= 0 %>
+        </td>
+        <td align="center">
+          <input id="upd_submit" name="upd_image[<%= i.to_s %>]", type="image", src="/images/mallmgr/btn_S_Update.gif" value="更新" >
+        </td>
+        <td align="center">
+          <input id="del_submit" name="del_image[<%= i.to_s %>]", type="image", src="/images/mallmgr/btn_S_Delete.gif" value="削除" >
+        </td>
+      </tr>
+    <% i += 1 %>
+    <% end %>
+      <tr>
+        <td>
+          <input name="elementcodeNew" style="ime-mode:disabled" value="" >
+        </td>
+        <td>
+          <input name="elementnameNew" style="ime-mode:active" value="" >
+        </td>
+        <td>
+          <input name="disporderNew" style="ime-mode:disabled" value="" >
+        </td>
+        <td>
+        </td>
+        <td colspan=2 align="center">
+          <input id="add_submit" name="add_image", type="image", src="/images/mallmgr/btn_S_AddNew.gif" value="登録" >
+        </td>
+      </tr>
+    </table>
+  </tr>
+</table>
+</form>
+

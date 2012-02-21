@@ -1,0 +1,41 @@
+<style type="text/css">
+table {
+margin-bottom: 20px;
+margin-left: 20px;
+border-collapse: collapse;
+}
+td, th {
+border: 1px #2b2b2b solid;
+}
+</style>
+
+<td><font color="#F6633" size=4 ><b>商品／規格関連付け</b></font></td><br>
+
+<form method="POST" action="cmdtystndrdms" name="cmdtystndrdm">
+
+<table>
+  <tr>
+    <table style="width:640px;height:10px">
+      <tr>
+        <th bgcolor="#800000"><font color="#ffffff">商品コード</font></th>
+        <th bgcolor="#800000"><font color="#ffffff">商品名</font></th>
+        <th bgcolor="#800000"><font color="#ffffff">規格１</font></th>
+        <th bgcolor="#800000"><font color="#ffffff">規格２</font></th>
+        <th bgcolor="#800000"></th>
+      <tr>
+	<td><%= @cmdtycode %></td>
+	<td></td>
+	<td></td>
+	<td></td>
+        <td align="center" >
+          <input id="srch_submit" name="srch_image", type="image", src="/images/mallmgr/btn_S_Search.gif" value="検索" >
+        </td>
+      </tr>
+    </table>
+  </tr>
+  <tr>
+  </tr>
+</table>
+</form>
+
+

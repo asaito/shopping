@@ -94,4 +94,8 @@ class StndrdnamemsController < ApplicationController
     end
   end
 
+  def edit
+    logd("come to Stndrdnamem edit", "")
+  end
+
 end

@@ -1,5 +1,7 @@
 Shopping::Application.routes.draw do
 
+  resources :cmdtystndrdms, :only => [ :index ]
+
   resources :stndrdcontentms, :only => [ :index ]
 
   resources :stndrdnamems, :only => [ :index ]

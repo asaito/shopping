@@ -23,9 +23,10 @@ border: 1px #2b2b2b solid;
         </td>
       </tr>
       <tr>
-        <td bgcolor="#FFFFFF"><b>s1</b></td>
-        <td colspan=1 style="border-top:1px">
-	  サイズ
+        <td bgcolor="#FFFFFF"><%= @stcd_from_stndrdnamem %></td>
+	  <input type="hidden" name="stcd" value=<%= @stcd_from_stndrdnamem %>>
+        <td colspan=1 style="border-top:1px"><%= @stnm_from_stndrdnamem %></td>
+	  <input type="hidden" name="stnm" value=<%= @stnm_from_stndrdnamem %>>
         </td>
       </tr>
     </table>
@@ -93,6 +94,13 @@ border: 1px #2b2b2b solid;
           <input id="add_submit" name="add_image", type="image", src="/images/mallmgr/btn_S_AddNew.gif" value="登録" >
         </td>
       </tr>
+    </table>
+  </tr>
+  <tr>
+    <table style="width:640px;height:10px">
+        <td align="right" style="border:0px">
+          <input id="return_submit" name="return_image", type="image", src="/images/mallmgr/btn_L_Back.gif" value="戻る" >
+        </td>
     </table>
   </tr>
 </table>

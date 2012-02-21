@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120220013108) do
+ActiveRecord::Schema.define(:version => 20120220081236) do
 
   create_table "cmdtyctgries", :force => true do |t|
     t.string   "shopcode",   :null => false

@@ -76,7 +76,7 @@ border: 1px #2b2b2b solid;
     <% @stndrdnamems.each do |stnd| %>
       <tr>
 	<td class="stndrdcode">
-          <input name="stndrdcode[<%= i.to_s %>]" style="ime-mode:disabled" value=<%= stnd.stndrdcode %>>
+	  <a href=<%= stndrdcontentms_path%>?&stndrdcode=<%= stnd.stndrdcode %>&stndrdname=<%= stnd.stndrdname %>&idcmd=<%= stnd.id %>><%= stnd.stndrdcode %></a>
           <input name="stndrdid[<%= i.to_s %>]" type="hidden" value=<%= stnd.id %>>
 	</td>
 	<td class="stndrdcode">

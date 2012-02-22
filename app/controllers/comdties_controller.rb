@@ -29,11 +29,17 @@ class ComdtiesController < ApplicationController
     @comdties = Comdty.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => 10)
     @comdtyviews = CmdtyCtgryView.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => 10)
     @aryctg = cmctgv(@comdties, @comdtyviews)
+    @cmdty_stnd_views = CmdtystndrdmStndrdcontentmView.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => 10)
+    @arystnd = cmstndv(@comdties, @cmdty_stnd_views)
     $comdties = @comdties
+    logd("$serchwhere:", $serchwhere)
     logd("@comdties.size:", @comdties.size)
     logd("@comdties.first.cmdtycode:", @comdties.first.cmdtycode)
     logd("@comdtyviews.first.ctgrycode:", @comdtyviews.first.ctgrycode)
     logd("@aryctg.first:", @aryctg.first)
+    logd("@cmdty_stnd_views.first.stndrdcode:", @cmdty_stnd_views.first.stndrdcode)
+    logd("@arystnd.first:", @arystnd.first)
+    logd("@arystnd:", @arystnd)
     $afterIndex = 1
     respond_to do |format|
       format.html # index.html.erb
@@ -55,10 +61,27 @@ class ComdtiesController < ApplicationController
 	  break;
 	end
       end
-      #if find == 1
-	a.push(ctg)
-      #end
+      a.push(ctg)
     end  
+    a
+  end
+
+  def cmstndv(cms, cmstndvs)
+    a = []
+    cms.each do |cm|
+      find = 0
+      stnd = ""
+      cmstndvs.each do |cmst|
+        if cm.cmdtycode == cmst.cmdtycode
+          stnd = cmst.stndrdcode
+          find = 1
+        end
+        if find == 1
+          break;
+        end
+      end
+      a.push(stnd)
+    end
     a
   end
 

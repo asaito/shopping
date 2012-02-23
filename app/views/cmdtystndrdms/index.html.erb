@@ -49,16 +49,19 @@ border: 1px #2b2b2b solid;
       <tr>
         <th bgcolor="#800000"><font color="#ffffff">扱</font></th>
         <th bgcolor="#800000"><font color="#ffffff"><%= @stndrdname1 == "指定しない"? "":@stndrdname1 %></font></th>
+	  <input type="hidden" name="stndrdcode1" value=<%= @stndrdcode1 %>>
         <th bgcolor="#800000"><font color="#ffffff"><%= @stndrdname2 == "指定しない"? "":@stndrdname2 %></font></th>
+	  <input type="hidden" name="stndrdcode2" value=<%= @stndrdcode2 %>>
         <th bgcolor="#800000"><font color="#ffffff">在庫数量</font></th>
         <th bgcolor="#800000"><font color="#ffffff">規格別画像ファイル名</font></th>
       </tr>
       <% i = 0 %>
-      <% if @stndrdcontentm1 != []  %>
-	<% @stndrdcontentm1.each do |stnd| %>
+      <% if @cmstcntntview1 != []  %>
+	<% @cmstcntntview1.each do |stnd| %>
       <tr>
 	<td> 
-	  <%= check_box_tag "checked_items[#{i}][flag]", @allcheck %>
+	  <input type="hidden" name="cmstcntntview1size" value=<%= @cmstcntntview1.size.to_s %>>
+	  <%= check_box_tag "checked_items[#{i}][flag]", value = "1", checked = @chkbox[i] == 1 ? true : false %>
 	</td>
 	<td>
 	  <%= stnd.elementname %>
@@ -73,11 +76,11 @@ border: 1px #2b2b2b solid;
 	  <% i += 1 %>
 	<% end %>
       <% end %>
-      <% if @stndrdcontentm2 != []  %>
-	<% @stndrdcontentm2.each do |stnd| %>
+      <% if @cmstcntntview2 != []  %>
+	<% @cmstcntntview2.each do |stnd| %>
       <tr>
         <td>
-	  <%= check_box_tag "checked_items[#{i}][flag]", @allcheck %>
+	  <%= check_box_tag "checked_items[#{i}][flag]", value = "1", checked = @chkbox[i] == 1 ? true : false %>
         </td>
         <td></td>
         <td>

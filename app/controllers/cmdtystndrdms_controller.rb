@@ -17,8 +17,15 @@ class CmdtystndrdmsController < ApplicationController
       cmst = Cmdtystndrdm.new	
       cmst.shopcode = "1"
       cmst.cmdtycode = @cmdtycode
+      cmstcntntview1size = 0
+      if @cmstcntntview1 == nil
+	cmstcntntview1size = params[:cmstcntntview1size].to_i
+      else
+	cmstcntntview1size = @cmstcntntview1.size
+      end
+      logd("cmstcntntview1size:", cmstcntntview1size)
       additems.each do |a|
-	if a.to_i < @stndrdcontentm1.size
+	if a.to_i < cmstcntntview1size
 	  cmst.stndrdcode1 = Stndrdnamem.find_by_stndrdname(params[:stnd1]).stndrdcode
 	  cmst.elementcode1 = params[:elementcode][a]
 	else
@@ -35,10 +42,6 @@ class CmdtystndrdmsController < ApplicationController
     @stndrdname_all = stndnamelist(Stndrdnamem.all)
     logd("Stndrdnamem.all:", Stndrdnamem.all)
     logd("@stndrdname_all:", @stndrdname_all)
-  end
-
-  def stnd_nm_to_cd(nm)
-    Stndrdnamem.find_by_stndrdname(nm).stndrdcode  
   end
 
   def checkitems
@@ -61,27 +64,76 @@ class CmdtystndrdmsController < ApplicationController
 
   def srch_display
       logd("params[:stnd1]:", params[:stnd1])
-      @stndrdcontentm1 = []
+      @cmstcntntview1 = []
       if params[:stnd1] != "指定しない"
         stndrdcode = Stndrdnamem.find_by_stndrdname(params[:stnd1]).stndrdcode
         sql = "select * from cmdtystndrdm_stndrdcontentm_views where stndrdcode = '" + stndrdcode + "' order by disporder"
         logd("sql:", sql)
-        @stndrdcontentm1 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
+        @cmstcntntview1 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
       end
-      logd("@stndrdcontentm1:", @stndrdcontentm1)
-      @stndrdcontentm2 = []
+      logd("@cmstcntntview1:", @cmstcntntview1)
+      @cmstcntntview2 = []
       if params[:stnd2] != "指定しない"
         stndrdcode = Stndrdnamem.find_by_stndrdname(params[:stnd2]).stndrdcode
         sql = "select * from cmdtystndrdm_stndrdcontentm_views where stndrdcode = '" + stndrdcode + "' order by disporder"
         logd("sql:", sql)
-        @stndrdcontentm2 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
+        @cmstcntntview2 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
       end
-      logd("@stndrdcontentm2:", @stndrdcontentm2)
+      logd("@cmstcntntview2:", @cmstcntntview2)
+      @chkbox = chkbx(@cmstcntntview1, @cmstcntntview2)
+      logd("@chkbox:", @chkbox)
+      logd("@chkbox[1]:", @chkbox[1])
       @stndrdname1 = params[:stnd1]
       @stndrdname2 = params[:stnd2]
+      @stndrdcode1 = params[:stndrdcode1]
+      @stndrdcode2 = params[:stndrdcode2]
   end
 
-  def chbx(cmstview1, cmstview2)
+  def chkbx(cmstview1, cmstview2)
+    cbx = []
+    v1 = ""
+    v2 = ""
+    if cmstview1 != nil
+      find = 0
+      cmstview1.each do |v|
+	if find == 0
+	  v1 = v.elementcode1
+	  find = 1
+	else
+	  break
+	end
+      end
+    end
+    if cmstview2 != nil
+      find = 0
+      cmstview2.each do |v|
+        if find == 0
+	  v2 = v.elementcode2
+          find = 1
+        else
+          break
+        end
+      end
+    end
+    if cmstview1 != nil
+      cmstview1.each do |v|
+	if v.elementcode == v1
+	  cbx.push(1)
+	else
+	  cbx.push(0)
+	end
+      end
+    end
+    if cmstview2 != nil
+      cmstview2.each do |v|
+        if v.elementcode == v2
+          cbx.push(1)
+        else
+          cbx.push(0)
+        end
+      end
+    end
+    cbx
   end
 
   def getparams
@@ -122,20 +174,21 @@ class CmdtystndrdmsController < ApplicationController
     end
     logd("@stndrdname1:", @stndrdname1)
     logd("@stndrdname2:", @stndrdname2)
-    @stndrdcontentm1 = []
+    @cmstcntntview1 = []
     if @cmstnd != []
       sql = "select * from cmdtystndrdm_stndrdcontentm_views where stndrdcode = '" + @cmstnd.first.stndrdcode1 + "' order by disporder"
       logd("sql:", sql)
-      @stndrdcontentm1 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
+      @cmstcntntview1 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
     end
-    logd("@stndrdcontentm1:", @stndrdcontentm1)
-    @stndrdcontentm2 = []
+    logd("@cmstcntntview1:", @cmstcntntview1)
+    @cmstcntntview2 = []
     if @cmstnd != []
       sql = "select * from cmdtystndrdm_stndrdcontentm_views where stndrdcode = '" + @cmstnd.first.stndrdcode2 + "' order by disporder"
       logd("sql:", sql)
-      @stndrdcontentm2 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
+      @cmstcntntview2 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
     end
-    logd("@stndrdcontentm2:", @stndrdcontentm2)
+    @chkbox = chkbx(@cmstcntntview1, @cmstcntntview2)
+    logd("@cmstcntntview2:", @cmstcntntview2)
   end
   
   def stndnamelist(a)

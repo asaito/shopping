@@ -18,7 +18,7 @@ class CmdtystndrdmsController < ApplicationController
       cmst.shopcode = "1"
       cmst.cmdtycode = @cmdtycode
       additems.each do |a|
-	if a.to_i < $stndrdcontentm1.size
+	if a.to_i < @stndrdcontentm1.size
 	  cmst.stndrdcode1 = Stndrdnamem.find_by_stndrdname(params[:stnd1]).stndrdcode
 	  cmst.elementcode1 = params[:elementcode][a]
 	else
@@ -61,22 +61,27 @@ class CmdtystndrdmsController < ApplicationController
 
   def srch_display
       logd("params[:stnd1]:", params[:stnd1])
-      $stndrdcontentm1 = []
+      @stndrdcontentm1 = []
       if params[:stnd1] != "指定しない"
         stndrdcode = Stndrdnamem.find_by_stndrdname(params[:stnd1]).stndrdcode
-        sql = "select * from stndrdcontentms where stndrdcode = '" + stndrdcode + "' order by disporder"
+        sql = "select * from cmdtystndrdm_stndrdcontentm_views where stndrdcode = '" + stndrdcode + "' order by disporder"
         logd("sql:", sql)
-        $stndrdcontentm1 = Stndrdcontentm.find_by_sql(sql)
+        @stndrdcontentm1 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
       end
+      logd("@stndrdcontentm1:", @stndrdcontentm1)
       @stndrdcontentm2 = []
       if params[:stnd2] != "指定しない"
         stndrdcode = Stndrdnamem.find_by_stndrdname(params[:stnd2]).stndrdcode
-        sql = "select * from stndrdcontentms where stndrdcode = '" + stndrdcode + "' order by disporder"
+        sql = "select * from cmdtystndrdm_stndrdcontentm_views where stndrdcode = '" + stndrdcode + "' order by disporder"
         logd("sql:", sql)
-        @stndrdcontentm2 = Stndrdcontentm.find_by_sql(sql)
+        @stndrdcontentm2 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
       end
+      logd("@stndrdcontentm2:", @stndrdcontentm2)
       @stndrdname1 = params[:stnd1]
       @stndrdname2 = params[:stnd2]
+  end
+
+  def chbx(cmstview1, cmstview2)
   end
 
   def getparams
@@ -117,18 +122,18 @@ class CmdtystndrdmsController < ApplicationController
     end
     logd("@stndrdname1:", @stndrdname1)
     logd("@stndrdname2:", @stndrdname2)
-    $stndrdcontentm1 = []
+    @stndrdcontentm1 = []
     if @cmstnd != []
-      sql = "select * from stndrdcontentms where stndrdcode = '" + @cmstnd.first.stndrdcode1 + "' order by disporder"
+      sql = "select * from cmdtystndrdm_stndrdcontentm_views where stndrdcode = '" + @cmstnd.first.stndrdcode1 + "' order by disporder"
       logd("sql:", sql)
-      $stndrdcontentm1 = Stndrdcontentm.find_by_sql(sql)
+      @stndrdcontentm1 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
     end
-    logd("$stndrdcontentm1:", $stndrdcontentm1)
+    logd("@stndrdcontentm1:", @stndrdcontentm1)
     @stndrdcontentm2 = []
     if @cmstnd != []
-      sql = "select * from stndrdcontentms where stndrdcode = '" + @cmstnd.first.stndrdcode2 + "' order by disporder"
+      sql = "select * from cmdtystndrdm_stndrdcontentm_views where stndrdcode = '" + @cmstnd.first.stndrdcode2 + "' order by disporder"
       logd("sql:", sql)
-      @stndrdcontentm2 = Stndrdcontentm.find_by_sql(sql)
+      @stndrdcontentm2 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
     end
     logd("@stndrdcontentm2:", @stndrdcontentm2)
   end

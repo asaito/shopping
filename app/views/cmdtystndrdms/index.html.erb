@@ -25,9 +25,11 @@ border: 1px #2b2b2b solid;
       </tr>
       <tr>
 	<td><%= @cmdtycode %></td>
+	  <input type="hidden" name="cmdtycode" value=<%= @cmdtycode %>>
 	<td><%= @cmdtyname %></td>
-	<td><%= @stndrdname1 %></td>
-	<td><%= @stndrdname2 %></td>
+	  <input type="hidden" name="cmdtyname" value=<%= @cmdtyname %>>
+	<td><%= select_tag("stnd1", options_for_select(@stndrdname_all, @stndrdname1)) %></td>
+	<td><%= select_tag("stnd2", options_for_select(@stndrdname_all, @stndrdname2)) %></td>
         <td align="center" >
           <input id="srch_submit" name="srch_image", type="image", src="/images/mallmgr/btn_S_Search.gif" value="検索" >
         </td>
@@ -36,47 +38,84 @@ border: 1px #2b2b2b solid;
   </tr>
   <tr>
     <table style="width:640px;height:10px">
+      <tr style="border:0px">
+	<td style="border:0px">
+	  <input id="allselect" name="allsel_image", type="image", src="/images/mallmgr/btn_SS_AllSelect.gif" value="allselect" >
+	</td>
+	<td style="border:0px">
+	  <input id="allrelease" name="allrel_image", type="image", src="/images/mallmgr/btn_SS_NoSelect.gif" value="allrelease" >
+	</td>
+      </tr>
       <tr>
         <th bgcolor="#800000"><font color="#ffffff">扱</font></th>
-        <th bgcolor="#800000"><font color="#ffffff"><%= @stndrdname1 %></font></th>
-        <th bgcolor="#800000"><font color="#ffffff"><%= @stndrdname2 %></font></th>
+        <th bgcolor="#800000"><font color="#ffffff"><%= @stndrdname1 == "指定しない"? "":@stndrdname1 %></font></th>
+        <th bgcolor="#800000"><font color="#ffffff"><%= @stndrdname2 == "指定しない"? "":@stndrdname2 %></font></th>
         <th bgcolor="#800000"><font color="#ffffff">在庫数量</font></th>
         <th bgcolor="#800000"><font color="#ffffff">規格別画像ファイル名</font></th>
       </tr>
-      <% if @stndrdcontentm1 != []  %>
-	<% @stndrdcontentm1.each do |stnd| %>
+      <% i = 0 %>
+      <% if $stndrdcontentm1 != []  %>
+	<% $stndrdcontentm1.each do |stnd| %>
       <tr>
-	<td>
-	  <input type="checkbox" >
+	<td> 
+	  <%= check_box_tag "checked_items[#{i}][flag]", @allcheck %>
 	</td>
 	<td>
 	  <%= stnd.elementname %>
+	  <input type="hidden" name="elementcode[<%= i %>]" value=<%= stnd.elementcode %>>
 	</td>
 	<td></td>
 	<td>
-	  <input style="text-align:right;" type="text" value="">
+	  <input name="amount[<%= i %>]" style="text-align:right;" type="text" value="">
 	</td>
 	<td></td>
       </tr>
+	  <% i += 1 %>
 	<% end %>
       <% end %>
       <% if @stndrdcontentm2 != []  %>
 	<% @stndrdcontentm2.each do |stnd| %>
       <tr>
         <td>
-          <input type="checkbox" >
-        </td>
-        <td>
-          <%= stnd.elementname %>
+	  <%= check_box_tag "checked_items[#{i}][flag]", @allcheck %>
         </td>
         <td></td>
         <td>
-          <input style="text-align:right;" type="text" value="">
+          <%= stnd.elementname %>
+	  <input type="hidden" name="elementcode[<%= i %>]" value=<%= stnd.elementcode %>>
+        </td>
+        <td>
+          <input name="amount[<%= i %>]"  style="text-align:right;" type="text" value="">
         </td>
         <td></td>
       </tr>
+	  <% i += 1 %>
 	<% end %>
       <% end %>
+      <tr style="border:0px">
+        <td style="border:0px">
+          <input id="allselect" name="allsel_image", type="image", src="/images/mallmgr/btn_SS_AllSelect.gif" value="allselect" >
+        </td>
+        <td style="border:0px">
+          <input id="allrelease" name="allrel_image", type="image", src="/images/mallmgr/btn_SS_NoSelect.gif" value="allrelease" >
+        </td>
+      </tr>
+    </table>
+    <table style="width:640px;height:10px">
+      <tr style="border:0px">
+        <td style="border:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="border:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="border:0px">
+          <input id="reset" name="reset_image", type="image", src="/images/mallmgr/btn_L_Reset.gif" value="reset" >
+        </td>
+        <td style="border:0px">
+          <input id="close" name="close_image", type="image", src="/images/mallmgr/btn_L_Close.gif" value="close" >
+        </td>
+        <td style="border:0px">
+          <input id="confirm" name="confirm_image", type="image", src="/images/mallmgr/btn_L_Confirm.gif" value="confirm" >
+        </td>
+
+      </tr>
     </table>
   </tr>
 </table>

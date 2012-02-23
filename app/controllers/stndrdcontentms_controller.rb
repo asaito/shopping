@@ -17,7 +17,7 @@ class StndrdcontentmsController < ApplicationController
     if params['add_image.x'] != nil && params['add_image.x'].to_i > 0
       stndrdcontentm = Stndrdcontentm.new
       stndrdcontentm.shopcode = 1
-      stndrdcontentm.stndrdcode = params[:elementcodeNew]
+      stndrdcontentm.stndrdcode = params[:stcd]
       stndrdcontentm.elementcode = params[:elementcodeNew]
       stndrdcontentm.elementname = params[:elementnameNew]
       stndrdcontentm.disporder = params[:disporderNew]

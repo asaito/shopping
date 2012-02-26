@@ -56,43 +56,31 @@ border: 1px #2b2b2b solid;
         <th bgcolor="#800000"><font color="#ffffff">規格別画像ファイル名</font></th>
       </tr>
       <% i = 0 %>
-      <% if @cmstcntntview1 != []  %>
-	<% @cmstcntntview1.each do |stnd| %>
+      <% if @stndrdcontent1 != []  %>
+	<% @stndrdcontent1.each do |stnd1| %>
+	  <% if @stndrdcontent2 != []  %>
+	    <% @stndrdcontent2.each do |stnd2| %>
       <tr>
 	<td> 
 	  <input type="hidden" name="cmstcntntview1size" value=<%= @cmstcntntview1.size.to_s %>>
-	  <%= check_box_tag "checked_items[#{i}][flag]", value = "1", checked = @chkbox[i] == 1 ? true : false %>
+	      <%= check_box_tag "checked_items[#{i}][flag]", value = "1", checked = @chkbox[i] == 1 ? true : false %>
 	</td>
 	<td>
-	  <%= stnd.elementname %>
-	  <input type="hidden" name="elementcode[<%= i %>]" value=<%= stnd.elementcode %>>
+	      <%= stnd1.elementname %>
+	  <input type="hidden" name="elementcode1[<%= i %>]" value=<%= stnd1.elementcode %>>
 	</td>
-	<td></td>
 	<td>
-	  <input name="amount[<%= i %>]" style="text-align:right;" type="text" value=<%= @chkbox[i] == 1 ? stnd.amount : 0 %>>
+	      <%= stnd2.elementname %>
+	  <input type="hidden" name="elementcode2[<%= i %>]" value=<%= stnd2.elementcode %>>
+	</td>
+	<td>
+	  <input name="amount[<%= i %>]" style="text-align:right;" type="text" value=<%= @amount[i] %>>
 	</td>
 	<td></td>
       </tr>
-	  <% i += 1 %>
-	<% end %>
-      <% end %>
-      <% if @cmstcntntview2 != []  %>
-	<% @cmstcntntview2.each do |stnd| %>
-      <tr>
-        <td>
-	  <%= check_box_tag "checked_items[#{i}][flag]", value = "1", checked = @chkbox[i] == 1 ? true : false %>
-        </td>
-        <td></td>
-        <td>
-          <%= stnd.elementname %>
-	  <input type="hidden" name="elementcode[<%= i %>]" value=<%= stnd.elementcode %>>
-        </td>
-        <td>
-          <input name="amount[<%= i %>]"  style="text-align:right;" type="text" value=<%= @chkbox[i] == 1 ? stnd.amount : 0 %>>
-        </td>
-        <td></td>
-      </tr>
-	  <% i += 1 %>
+	      <% i += 1 %>
+	    <% end %>
+	  <% end %>
 	<% end %>
       <% end %>
       <tr style="border:0px">

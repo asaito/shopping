@@ -13,7 +13,7 @@ class CmdtystndrdmsController < ApplicationController
     elsif params['srch_image.x'].to_i > 0
       srch_display
     elsif params['confirm_image.x'].to_i > 0
-      additems = checkitems
+      additems, uncheckitems = checkitems
       cmstcntntview1size = 0
       if @cmstcntntview1 == nil
 	cmstcntntview1size = params[:cmstcntntview1size].to_i
@@ -28,22 +28,15 @@ class CmdtystndrdmsController < ApplicationController
       elementcode2 = ""
       amount = 0
       additems.each do |a|
-	if a.to_i < cmstcntntview1size
-	  if find1 == 0
-	    elementcode1 = params[:elementcode][a]
-	    amount = params[:amount][a].to_i
-	    find1 = 1
-	  end
-	else
-	  if find2 == 0
-	    elementcode2 = params[:elementcode][a]
-	    amount = params[:amount][a].to_i
-	    find2 = 1
-	  end
+	if params[:elementcode1][a] != nil
+	  elementcode1 = params[:elementcode1][a]
 	end
-	cmstd = cmstm(find1, find2, elementcode1, elementcode2, amount)
-      end
-      if find1 == 1 || find2 == 1
+	amount = params[:amount][a].to_i
+	if params[:elementcode2][a] != nil
+	  elementcode2 = params[:elementcode2][a]
+	end
+	amount = params[:amount][a].to_i
+	cmstd = cmstm(elementcode1, elementcode2, amount)
 	logd("cmstd:", cmstd)
 	cmstd.save
       end
@@ -52,23 +45,23 @@ class CmdtystndrdmsController < ApplicationController
       indexfromcmdty
     end
     @stndrdname_all = stndnamelist(Stndrdnamem.all)
-    logd("Stndrdnamem.all:", Stndrdnamem.all)
-    logd("@stndrdname_all:", @stndrdname_all)
+    #logd("Stndrdnamem.all:", Stndrdnamem.all)
+    #logd("@stndrdname_all:", @stndrdname_all)
   end
 
-  def cmstm(find1, find2, elementcode1, elementcode2, amount)
+  def cmstm(elementcode1, elementcode2, amount)
     cmst = Cmdtystndrdm.new
-    if find1 == 1 && find2 == 1
+    if elementcode1 != "" && elementcode2 != ""
       cmsts = Cmdtystndrdm.where(:cmdtycode => params[:cmdtycode], :stndrdcode1 =>  params[:stndrdcode1], :stndrdcode2 => params[:stndrdcode2])
-      inserted = 0
+      alreadyinserted = 0
       cmsts.each do |c|
 	if c.elementcode1 == elementcode1 && c.elementcode2 == elementcode2
 	  cmst = c
-	  inserted = 1
+	  alreadyinserted = 1
 	  break
 	end
       end
-      if inserted == 0
+      if alreadyinserted == 0
 	cmst = Cmdtystndrdm.new
 	cmst.shopcode = "1"
 	cmst.cmdtycode = params[:cmdtycode]
@@ -78,34 +71,34 @@ class CmdtystndrdmsController < ApplicationController
 	cmst.elementcode2 = elementcode2
       end
       cmst.amount = amount
-    elsif find1 == 1 && find2 == 0
+    elsif elementcode1 != "" && elementcode2 == ""
       cmsts = Cmdtystndrdm.where(:cmdtycode => params[:cmdtycode], :stndrdcode1 =>  params[:stndrdcode1])
-      inserted = 0
+      alreadyinserted = 0
       cmsts.each do |c|
         if c.elementcode1 == elementcode1
           cmst = c
-          inserted = 1
+          alreadyinserted = 1
           break
         end
       end
-      if inserted == 0
+      if alreadyinserted == 0
         cmst = Cmdtystndrdm.new
         cmst.shopcode = "1"
 	cmst.cmdtycode = params[:cmdtycode]
 	cmst.elementcode1 = elementcode1
       end
       cmst.amount = amount
-    elsif find1 == 0 && find2 == 1
+    elsif elementcode1 == "" && elementcode2 != ""
       cmsts = Cmdtystndrdm.where(:cmdtycode => params[:cmdtycode], :stndrdcode2 =>  params[:stndrdcode2])
-      inserted = 0
+      alreadyinserted = 0
       cmsts.each do |c|
         if c.elementcode2 == elementcode2
           cmst = c
-          inserted = 1
+          alreadyinserted = 1
           break
         end
       end
-      if inserted == 0
+      if alreadyinserted == 0
         cmst = Cmdtystndrdm.new
         cmst.shopcode = "1"
 	cmst.cmdtycode = params[:cmdtycode]
@@ -116,7 +109,30 @@ class CmdtystndrdmsController < ApplicationController
     cmst
   end
 
+  def uncheckitems(chkbox, chkitems)
+    unchk = []
+    i = 0
+    for i in 0..chkbox.length - 1
+      find = 0
+      logd("i:", i)
+      chkitems.each do |ct|
+      logd("ct:", ct)
+	if ct == i.to_s
+	  find = 1
+	  break
+	end
+      end
+      logd("find:", find.to_s)
+      if find == 0
+	unchk.push(i)
+      end
+      i += 1
+    end
+    unchk
+  end
+
   def checkitems
+      logd("params[:checked_items]:", params[:checked_items])
       checked = params[:checked_items]
       additems = []
       if checked == nil
@@ -131,39 +147,111 @@ class CmdtystndrdmsController < ApplicationController
       for i in 0..additems.length - 1
         logger.debug 'additems' + '[' + i.to_s + ']:' + additems[i]
       end
-      additems
+      unchk = uncheckitems(@chkbox, additems)
+      logger.debug 'unchk.length:' + unchk.length.to_s
+      for i in 0..unchk.length - 1
+        logger.debug 'unchk' + '[' + i.to_s + ']:' + unchk[i].to_s
+      end
+      return additems, unchk
   end
 
   def srch_display
       logd("params[:stnd1]:", params[:stnd1])
+      @stndrdcontent1 = []
+      cmstcntntview1check = CmdtystndrdmStndrdcontentmView.new
+      sql = "select * from cmdtystndrdms where cmdtycode = '" + @cmdtycode + "'"
+      logd("sql11", sql)
+      cmdtystndrdms = Cmdtystndrdm.find_by_sql(sql)
       @cmstcntntview1 = []
-      if params[:stnd1] != "指定しない"
+     kbx_amount/if params[:stnd1] != "指定しない"
         stndrdcode = Stndrdnamem.find_by_stndrdname(params[:stnd1]).stndrdcode
-        sql = "select distinct shopcode, cmdtycode, stndrdcode1, elementcode1, stndrdcode2, elementcode2, amount, id, stndrdcode, elementcode, disporder, elementname from cmdtystndrdm_stndrdcontentm_views where cmdtycode = '" + @cmdtycode + "' and stndrdcode = '" + stndrdcode + "' order by disporder"
-        logd("sql:", sql)
-        @cmstcntntview1check = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
         sql = "select distinct amount, id, stndrdcode, elementcode, disporder, elementname from cmdtystndrdm_stndrdcontentm_views where cmdtycode = '" + @cmdtycode + "' and stndrdcode = '" + stndrdcode + "' order by disporder"
         @cmstcntntview1 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
+	sql = "select * from stndrdcontentms where stndrdcode = '" + stndrdcode + "' order by disporder"
+	logd("sql12", sql)
+	@stndrdcontent1 = Stndrdcontentm.find_by_sql(sql)
       end
       logd("@cmstcntntview1:", @cmstcntntview1)
+      @stndrdcontent2 = []
       @cmstcntntview2 = []
       if params[:stnd2] != "指定しない"
         stndrdcode = Stndrdnamem.find_by_stndrdname(params[:stnd2]).stndrdcode
-        sql = "select distinct shopcode, cmdtycode, stndrdcode1, elementcode1, stndrdcode2, elementcode2, amount, id, stndrdcode, elementcode, disporder, elementname from cmdtystndrdm_stndrdcontentm_views where cmdtycode = '" + @cmdtycode + "' and stndrdcode = '" + stndrdcode + "' order by disporder"
-        logd("sql:", sql)
-        @cmstcntntview2check = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
         sql = "select distinct amount, id, stndrdcode, elementcode, disporder, elementname from cmdtystndrdm_stndrdcontentm_views where cmdtycode = '" + @cmdtycode + "' and stndrdcode = '" + stndrdcode + "' order by disporder"
         @cmstcntntview2 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
+        sql = "select * from stndrdcontentms where stndrdcode = '" + stndrdcode + "' order by disporder"
+	logd("sql13", sql)
+        @stndrdcontent2 = Stndrdcontentm.find_by_sql(sql)
       end
       logd("@cmstcntntview2:", @cmstcntntview2)
-      @chkbox = chkbx(@cmstcntntview1, @cmstcntntview2, @cmstcntntview1check, @cmstcntntview2check)
+      @chkbox, @amount = chkbx_amount(@stndrdcontent1, @stndrdcontent2, cmdtystndrdms)
       logd("@chkbox:", @chkbox)
       @stndrdname1 = params[:stnd1]
       @stndrdname2 = params[:stnd2]
       @stndrdcode1 = params[:stndrdcode1]
       @stndrdcode2 = params[:stndrdcode2]
+      checkitems
   end
 
+  def chkbx_amount(stndrdcontent1, stndrdcontent2, cmdtystndrdms)
+    cbx = []
+    amount = []
+    if stndrdcontent1 != nil
+      stndrdcontent1.each do |s1|
+	if stndrdcontent2 != nil
+	  stndrdcontent2.each do |s2|
+	    find = 0
+	    cmdtystndrdms.each do |c|
+	      logd("s1.stndrdcode c.stndrdcode1 s1.elementcode c.elementcode1 s2.stndrdcode c.stndrdcode2 c.elementcode c.elementcode2 c.amount:", s1.stndrdcode+" "+c.stndrdcode1+" "+s1.elementcode+" "+c.elementcode1+" "+s2.stndrdcode+" "+c.stndrdcode2+" "+s2.elementcode+" "+c.elementcode2+" "+c.amount.to_s)
+	      if s1.stndrdcode == c.stndrdcode1 && s1.elementcode == c.elementcode1 && s2.stndrdcode == c.stndrdcode2 && s2.elementcode == c.elementcode2
+		cbx.push(1)
+		amount.push(c.amount)
+		find = 1
+		break
+	      end
+	    end
+	    if find == 0
+	      cbx.push(0)
+	      amount.push(0)
+	    end
+	  end
+	else
+	  find = 0
+	  cmdtystndrdms.each do |c|
+	    if s1.stndrdcode == c.stndrdcode1 && s1.elementcode == c.elementcode1 
+	      cbx.push(1)
+	      amount.push(c.amount)
+	      find = 1
+	      break
+	    end
+	  end
+	  if find == 0
+	    cbx.push(0)
+	    amount.push(0)
+	  end
+	end
+      end
+    else
+      if stndrdcontent2 != nil
+	stndrdcontent2.each do |s2|
+	  find = 0
+	  cmdtystndrdms.each do |c|
+	    if s2.stndrdcode == c.stndrdcode2 && s2.elementcode == c.elementcode2
+	      cbx.push(1)
+	      amount.push(c.amount)
+	      find = 1
+	      break
+	    end
+	  end
+	  if find == 0
+	    cbx.push(0)
+	    amount.push(0)
+	  end
+	end
+      end
+    end
+    return cbx, amount
+  end
+=begin
   def chkbx(cmstview1, cmstview2, cmstview1check, cmstview2check)
     cbx = []
     if cmstview1 != nil
@@ -204,6 +292,7 @@ class CmdtystndrdmsController < ApplicationController
     end
     cbx
   end
+=end
 
   def getparams
     @cmdtycode = params[:cmdtycode]
@@ -228,7 +317,6 @@ class CmdtystndrdmsController < ApplicationController
     end
     logd("stndrdname1.stndrdname:", stndrdname1.stndrdname)
     logd("stndrdname2:", stndrdname2)
-    #@stndrdname1 = Stndrdnamem.new
     @stndrdname1 = ""
     @stndrdname2 = ""
     if stndrdname1 != nil && stndrdname1.stndrdname != nil
@@ -256,8 +344,19 @@ class CmdtystndrdmsController < ApplicationController
       logd("sql:", sql)
       @cmstcntntview2 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
     end
-    @chkbox = chkbx(@cmstcntntview1, @cmstcntntview2)
+    #@chkbox = chkbx(@cmstcntntview1, @cmstcntntview2)
     logd("@cmstcntntview2:", @cmstcntntview2)
+
+    sql = "select * from cmdtystndrdms where cmdtycode = '" + @cmdtycode + "'"
+    logd("sql11:", sql)
+    cmdtystndrdms = Cmdtystndrdm.find_by_sql(sql)
+    sql = "select * from stndrdcontentms where stndrdcode = '" + cmdtystndrdms.first.stndrdcode1 + "' order by disporder"
+    logd("sql12:", sql)
+    @stndrdcontent1 = Stndrdcontentm.find_by_sql(sql)
+    sql = "select * from stndrdcontentms where stndrdcode = '" + cmdtystndrdms.first.stndrdcode2 + "' order by disporder"
+    logd("sql13:", sql)
+    @stndrdcontent2 = Stndrdcontentm.find_by_sql(sql)
+    @chkbox, @amount = chkbx_amount(@stndrdcontent1, @stndrdcontent2, cmdtystndrdms)
   end
   
   def stndnamelist(a)

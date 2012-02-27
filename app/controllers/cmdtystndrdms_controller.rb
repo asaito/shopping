@@ -4,11 +4,14 @@ class CmdtystndrdmsController < ApplicationController
     getparams
     logd("@cmdtycode:", @cmdtycode)
     @allcheck = 0
+    @allrelease = 0
     if params['allsel_image.x'].to_i > 1
       @allcheck = 1
+      @allrelease = 0
       srch_display
     elsif params['allrel_image.x'].to_i > 1
       @allcheck = 0
+      @allrelease = 1
       srch_display
     elsif params['srch_image.x'].to_i > 0
       srch_display
@@ -27,18 +30,21 @@ class CmdtystndrdmsController < ApplicationController
       elementcode1 = ""
       elementcode2 = ""
       amount = 0
-      additems.each do |a|
-	if params[:elementcode1][a] != nil
-	  elementcode1 = params[:elementcode1][a]
+      Cmdtystndrdm.where("cmdtycode = ?", @cmdtycode).destroy_all
+      if additems != nil
+	additems.each do |a|
+	  if params[:elementcode1] != nil
+	    elementcode1 = params[:elementcode1][a]
+	    amount = params[:amount][a].to_i
+	  end
+	  if params[:elementcode2] != nil
+	    elementcode2 = params[:elementcode2][a]
+	    amount = params[:amount][a].to_i
+	  end
+	  cmstd = cmstm(elementcode1, elementcode2, amount)
+	  logd("cmstd:", cmstd)
+	  cmstd.save
 	end
-	amount = params[:amount][a].to_i
-	if params[:elementcode2][a] != nil
-	  elementcode2 = params[:elementcode2][a]
-	end
-	amount = params[:amount][a].to_i
-	cmstd = cmstm(elementcode1, elementcode2, amount)
-	logd("cmstd:", cmstd)
-	cmstd.save
       end
       srch_display
     else
@@ -85,7 +91,10 @@ class CmdtystndrdmsController < ApplicationController
         cmst = Cmdtystndrdm.new
         cmst.shopcode = "1"
 	cmst.cmdtycode = params[:cmdtycode]
+	cmst.stndrdcode1 = params[:stndrdcode1]
+	cmst.stndrdcode2 = ""
 	cmst.elementcode1 = elementcode1
+	cmst.elementcode2 = ""
       end
       cmst.amount = amount
     elsif elementcode1 == "" && elementcode2 != ""
@@ -102,6 +111,9 @@ class CmdtystndrdmsController < ApplicationController
         cmst = Cmdtystndrdm.new
         cmst.shopcode = "1"
 	cmst.cmdtycode = params[:cmdtycode]
+	cmst.stndrdcode1 = ""
+	cmst.stndrdcode2 = params[:stndrdcode2]
+	cmst.stndrdcode1 = ""
 	cmst.elementcode2 = elementcode2
       end
       cmst.amount = amount
@@ -111,8 +123,14 @@ class CmdtystndrdmsController < ApplicationController
 
   def uncheckitems(chkbox, chkitems)
     unchk = []
+    chkboxsize = 0
+    if @chkbox == nil
+      chkboxsize = params[:chkboxsize].to_i
+    else
+      chkboxsize = @chkbox.size
+    end
     i = 0
-    for i in 0..chkbox.length - 1
+    for i in 0..chkboxsize - 1
       find = 0
       logd("i:", i)
       chkitems.each do |ct|
@@ -160,18 +178,18 @@ class CmdtystndrdmsController < ApplicationController
       @stndrdcontent1 = []
       cmstcntntview1check = CmdtystndrdmStndrdcontentmView.new
       sql = "select * from cmdtystndrdms where cmdtycode = '" + @cmdtycode + "'"
-      logd("sql11", sql)
+      logd("sql11:", sql)
       cmdtystndrdms = Cmdtystndrdm.find_by_sql(sql)
       @cmstcntntview1 = []
-     kbx_amount/if params[:stnd1] != "指定しない"
+      if params[:stnd1] != "指定しない"
         stndrdcode = Stndrdnamem.find_by_stndrdname(params[:stnd1]).stndrdcode
         sql = "select distinct amount, id, stndrdcode, elementcode, disporder, elementname from cmdtystndrdm_stndrdcontentm_views where cmdtycode = '" + @cmdtycode + "' and stndrdcode = '" + stndrdcode + "' order by disporder"
         @cmstcntntview1 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
 	sql = "select * from stndrdcontentms where stndrdcode = '" + stndrdcode + "' order by disporder"
-	logd("sql12", sql)
+	logd("sql12:", sql)
 	@stndrdcontent1 = Stndrdcontentm.find_by_sql(sql)
       end
-      logd("@cmstcntntview1:", @cmstcntntview1)
+      #logd("@cmstcntntview1:", @cmstcntntview1)
       @stndrdcontent2 = []
       @cmstcntntview2 = []
       if params[:stnd2] != "指定しない"
@@ -179,10 +197,13 @@ class CmdtystndrdmsController < ApplicationController
         sql = "select distinct amount, id, stndrdcode, elementcode, disporder, elementname from cmdtystndrdm_stndrdcontentm_views where cmdtycode = '" + @cmdtycode + "' and stndrdcode = '" + stndrdcode + "' order by disporder"
         @cmstcntntview2 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
         sql = "select * from stndrdcontentms where stndrdcode = '" + stndrdcode + "' order by disporder"
-	logd("sql13", sql)
+	logd("sql13:", sql)
         @stndrdcontent2 = Stndrdcontentm.find_by_sql(sql)
       end
-      logd("@cmstcntntview2:", @cmstcntntview2)
+      #logd("@cmstcntntview2:", @cmstcntntview2)
+      logd("@stndrdcontent1:", @stndrdcontent1)
+      logd("@stndrdcontent2:", @stndrdcontent2)
+      logd("cmdtystndrdms:", cmdtystndrdms)
       @chkbox, @amount = chkbx_amount(@stndrdcontent1, @stndrdcontent2, cmdtystndrdms)
       logd("@chkbox:", @chkbox)
       @stndrdname1 = params[:stnd1]
@@ -195,55 +216,80 @@ class CmdtystndrdmsController < ApplicationController
   def chkbx_amount(stndrdcontent1, stndrdcontent2, cmdtystndrdms)
     cbx = []
     amount = []
-    if stndrdcontent1 != nil
+    if stndrdcontent1 != []
       stndrdcontent1.each do |s1|
-	if stndrdcontent2 != nil
+	if stndrdcontent2 != []
 	  stndrdcontent2.each do |s2|
 	    find = 0
 	    cmdtystndrdms.each do |c|
 	      logd("s1.stndrdcode c.stndrdcode1 s1.elementcode c.elementcode1 s2.stndrdcode c.stndrdcode2 c.elementcode c.elementcode2 c.amount:", s1.stndrdcode+" "+c.stndrdcode1+" "+s1.elementcode+" "+c.elementcode1+" "+s2.stndrdcode+" "+c.stndrdcode2+" "+s2.elementcode+" "+c.elementcode2+" "+c.amount.to_s)
 	      if s1.stndrdcode == c.stndrdcode1 && s1.elementcode == c.elementcode1 && s2.stndrdcode == c.stndrdcode2 && s2.elementcode == c.elementcode2
-		cbx.push(1)
+		if @allrelease == 1
+		  cbx.push(0)
+		else
+		  cbx.push(1)
+		end
 		amount.push(c.amount)
 		find = 1
 		break
 	      end
 	    end
 	    if find == 0
-	      cbx.push(0)
+	      if @allcheck == 1
+		cbx.push(1)
+	      else
+		cbx.push(0)
+	      end
 	      amount.push(0)
 	    end
 	  end
 	else
 	  find = 0
 	  cmdtystndrdms.each do |c|
+	    #logd("s1.stndrdcode c.stndrdcode1 s1.elementcode c.elementcode1 c.stndrdcode2 c.elementcode c.elementcode2 c.amount:", s1.stndrdcode+" "+c.stndrdcode1+" "+s1.elementcode+" "+c.elementcode1+" "+c.stndrdcode2+" "+c.elementcode2+" "+c.amount.to_s)
 	    if s1.stndrdcode == c.stndrdcode1 && s1.elementcode == c.elementcode1 
-	      cbx.push(1)
+              if @allrelease == 1
+                cbx.push(0)
+              else
+                cbx.push(1)
+              end
 	      amount.push(c.amount)
 	      find = 1
 	      break
 	    end
 	  end
 	  if find == 0
-	    cbx.push(0)
+            if @allcheck == 1
+              cbx.push(1)
+            else
+              cbx.push(0)
+            end
 	    amount.push(0)
 	  end
 	end
       end
     else
-      if stndrdcontent2 != nil
+      if stndrdcontent2 != []
 	stndrdcontent2.each do |s2|
 	  find = 0
 	  cmdtystndrdms.each do |c|
 	    if s2.stndrdcode == c.stndrdcode2 && s2.elementcode == c.elementcode2
-	      cbx.push(1)
+              if @allrelease == 1
+                cbx.push(0)
+              else
+                cbx.push(1)
+              end
 	      amount.push(c.amount)
 	      find = 1
 	      break
 	    end
 	  end
 	  if find == 0
-	    cbx.push(0)
+            if @allcheck == 1
+              cbx.push(1)
+            else
+              cbx.push(0)
+            end
 	    amount.push(0)
 	  end
 	end
@@ -337,7 +383,7 @@ class CmdtystndrdmsController < ApplicationController
       logd("sql:", sql)
       @cmstcntntview1 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
     end
-    logd("@cmstcntntview1:", @cmstcntntview1)
+    #logd("@cmstcntntview1:", @cmstcntntview1)
     @cmstcntntview2 = []
     if @cmstnd != []
       sql = "select * from cmdtystndrdm_stndrdcontentm_views where stndrdcode = '" + @cmstnd.first.stndrdcode2 + "' order by disporder"
@@ -345,7 +391,7 @@ class CmdtystndrdmsController < ApplicationController
       @cmstcntntview2 = CmdtystndrdmStndrdcontentmView.find_by_sql(sql)
     end
     #@chkbox = chkbx(@cmstcntntview1, @cmstcntntview2)
-    logd("@cmstcntntview2:", @cmstcntntview2)
+    #logd("@cmstcntntview2:", @cmstcntntview2)
 
     sql = "select * from cmdtystndrdms where cmdtycode = '" + @cmdtycode + "'"
     logd("sql11:", sql)
@@ -356,6 +402,8 @@ class CmdtystndrdmsController < ApplicationController
     sql = "select * from stndrdcontentms where stndrdcode = '" + cmdtystndrdms.first.stndrdcode2 + "' order by disporder"
     logd("sql13:", sql)
     @stndrdcontent2 = Stndrdcontentm.find_by_sql(sql)
+    logd("@stndrdcontent1:", @stndrdcontent1)
+    logd("@stndrdcontent2:", @stndrdcontent2)
     @chkbox, @amount = chkbx_amount(@stndrdcontent1, @stndrdcontent2, cmdtystndrdms)
   end
   

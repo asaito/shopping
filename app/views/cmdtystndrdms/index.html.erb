@@ -56,13 +56,12 @@ border: 1px #2b2b2b solid;
         <th bgcolor="#800000"><font color="#ffffff">規格別画像ファイル名</font></th>
       </tr>
       <% i = 0 %>
-      <% if @stndrdcontent1 != []  %>
+      <% if @stndrdcontent1 != nil && @stndrdcontent1 != []  %>
 	<% @stndrdcontent1.each do |stnd1| %>
-	  <% if @stndrdcontent2 != []  %>
+	  <% if @stndrdcontent2 != nil && @stndrdcontent2 != []  %>
 	    <% @stndrdcontent2.each do |stnd2| %>
       <tr>
 	<td> 
-	  <input type="hidden" name="cmstcntntview1size" value=<%= @cmstcntntview1.size.to_s %>>
 	  <input type="hidden" name="chkboxsize" value=<%= @chkbox.size.to_s %>>
 	      <%= check_box_tag "checked_items[#{i}][flag]", value = "1", checked = @chkbox[i] == 1 ? true : false %>
 	</td>
@@ -102,7 +101,7 @@ border: 1px #2b2b2b solid;
 	  <% end %>
 	<% end %>
       <% else %>
-        <% if @stndrdcontent2 != []  %>
+        <% if @stndrdcontent2 != nil && @stndrdcontent2 != []  %>
           <% @stndrdcontent2.each do |stnd2| %>
       <tr>
         <td>

@@ -29,15 +29,19 @@ class ComdtiesController < ApplicationController
     @comdties = Comdty.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => 10)
     @comdtyviews = CmdtyCtgryView.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => 10)
     @aryctg = cmctgv(@comdties, @comdtyviews)
-    @cmdty_stnd_views = CmdtystndrdmStndrdcontentmView.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => 10)
-    @arystnd = cmstndv(@comdties, @cmdty_stnd_views)
+    #@cmdty_stnd_views = CmdtystndrdmStndrdcontentmView.paginate(:page => params[:page], :conditions => $serchwhere, :select => "distint cmdtycode ", :order => 'cmdtycode asc', :per_page => 10)
+    cmdtystndrdms = Cmdtystndrdm.all
+    @arystnd = cmstnd(@comdties, cmdtystndrdms)
+    #@arystnd = cmstndv(@comdties, @cmdty_stnd_views)
     $comdties = @comdties
     logd("$serchwhere:", $serchwhere)
     logd("@comdties.size:", @comdties.size)
     logd("@comdties.first.cmdtycode:", @comdties.first.cmdtycode)
     logd("@comdtyviews.first.ctgrycode:", @comdtyviews.first.ctgrycode)
     logd("@aryctg.first:", @aryctg.first)
-    logd("@cmdty_stnd_views.first.stndrdcode:", @cmdty_stnd_views.first.stndrdcode)
+    #if @cmdty_stnd_views != []
+      #logd("@cmdty_stnd_views.first.stndrdcode:", @cmdty_stnd_views.first.stndrdcode)
+    #end
     logd("@arystnd.first:", @arystnd.first)
     logd("@arystnd:", @arystnd)
     $afterIndex = 1
@@ -66,14 +70,17 @@ class ComdtiesController < ApplicationController
     a
   end
 
-  def cmstndv(cms, cmstndvs)
+  def cmstnd(cms, cmstnds)
     a = []
+    logd("cmstnds.size:", cmstnds.size)
     cms.each do |cm|
       find = 0
       stnd = ""
-      cmstndvs.each do |cmst|
+      cmstnds.each do |cmst|
+	logd("cm.cmdtycode cmst.cmdtycode:", cm.cmdtycode+" "+cmst.cmdtycode)
         if cm.cmdtycode == cmst.cmdtycode
-          stnd = cmst.stndrdcode
+          stnd = "1"
+          #stnd = cmst.stndrdcode
           find = 1
         end
         if find == 1

@@ -28,7 +28,6 @@ class ComdtiesController < ApplicationController
     end
     $saveSuccess = 1
     @comdties = Comdty.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => $sel_no_cm)
-    #n@comdtyviews = CmdtyCtgryView.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => $sel_no_cm)
     logd("$sel_no_cm:", $sel_no_cm)
     cmtotal = Comdty.where($serchwhere)
     if cmtotal != nil
@@ -49,7 +48,6 @@ class ComdtiesController < ApplicationController
     logd("$serchwhere:", $serchwhere)
     logd("@comdties.size:", @comdties.size)
     logd("@comdties.first.cmdtycode:", @comdties.first.cmdtycode)
-    #logd("@comdtyviews.first.ctgrycode:", @comdtyviews.first.ctgrycode)
     logd("@aryctg:", @aryctg)
     logd("@arystnd:", @arystnd)
     logd("@arycncm:", @arycncm)

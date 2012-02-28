@@ -5,7 +5,8 @@ class ComdtiesController < ApplicationController
   # GET /comdties
   # GET /comdties.xml
   def index
-    #@comdties = Comdty.all
+    @num_list = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20']
+
     logger.debug 'outputcsv_image.x:'
     if $afterIndex != 1
       $serchwhere = ''
@@ -26,10 +27,18 @@ class ComdtiesController < ApplicationController
       logger.debug 'outputcsv_image.x:'
     end
     $saveSuccess = 1
-    @comdties = Comdty.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => 10)
-    @comdtyviews = CmdtyCtgryView.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => 10)
-    @aryctg = cmctgv(@comdties, @comdtyviews)
-    #@cmdty_stnd_views = CmdtystndrdmStndrdcontentmView.paginate(:page => params[:page], :conditions => $serchwhere, :select => "distint cmdtycode ", :order => 'cmdtycode asc', :per_page => 10)
+    @comdties = Comdty.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => $sel_no_cm)
+    #n@comdtyviews = CmdtyCtgryView.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'cmdtycode asc', :per_page => $sel_no_cm)
+    logd("$sel_no_cm:", $sel_no_cm)
+    cmtotal = Comdty.where($serchwhere)
+    if cmtotal != nil
+      @total = cmtotal.size
+    else
+      @total = 0
+    end
+    cmctgries = Cmdtyctgry.all
+    @aryctg = cmctg(@comdties, cmctgries)
+
     cmdtystndrdms = Cmdtystndrdm.all
     @arystnd = cmstnd(@comdties, cmdtystndrdms)
 
@@ -40,12 +49,8 @@ class ComdtiesController < ApplicationController
     logd("$serchwhere:", $serchwhere)
     logd("@comdties.size:", @comdties.size)
     logd("@comdties.first.cmdtycode:", @comdties.first.cmdtycode)
-    logd("@comdtyviews.first.ctgrycode:", @comdtyviews.first.ctgrycode)
-    logd("@aryctg.first:", @aryctg.first)
-    #if @cmdty_stnd_views != []
-      #logd("@cmdty_stnd_views.first.stndrdcode:", @cmdty_stnd_views.first.stndrdcode)
-    #end
-    logd("@arystnd.first:", @arystnd.first)
+    #logd("@comdtyviews.first.ctgrycode:", @comdtyviews.first.ctgrycode)
+    logd("@aryctg:", @aryctg)
     logd("@arystnd:", @arystnd)
     logd("@arycncm:", @arycncm)
     $afterIndex = 1
@@ -55,14 +60,14 @@ class ComdtiesController < ApplicationController
     end
   end
 
-  def cmctgv(cms, cmctgavs)
+  def cmctg(cms, cmctgs)
     a = []
     cms.each do |cm|
       find = 0
       ctg = ""
-      cmctgavs.each do |cmct|
+      cmctgs.each do |cmct|
 	if cm.cmdtycode == cmct.cmdtycode
-	  ctg = cmct.ctgrycode
+	  ctg = "1"
 	  find = 1
 	end
 	if find == 1
@@ -81,10 +86,9 @@ class ComdtiesController < ApplicationController
       find = 0
       stnd = ""
       cmstnds.each do |cmst|
-	logd("cm.cmdtycode cmst.cmdtycode:", cm.cmdtycode+" "+cmst.cmdtycode)
+	#logd("cm.cmdtycode cmst.cmdtycode:", cm.cmdtycode+" "+cmst.cmdtycode)
         if cm.cmdtycode == cmst.cmdtycode
           stnd = "1"
-          #stnd = cmst.stndrdcode
           find = 1
         end
         if find == 1
@@ -103,7 +107,7 @@ class ComdtiesController < ApplicationController
       find = 0
       conncm = ""
       cncms.each do |cncm|
-        logd("cm.cmdtycode cncm.cmdtycode:", cm.cmdtycode+" "+cncm.cmdtycode)
+        #logd("cm.cmdtycode cncm.cmdtycode:", cm.cmdtycode+" "+cncm.cmdtycode)
         if cm.cmdtycode == cncm.cmdtycode
           conncm = "1"
           find = 1
@@ -149,8 +153,16 @@ class ComdtiesController < ApplicationController
   # POST /comdties.xml
   def create
     logger.debug 'create_some interesting information'
-    #logger.debug 'commit:' + params['del_image.x']
-    #$serch = '0'
+    
+    @num_list = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20']
+    if params[:page] == nil
+      if params[:line_no] != nil
+        $sel_no_cm = params[:line_no]
+      else
+        $sel_no_cm = "10"
+      end
+    end
+
     if params['del_image.x'] 
       delids = []
       checked = params[:checked_items]

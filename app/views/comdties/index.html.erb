@@ -144,9 +144,7 @@ border: 1px #2b2b2b solid;
   </tr>
   </tbody>
 </table>
-</form>
 
-<form method="POST" action="comdties" name="indexform">
 <table width=90%>
   <tr style="border:0px">
     <td style="border:0px">
@@ -155,8 +153,14 @@ border: 1px #2b2b2b solid;
     <td style="border:0px">
       <input id="allrelease" name="allrel_image", type="image", src="/images/mallmgr/btn_SS_NoSelect.gif" value="allrelease" >
     </td>
-    <td style="border:0px">
+    <td colspan=2 style="border:0px">
       <%= will_paginate @comdties, :prev_label=>'«前', :next_label=>'次»' %>
+    </td>
+    <td colspan=2 style="border:0px">
+      <%= select_tag("line_no", options_for_select(@num_list, $sel_no_cm)) %>
+    </td>
+    <td colspan=4 style="border:0px">
+      検索結果<%= @total %>件
     </td>
   </tr>
   <tr style="color:white; background-color:#800000">

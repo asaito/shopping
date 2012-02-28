@@ -32,7 +32,10 @@ class ComdtiesController < ApplicationController
     #@cmdty_stnd_views = CmdtystndrdmStndrdcontentmView.paginate(:page => params[:page], :conditions => $serchwhere, :select => "distint cmdtycode ", :order => 'cmdtycode asc', :per_page => 10)
     cmdtystndrdms = Cmdtystndrdm.all
     @arystnd = cmstnd(@comdties, cmdtystndrdms)
-    #@arystnd = cmstndv(@comdties, @cmdty_stnd_views)
+
+    conncmdtyms = Conncmdtym.all    
+    @arycncm = cncm(@comdties, conncmdtyms)
+
     $comdties = @comdties
     logd("$serchwhere:", $serchwhere)
     logd("@comdties.size:", @comdties.size)
@@ -44,6 +47,7 @@ class ComdtiesController < ApplicationController
     #end
     logd("@arystnd.first:", @arystnd.first)
     logd("@arystnd:", @arystnd)
+    logd("@arycncm:", @arycncm)
     $afterIndex = 1
     respond_to do |format|
       format.html # index.html.erb
@@ -88,6 +92,27 @@ class ComdtiesController < ApplicationController
         end
       end
       a.push(stnd)
+    end
+    a
+  end
+
+  def cncm(cms, cncms)
+    a = []
+    logd("cncms.size:", cncms.size)
+    cms.each do |cm|
+      find = 0
+      conncm = ""
+      cncms.each do |cncm|
+        logd("cm.cmdtycode cncm.cmdtycode:", cm.cmdtycode+" "+cncm.cmdtycode)
+        if cm.cmdtycode == cncm.cmdtycode
+          conncm = "1"
+          find = 1
+        end
+        if find == 1
+          break;
+        end
+      end
+      a.push(conncm)
     end
     a
   end

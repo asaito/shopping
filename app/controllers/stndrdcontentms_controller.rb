@@ -54,7 +54,7 @@ class StndrdcontentmsController < ApplicationController
 	logd("params[:del_image][i.to_s]:", params[:del_image][i.to_s])
         if params[:del_image][i.to_s] != nil
 	  logd("params[:stndrdcontentid][i.to_s]:", params[:stndrdcontentid][i.to_s])
-          stndrdcontentm =Stndrdcontentm.find_by_id(params[:stndrdcontentid][i.to_s])
+          stndrdcontentm = Stndrdcontentm.find_by_id(params[:stndrdcontentid][i.to_s])
 	  #sql = "select * from cmdtystndrdms where (stndrdcode1 = '" + "s1" + "' and elementcode1 = '" + params[:elementcode][i.to_s] + "') or (stndrdcode2 = '" + "s1" + "' and elementcode2 = '" + params[:elementcode][i.to_s] + "')" 
 	  sql = "select count(cmdtycode) from cmdtystndrdm_stndrdcontentm_views where stndrdcode = '" + @stcd_from_stndrdnamem + "'"
 	  logd("sql:", sql)

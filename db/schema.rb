@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120220081236) do
+ActiveRecord::Schema.define(:version => 20120227074812) do
 
   create_table "cmdtyctgries", :force => true do |t|
     t.string   "shopcode",   :null => false
@@ -68,6 +68,16 @@ ActiveRecord::Schema.define(:version => 20120220081236) do
     t.integer  "ranking"
     t.datetime "rankingdatetime"
     t.datetime "initdatetime"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "conncmdtyms", :force => true do |t|
+    t.string   "shopcode",                     :null => false
+    t.string   "cmdtycode",                    :null => false
+    t.string   "connshopcode",                 :null => false
+    t.string   "conncmdtycode",                :null => false
+    t.integer  "disporder",     :default => 0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

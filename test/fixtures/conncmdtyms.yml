@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  shopcode: MyString
+  cmdtycode: MyString
+  connshopcode: MyString
+  conncmdtycode: MyString
+  disporder: 1
+
+two:
+  shopcode: MyString
+  cmdtycode: MyString
+  connshopcode: MyString
+  conncmdtycode: MyString
+  disporder: 1

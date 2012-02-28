@@ -211,13 +211,16 @@ border: 1px #2b2b2b solid;
     <td align="center">
       <a href=<%= cmdtystndrdms_path %>?cmdtycode=<%= comdty.cmdtycode %>&cmdtyname=<%= comdty.cmdtyname %>&idcmd=<%= comdty.id %>><%= @arystnd.first != "" ? image_tag("mallmgr/btn_SS_Exist.gif") : image_tag("mallmgr/btn_SS_Nothing.gif") %></a>
     </td>
-    <td align="center">&nbsp;</td>
+    <td align="center">
+      <a href=<%= conncmdtyms_path %>?cmdtycode=<%= comdty.cmdtycode %>&cmdtyname=<%= comdty.cmdtyname %>&idcmd=<%= comdty.id %>><%= @arycncm.first != "" ? image_tag("mallmgr/btn_SS_Exist.gif") : image_tag("mallmgr/btn_SS_Nothing.gif") %></a>
+    </td>
     <td align="center">
       <a href=<%= edit_comdty_path(comdty)%>?copy=1&cmdtycode=<%= comdty.cmdtycode %>&idcmd=<%= comdty.id %>><%= image_tag("mallmgr/btn_S_Copy.gif") %></a>
 </td>
   </tr>
     <% @aryctg.shift %>
     <% @arystnd.shift %>
+    <% @arycncm.shift %>
   <% end %>
   <tr style="border:0px">
     <td style="border:0px">

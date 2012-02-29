@@ -11,142 +11,305 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :shopcode %><br />
-    <%= f.text_field :shopcode %>
-  </div>
-  <div class="field">
-    <%= f.label :cmdtycode %><br />
-    <%= f.text_field :cmdtycode %>
-  </div>
-  <div class="field">
-    <%= f.label :jancode %><br />
-    <%= f.text_field :jancode %>
-  </div>
-  <div class="field">
-    <%= f.label :cmdtyname %><br />
-    <%= f.text_field :cmdtyname %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :stockcode %><br />
-    <%= f.text_field :stockcode %>
-  </div>
-  <div class="field">
-    <%= f.label :stockunitprice %><br />
-    <%= f.text_field :stockunitprice %>
-  </div>
-  <div class="field">
-    <%= f.label :unitprice %><br />
-    <%= f.text_field :unitprice %>
-  </div>
-  <div class="field">
-    <%= f.label :salesunitprice %><br />
-    <%= f.text_field :salesunitprice %>
-  </div>
-  <div class="field">
-    <%= f.label :taxflg %><br />
-    <%= f.text_field :taxflg %>
-  </div>
-  <div class="field">
-    <%= f.label :adviceflg %><br />
-    <%= f.text_field :adviceflg %>
-  </div>
-  <div class="field">
-    <%= f.label :bannerfile %><br />
-    <%= f.text_field :bannerfile %>
-  </div>
-  <div class="field">
-    <%= f.label :bannerurl %><br />
-    <%= f.text_field :bannerurl %>
-  </div>
-  <div class="field">
-    <%= f.label :memberdiscountflg %><br />
-    <%= f.text_field :memberdiscountflg %>
-  </div>
-  <div class="field">
-    <%= f.label :srchkeyname1 %><br />
-    <%= f.text_field :srchkeyname1 %>
-  </div>
-  <div class="field">
-    <%= f.label :srchkeyname2 %><br />
-    <%= f.text_field :srchkeyname2 %>
-  </div>
-  <div class="field">
-    <%= f.label :srchkeyname3 %><br />
-    <%= f.text_field :srchkeyname3 %>
-  </div>
-  <div class="field">
-    <%= f.label :cmdtysize %><br />
-    <%= f.text_field :cmdtysize %>
-  </div>
-  <div class="field">
-    <%= f.label :sellfromdate %><br />
-    <%= f.date_select :sellfromdate %>
-  </div>
-  <div class="field">
-    <%= f.label :endsellflg %><br />
-    <%= f.text_field :endsellflg %>
-  </div>
-  <div class="field">
-    <%= f.label :selltodate %><br />
-    <%= f.date_select :selltodate %>
-  </div>
-  <div class="field">
-    <%= f.label :salesfromdate %><br />
-    <%= f.date_select :salesfromdate %>
-  </div>
-  <div class="field">
-    <%= f.label :salestodate %><br />
-    <%= f.date_select :salestodate %>
-  </div>
-  <div class="field">
-    <%= f.label :rsrvenableflg %><br />
-    <%= f.text_field :rsrvenableflg %>
-  </div>
-  <div class="field">
-    <%= f.label :nostockflg %><br />
-    <%= f.text_field :nostockflg %>
-  </div>
-  <div class="field">
-    <%= f.label :amount %><br />
-    <%= f.text_field :amount %>
-  </div>
-  <div class="field">
-    <%= f.label :stockstatuscode %><br />
-    <%= f.text_field :stockstatuscode %>
-  </div>
-  <div class="field">
-    <%= f.label :wrappingflg %><br />
-    <%= f.text_field :wrappingflg %>
-  </div>
-  <div class="field">
-    <%= f.label :deliverytypecode %><br />
-    <%= f.text_field :deliverytypecode %>
-  </div>
-  <div class="field">
-    <%= f.label :amountflg %><br />
-    <%= f.text_field :amountflg %>
-  </div>
-  <div class="field">
-    <%= f.label :rsrvamount %><br />
-    <%= f.text_field :rsrvamount %>
-  </div>
-  <div class="field">
-    <%= f.label :ranking %><br />
-    <%= f.text_field :ranking %>
-  </div>
-  <div class="field">
-    <%= f.label :rankingdatetime %><br />
-    <%= f.datetime_select :rankingdatetime %>
-  </div>
-  <div class="field">
-    <%= f.label :initdatetime %><br />
-    <%= f.datetime_select :initdatetime %>
-  </div>
+  <table>
+    <tr>
+      <th colspan=2 bgcolor="#800000"><font color="#ffffff">項目</font></th>
+      <th colspan=4 bgcolor="#800000"><font color="#ffffff">値</font></th>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :cmdtycode %></b></td>
+      <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
+      <td colspan=3>
+	<%= @comdty.cmdtycode %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :jancode %></b></td>
+      <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
+      <td colspan=3>
+	<%= f.text_field :jancode %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :stockcode %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td colspan=3>
+        <%= select_tag("stockcode", options_for_select(@stockcode_all, @stockcode)) %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :cmdtyname %></b></td>
+      <td ><%= image_tag("lbl_S_Zen.gif") %></td>
+      <td colspan=3>
+	<%= f.text_field :cmdtyname %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :description %></b></td>
+      <td ><%= image_tag("lbl_S_Zen.gif") %></td>
+      <td colspan=3>
+        <%= f.text_area(:description,:rows => 4, :cols => 25) %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :stockunitprice %></b></td>
+      <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
+      <td colspan=3>
+	<input type="text" name="stockunitprice" style="text-align:right;" value=<%= @comdty.stockunitprice %>>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :unitprice %></b></td>
+      <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
+      <td colspan=3>
+        <input type="text" name="unitprice" style="text-align:right;" value=<%= @comdty.unitprice %>>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :salesunitprice %></b></td>
+      <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
+      <td colspan=3>
+        <input type="text" name="salesunitprice" style="text-align:right;" value=<%= @comdty.salesunitprice %>>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :taxflg %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td>
+        <%= f.radio_button(:taxflg, "taxincluded") %>税込
+      </td>
+      <td>
+        <%= f.radio_button(:taxflg, "taxexcluded") %>税抜
+      </td>
+      <td>
+        <%= f.radio_button(:taxflg, "notax") %>非課税
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :adviceflg %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td>
+        <%= f.radio_button(:adviceflg, "normal") %>通常
+      </td>
+      <td>
+        <%= f.radio_button(:adviceflg, "advice") %>おすすめ
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :bannerfile %></b></td>
+      <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
+      <td colspan=3>
+        <%= f.text_field :bannerfile %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :bannerurl %></b></td>
+      <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
+      <td colspan=3>
+        <%= f.text_field :bannerurl %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :memberdiscountflg %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td>
+        <%= f.radio_button(:memberdiscountflg, "no") %>しない
+      </td>
+      <td>
+        <%= f.radio_button(:memberdiscountflg, "yes") %>する
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :srchkeyname1 %></b></td>
+      <td ><%= image_tag("lbl_S_Zen.gif") %></td>
+      <td colspan=3>
+        <%= f.text_field :srchkeyname1 %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :srchkeyname2 %></b></td>
+      <td ><%= image_tag("lbl_S_Zen.gif") %></td>
+      <td colspan=3>
+        <%= f.text_field :srchkeyname2 %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :srchkeyname3 %></b></td>
+      <td ><%= image_tag("lbl_S_Zen.gif") %></td>
+      <td colspan=3>
+        <%= f.text_field :srchkeyname3 %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :cmdtysize %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td colspan=3>
+        <%= select_tag("cmdtysize", options_for_select(@cmdtysize_all, @cmdtysize)) %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :sellfromdate %></b></td>
+      <td><%= image_tag("lbl_S_Seireki.gif") %></td>
+      <td colspan=3>
+        <%= f.date_select("sellfromdate", :use_month_numbers => true, :disabled => false) %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :selltodate %></b></td>
+      <td><%= image_tag("lbl_S_Seireki.gif") %></td>
+      <td colspan=3>
+        <%= f.date_select("selltodate", :use_month_numbers => true, :disabled => false) %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :salesfromdate %></b></td>
+      <td><%= image_tag("lbl_S_Seireki.gif") %></td>
+      <td colspan=3>
+        <%= f.date_select("salesfromdate", :use_month_numbers => true, :disabled => false) %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :salestodate %></b></td>
+      <td><%= image_tag("lbl_S_Seireki.gif") %></td>
+      <td colspan=3>
+        <%= f.date_select("salestodate", :use_month_numbers => true, :disabled => false) %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :rsrvenableflg %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td>
+        <%= f.radio_button(:rsrvenableflg, "no") %>しない
+      </td>
+      <td>
+        <%= f.radio_button(:rsrvenableflg, "yes") %>する
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :wrappingflg %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td>
+        <%= f.radio_button(:wrappingflg, "no") %>しない
+      </td>
+      <td>
+        <%= f.radio_button(:wrappingflg, "yes") %>する
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :amountflg %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td>
+        <%= f.radio_button(:amountflg, "no") %>しない
+      </td>
+      <td>
+        <%= f.radio_button(:amountflg, "yes") %>する
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :nostockflg %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td>
+        <%= f.radio_button(:nostockflg, "no") %>しない
+      </td>
+      <td>
+        <%= f.radio_button(:nostockflg, "yes") %>する
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :amount %></b></td>
+      <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
+      <td colspan=3>
+        <input type="text" name="salesunitprice" style="text-align:right;" value=<%= @comdty.amount %>>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :rsrvamount %></b></td>
+      <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
+      <td colspan=3>
+        <input type="text" name="rsrvamount" style="text-align:right;" value=<%= @comdty.rsrvamount %>>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :stockstatuscode %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td colspan=3>
+        <%= select_tag("stockstatuscode", options_for_select(@stockstatuscode_all, @stockstatuscode)) %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :deliverytypecode %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td colspan=3>
+        <%= select_tag("deliverytypecode", options_for_select(@deliverytypecode_all, @deliverytypecode)) %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :ranking %>(<%= f.label :rankingdatetime %>)</b></td>
+      <td colspan=4>
+        <%= @comdty.ranking %>&nbsp;
+        <%= @comdty.rankingdatetime %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :initdatetime %></b></td>
+      <td colspan=4>
+        <%= @comdty.initdatetime %>
+      </td>
+    </tr>
+  </table>
+  <table>
+    <tr>
+      <td>
+	  <%= link_to image_tag("mallmgr/btn_L_Preview.gif"), @comdty %>
+	  <%= link_to image_tag("mallmgr/btn_L_Back.gif"), comdties_url %>
+	  <%= link_to image_tag("mallmgr/btn_L_Reset.gif"), reset_comdty_path(@comdty) %>
+	  <%= image_submit_tag("mallmgr/btn_L_Confirm.gif", :confirm => 'Are you sure?') %>
+      </td>
+    </tr>
+  </table>
 
   <div class="actions">
     <% if $copy == '1' %>

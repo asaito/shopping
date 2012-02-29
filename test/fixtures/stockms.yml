@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  shopcode: MyString
+  stockcode: MyString
+  stockname: MyString
+  tel: MyString
+  fax: MyString
+  email: MyString
+  chargeusername: MyString
+
+two:
+  shopcode: MyString
+  stockcode: MyString
+  stockname: MyString
+  tel: MyString
+  fax: MyString
+  email: MyString
+  chargeusername: MyString

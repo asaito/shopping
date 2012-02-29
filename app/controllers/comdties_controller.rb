@@ -145,6 +145,16 @@ class ComdtiesController < ApplicationController
   # GET /comdties/1/edit
   def edit
     @comdty = Comdty.find(params[:id])
+    @stockcode_all = ["1", "2", "3", "4", "5"]
+    @cmdtysize_all = ["LL", "L", "M", "S"]
+    @cmdtysize = "M"
+    @stockstatuscode_all = ["", "", "", ""]
+    @stockstatuscode = "aaaa"
+    @deliverytypecode_all = ["通常便", "", ""]
+    @deliverytypecode = "通常便"
+  end
+
+  def reset
   end
 
   # POST /comdties

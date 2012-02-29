@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120227074812) do
+ActiveRecord::Schema.define(:version => 20120229073237) do
 
   create_table "cmdtyctgries", :force => true do |t|
     t.string   "shopcode",   :null => false
@@ -211,6 +211,18 @@ ActiveRecord::Schema.define(:version => 20120227074812) do
     t.string   "shopcode",   :null => false
     t.string   "stndrdcode", :null => false
     t.string   "stndrdname", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stockms", :force => true do |t|
+    t.string   "shopcode",       :null => false
+    t.string   "stockcode",      :null => false
+    t.string   "stockname",      :null => false
+    t.string   "tel"
+    t.string   "fax"
+    t.string   "email"
+    t.string   "chargeusername"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

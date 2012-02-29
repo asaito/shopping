@@ -219,6 +219,41 @@ ja:
         rankingflg: ランキング集計項目
         rankingcount: ランキング対象
         rankingdays: ランキング集計期間
+      comdty:
+        shopcode: ショップコード
+        cmdtycode: 商品コード
+        jancode: ジャンコード
+        cmdtyname: 商品名
+        description: 商品説明
+        stockcode: 仕入先
+        stockunitprice: 仕入価格
+        unitprice: 販売価格
+        salesunitprice: 特別価格
+        taxflg: 価格税区分
+        adviceflg: お勧め設定
+        bannerfile: お勧めバナー
+        bannerurl: 商品紹介URL
+        memberdiscountflg: 会員割引
+        srchkeyname1: 検索キーワード１
+        srchkeyname2: 検索キーワード２
+        srchkeyname3: 検索キーワード３
+        cmdtysize: 運賃サイズ
+        sellfromdate: 販売開始日
+        endsellflg: 在庫一掃販売
+        selltodate: 販売終了日
+        salesfromdate: 特別価格開始日
+        salestodate: 特別価格終了日
+        rsrvenableflg: 予約販売
+        nostockflg: 在庫なし販売
+        amount: 在庫数量
+        stockstatuscode: 在庫状況表示設定
+        wrappingflg: ラッピング使用
+        deliverytypecode: 配送種別
+        amountflg: 在庫数管理
+        rsrvamount: 予約可能数
+        ranking: ランキング
+        rankingdatetime: 集計日時
+        initdatetime: 登録日時
         
   site_title: ゲームブログ
   Listing_mallshopms: ショップマスタ

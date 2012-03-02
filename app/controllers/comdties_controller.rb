@@ -145,13 +145,49 @@ class ComdtiesController < ApplicationController
   # GET /comdties/1/edit
   def edit
     @comdty = Comdty.find(params[:id])
-    @stockcode_all = ["1", "2", "3", "4", "5"]
+    @stockcode_all = getstockcodes  #["1", "2", "3", "4", "5"]
+    if params[:stockcode] != nil
+      @stockcode = params[:stockcode]
+    else
+      @stockcode = ""
+    end
     @cmdtysize_all = ["LL", "L", "M", "S"]
     @cmdtysize = "M"
-    @stockstatuscode_all = ["", "", "", ""]
-    @stockstatuscode = "aaaa"
+    @stockstatusnames, @stockstatusname, @stockstatusids, @stockstatusid = getstockstatusnames(@comdty)
+    logd("@stockstatusnames:", @stockstatusnames)
+    logd("@stockstatusname:", @stockstatusname)
+    logd("params[:stockstatusname]:", params[:stockstatusname])
+    logd("@stockstatusid:", @stockstatusid)
     @deliverytypecode_all = ["通常便", "", ""]
     @deliverytypecode = "通常便"
+  end
+
+  def getstockcodes
+    cds = []
+    stockms = Stockm.all
+    stockms.each do |s|
+      cds.push(s.stockcode)
+    end
+    cds
+  end
+
+  def getstockstatusnames(comdty)
+    names = []
+    name = ""
+    ids = []
+    stid = 0
+    stockstatusms = Stockstatusm.all 
+    stockstatusms.each do |s|
+      names.push(s.stockstatusname)
+      ids.push(s.id)
+      if params[:stockstatusname] != nil && params[:stockstatusname] == s.stockstatusname
+	stid = s.id
+      end
+      if s.id == comdty.stockstatuscode
+	name = s.stockstatusname
+      end
+    end
+    return names, name, ids, stid
   end
 
   def reset
@@ -235,15 +271,23 @@ class ComdtiesController < ApplicationController
   def update
     #@bodyFlash = 0
     $saveSuccess = 1
-    if $copy == '1'
-      @comdty = Comdty.new(params[:comdty])
-    else
-      @comdty = Comdty.find(params[:id])
-    end
+    @comdty = Comdty.find(params[:id].to_i)
+    comdtyn = Comdty.new(params[:comdty])
+    @comdty = comdtyn
+    @comdty = Comdty.find(params[:id])
+    @stockstatusid = Stockstatusm.find_by_stockstatusname(params[:stockstatusname]).id.to_s
+      @comdty.stockstatuscode = @stockstatusid
+    logd("params[:stockstatusname]:", params[:stockstatusname])
+    logd("@stockstatusid:", @stockstatusid)
+    logd("params[:id]:", params[:id])
+
     logger.debug 'update_some interesting information'
-    logger.debug '$copy:' + $copy
-    logger.debug '$cmdtycode:' + $cmdtycode
-    logger.debug '@comdty.cmdtycode:' + @comdty.cmdtycode
+    logd("params[:stockstatusname]:", params[:stockstatusname])
+    logd("@stockstatusid:", @stockstatusid)
+    #logger.debug '$copy:' + $copy
+    #logd("$copy:", $copy)
+    #logger.debug '$cmdtycode:' + $cmdtycode
+    #logger.debug '@comdty.cmdtycode:' + @comdty.cmdtycode
     respond_to do |format|
       if $copy == '1'
 	#@comdty.id = $idcmd
@@ -274,7 +318,8 @@ class ComdtiesController < ApplicationController
 	#logger.debug '$idcmd:' + $idcmd
 	#@comdty.id = $idcmd.to_i
 	#@comdty.id = ''
-	if @comdty.update_attributes(params[:comdty])
+	#if @comdty.update_attributes(params[:comdty])
+	if @comdty.save
 	  #@bodyFlash = 0
           format.html { redirect_to(@comdty, :notice => 'Comdty was successfully updated.') }
           format.xml  { head :ok }

@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  shopcode: MyString
+  wrappingcode: MyString
+  wrappingname: MyString
+  description: MyString
+  price: 1
+  taxflg: 1
+
+two:
+  shopcode: MyString
+  wrappingcode: MyString
+  wrappingname: MyString
+  description: MyString
+  price: 1
+  taxflg: 1

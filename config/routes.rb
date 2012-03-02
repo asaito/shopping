@@ -1,6 +1,10 @@
 Shopping::Application.routes.draw do
 
-  get "stockms/index"
+  get "wrappingms/index"
+
+  get "stockstatusms/index"
+
+  resources :stockms, :only => [ :index ]
 
   resources :conncmdtyms, :only => [ :index ]
 

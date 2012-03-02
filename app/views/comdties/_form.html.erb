@@ -273,7 +273,8 @@
       <td bgcolor="#FFFFCC"><b><%= f.label :stockstatuscode %></b></td>
       <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
       <td colspan=3>
-        <%= select_tag("stockstatuscode", options_for_select(@stockstatuscode_all, @stockstatuscode)) %>
+        <%= select_tag("stockstatusname", options_for_select(@stockstatusnames, @stockstatusname)) %>
+	<input type="hidden" name="stockstatuscode" value=<%= @stockstatusid.to_s%>>
       </td>
     </tr>
     <tr>

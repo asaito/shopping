@@ -1,0 +1,85 @@
+<style type="text/css">
+table {
+margin-bottom: 20px;
+border-collapse: collapse;
+}
+td, th {
+border: 1px #2b2b2b solid;
+}
+</style>
+
+<td><font color="#F6633" size=4 ><b>在庫状況設定</b></font></td><br>
+
+<form method="POST" action="stockstatusms" name="stockstatusm">
+<table>
+  <tr>
+  <th bgcolor="#800000"><font color="#ffffff">在庫状況分類名</font></th>
+  <th bgcolor="#800000"><font color="#ffffff">在庫無コメント</font></th>
+  <th bgcolor="#800000"><font color="#ffffff">在庫少　数量・コメント</font></th>
+  <th bgcolor="#800000"><font color="#ffffff">在庫多　コメント</font></th>
+  </tr>
+  <tr>
+      <input type="hidden" name="stockstatusidn" value=<%= @stockstatusm.id.to_s%>>
+    <td rowspan=2>
+      <%= image_tag("lbl_Hissu.gif") %>
+      <input type="text" name="stockstatusnamen" style="ime-mode:active" value=<%= @stockstatusm.stockstatusname %>>
+    </td>
+    <td rowspan=2>
+      <input type="text" name="commentofnostockn" style="ime-mode:active" value=<%= @stockstatusm.commentofnostock %>>
+    </td>
+    <td style="border-bottom: 0px">在庫数が
+      <%= image_tag("lbl_Hissu.gif") %>
+      <input size=3 type="text" name="amountoflessstockn" style="text-align:right" value=<%= @stockstatusm.amountoflessstock %>>以下の時
+    </td>
+    <td rowspan=2>
+      <input type="text" name="commentoflessstockn" style="ime-mode:active" value=<%= @stockstatusm.commentofmorestock %>>
+    </td>
+  </tr>
+  <tr>
+    <td style="border-top: 0px">
+      <input type="text" name="commentofmorestockn" style="ime-mode:active" value=<%= @stockstatusm.commentoflessstock %>>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan=4>
+          <input id="reset_image" name="reset_image", type="image", src="/images/mallmgr/btn_L_Reset.gif" value="reset" >
+          <input id="confirm_submit" name="confirm_image", type="image", src="/images/mallmgr/btn_L_Confirm.gif" value="confirm" >
+
+    </td>
+  </tr>
+</table>
+<table>
+  <input type="hidden" name="line_no" value=<%= @line_no %>>
+  <tr>
+  <th bgcolor="#800000"><font color="#ffffff">在庫状況分類名</font></th>
+  <th bgcolor="#800000"><font color="#ffffff">商品数</font></th>
+  <th bgcolor="#800000"><font color="#ffffff">在庫無コメント</font></th>
+  <th bgcolor="#800000"><font color="#ffffff">在庫少　数量・コメント</font></th>
+  <th bgcolor="#800000"><font color="#ffffff">在庫多　コメント</font></th>
+  <th bgcolor="#800000"></th>
+  <th bgcolor="#800000"></th>
+  </tr>
+  <% i = 0 %>
+  <% @stockstatusms.each do |st| %>
+    <input type="hidden" name="stockstatusid[<%= i.to_s %>]" value=<%= st.id %>>
+  <tr>
+  <td><%= st.stockstatusname %></td>
+  <td></td>
+  <td><%= st.commentofnostock %></td>
+  <td>在庫数が<%= st.amountoflessstock %>以下の時<%= st.commentoflessstock %></td>
+  <td><%= st.commentofmorestock %></td>
+  <td>
+    <input id="select" name="select_image[<%= i.to_s %>]", type="image", src="/images/mallmgr/btn_S_Select.gif" value="選択" >
+  </td>
+  <td>
+  </td>
+  </tr>
+    <% i += 1 %>
+  <% end %>
+</table>
+</form>
+
+
+
+
+

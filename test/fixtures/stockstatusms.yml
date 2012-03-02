@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  stockstatuscode: 1
+  stockstatusname: MyString
+  commentofnostock: MyString
+  amountoflessstock: 1
+  commentoflessstock: MyString
+  commentofmorestock: MyString
+
+two:
+  stockstatuscode: 1
+  stockstatusname: MyString
+  commentofnostock: MyString
+  amountoflessstock: 1
+  commentoflessstock: MyString
+  commentofmorestock: MyString

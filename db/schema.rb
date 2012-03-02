@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120229073237) do
+ActiveRecord::Schema.define(:version => 20120302011325) do
 
   create_table "cmdtyctgries", :force => true do |t|
     t.string   "shopcode",   :null => false
@@ -223,6 +223,28 @@ ActiveRecord::Schema.define(:version => 20120229073237) do
     t.string   "fax"
     t.string   "email"
     t.string   "chargeusername"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stockstatusms", :force => true do |t|
+    t.integer  "stockstatuscode",                   :null => false
+    t.string   "stockstatusname"
+    t.string   "commentofnostock"
+    t.integer  "amountoflessstock",  :default => 0, :null => false
+    t.string   "commentoflessstock"
+    t.string   "commentofmorestock"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "wrappingms", :force => true do |t|
+    t.string   "shopcode",                    :null => false
+    t.string   "wrappingcode",                :null => false
+    t.string   "wrappingname",                :null => false
+    t.string   "description"
+    t.integer  "price",        :default => 0, :null => false
+    t.integer  "taxflg",       :default => 1, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,0 +1,51 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  memberlevelcode: 1
+  custcompanyflg: 1
+  custname: MyString
+  custpronname: MyString
+  email: MyString
+  password: MyString
+  pwquestion: MyString
+  pwanswer: MyString
+  postcode1: MyString
+  postcode2: MyString
+  address1: MyString
+  address2: MyString
+  address3: MyString
+  companyname: MyString
+  tel: MyString
+  fax: MyString
+  paymethodcode: 1
+  birthdate: 2012-03-05
+  sex: 1
+  newmailflg: 1
+  job: MyString
+  howtoknow: MyString
+  custcode: 1
+
+two:
+  memberlevelcode: 1
+  custcompanyflg: 1
+  custname: MyString
+  custpronname: MyString
+  email: MyString
+  password: MyString
+  pwquestion: MyString
+  pwanswer: MyString
+  postcode1: MyString
+  postcode2: MyString
+  address1: MyString
+  address2: MyString
+  address3: MyString
+  companyname: MyString
+  tel: MyString
+  fax: MyString
+  paymethodcode: 1
+  birthdate: 2012-03-05
+  sex: 1
+  newmailflg: 1
+  job: MyString
+  howtoknow: MyString
+  custcode: 1

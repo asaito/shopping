@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120302011325) do
+ActiveRecord::Schema.define(:version => 20120305015837) do
 
   create_table "cmdtyctgries", :force => true do |t|
     t.string   "shopcode",   :null => false
@@ -104,6 +104,33 @@ ActiveRecord::Schema.define(:version => 20120302011325) do
   add_index "ctgrymtbls", ["ctgrycode"], :name => "index_ctgrymtbls_on_ctgrycode", :unique => true
   add_index "ctgrymtbls", ["ctgryname"], :name => "index_ctgrymtbls_on_ctgryname", :unique => true
   add_index "ctgrymtbls", ["id", "updated_at"], :name => "index_ctgrymtbls_on_id_and_updated_at"
+
+  create_table "custs", :force => true do |t|
+    t.integer  "memberlevelcode",                :null => false
+    t.integer  "custcompanyflg",  :default => 0, :null => false
+    t.string   "custname",                       :null => false
+    t.string   "custpronname",                   :null => false
+    t.string   "email",                          :null => false
+    t.string   "password",                       :null => false
+    t.string   "pwquestion"
+    t.string   "pwanswer"
+    t.string   "postcode1",                      :null => false
+    t.string   "postcode2",                      :null => false
+    t.string   "address1",                       :null => false
+    t.string   "address2",                       :null => false
+    t.string   "address3"
+    t.string   "companyname"
+    t.string   "tel"
+    t.string   "fax"
+    t.integer  "paymethodcode"
+    t.date     "birthdate"
+    t.integer  "sex",             :default => 0, :null => false
+    t.integer  "newmailflg",      :default => 0, :null => false
+    t.string   "job"
+    t.string   "howtoknow"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "emp", :id => false, :force => true do |t|
     t.string  "empno", :null => false

@@ -1,5 +1,9 @@
 Shopping::Application.routes.draw do
 
+  resources :custs do
+    put :edit, :on => :member
+  end
+
   get "wrappingms/index"
 
   get "stockstatusms/index"

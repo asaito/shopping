@@ -1,0 +1,109 @@
+<%= form_for(@cust) do |f| %>
+  <% if @cust.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cust.errors.count, "error") %> prohibited this cust from being saved:</h2>
+
+      <ul>
+      <% @cust.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :memberlevelcode %><br />
+    <%= f.text_field :memberlevelcode %>
+  </div>
+  <div class="field">
+    <%= f.label :custcompanyflg %><br />
+    <%= f.text_field :custcompanyflg %>
+  </div>
+  <div class="field">
+    <%= f.label :custname %><br />
+    <%= f.text_field :custname %>
+  </div>
+  <div class="field">
+    <%= f.label :custpronname %><br />
+    <%= f.text_field :custpronname %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.text_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :pwquestion %><br />
+    <%= f.text_field :pwquestion %>
+  </div>
+  <div class="field">
+    <%= f.label :pwanswer %><br />
+    <%= f.text_field :pwanswer %>
+  </div>
+  <div class="field">
+    <%= f.label :postcode1 %><br />
+    <%= f.text_field :postcode1 %>
+  </div>
+  <div class="field">
+    <%= f.label :postcode2 %><br />
+    <%= f.text_field :postcode2 %>
+  </div>
+  <div class="field">
+    <%= f.label :address1 %><br />
+    <%= f.text_field :address1 %>
+  </div>
+  <div class="field">
+    <%= f.label :address2 %><br />
+    <%= f.text_field :address2 %>
+  </div>
+  <div class="field">
+    <%= f.label :address3 %><br />
+    <%= f.text_field :address3 %>
+  </div>
+  <div class="field">
+    <%= f.label :companyname %><br />
+    <%= f.text_field :companyname %>
+  </div>
+  <div class="field">
+    <%= f.label :tel %><br />
+    <%= f.text_field :tel %>
+  </div>
+  <div class="field">
+    <%= f.label :fax %><br />
+    <%= f.text_field :fax %>
+  </div>
+  <div class="field">
+    <%= f.label :paymethodcode %><br />
+    <%= f.text_field :paymethodcode %>
+  </div>
+  <div class="field">
+    <%= f.label :birthdate %><br />
+    <%= f.date_select :birthdate %>
+  </div>
+  <div class="field">
+    <%= f.label :sex %><br />
+    <%= f.text_field :sex %>
+  </div>
+  <div class="field">
+    <%= f.label :newmailflg %><br />
+    <%= f.text_field :newmailflg %>
+  </div>
+  <div class="field">
+    <%= f.label :job %><br />
+    <%= f.text_field :job %>
+  </div>
+  <div class="field">
+    <%= f.label :howtoknow %><br />
+    <%= f.text_field :howtoknow %>
+  </div>
+  <div class="field">
+    <%= f.label :id %><br />
+    <%= f.text_field :id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

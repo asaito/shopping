@@ -254,6 +254,8 @@ ja:
         ranking: ランキング
         rankingdatetime: 集計日時
         initdatetime: 登録日時
+      cust:
+        custcompanyflg: 法人・個人区分
         
   site_title: ゲームブログ
   Listing_mallshopms: ショップマスタ

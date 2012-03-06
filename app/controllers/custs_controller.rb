@@ -1,8 +1,18 @@
+# -*- encoding: utf-8 -*-
+require 'rubygems'
+require 'csv'
 class CustsController < ApplicationController
   # GET /custs
   # GET /custs.xml
   def index
     @num_list = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20']
+    if params[:page] == nil
+      if params[:line_no] != nil
+        $sel_no_cm = params[:line_no]
+      else
+        $sel_no_cm = "10"
+      end
+    end
 
     $memberlevel_list = ["1", "2", "3"]
     #@sel_memberlevel = "2"
@@ -10,6 +20,7 @@ class CustsController < ApplicationController
     logd("$serchwhere:", $serchwhere)
     logd("@id_serch:", @id_serch)
     @custs = Cust.paginate(:page => params[:page], :conditions => $serchwhere, :order => 'id asc', :per_page => $sel_no_cm)
+    $custs = @custs
     cmtotal = Cust.where($serchwhere)
     if cmtotal != nil
       @total = cmtotal.size
@@ -129,7 +140,48 @@ class CustsController < ApplicationController
       $serchwhere = getConditions()
       logd("$serchwhere:", $serchwhere)
     elsif params['outputcsv_image.x']
+      csv
+      return
     elsif params['sendnewmail_image.x']
+      sendmail
+    elsif params['dm_image.x']
+      dm
+    elsif params['del_image.x']
+      delids = []
+      checked = params[:checked_items]
+      checked.each{|key, value|
+        logger.debug 'checked1.key:' + key
+        delids.push(key)
+        value.each{|key, value|
+          logger.debug 'checked2.key:' + key
+          logger.debug 'checked2.value:' + value
+        }
+      }
+      logger.debug 'delids.length:' + delids.length.to_s
+      for i in 0..delids.length - 1
+        logger.debug 'delids' + '[' + i.to_s + ']:' + delids[i]
+      end
+      Cust.delete(delids)
+
+      respond_to do |format|
+        format.html { redirect_to(custs_url) }
+        format.xml  { head :ok }
+      end
+      return
+    elsif params['allsel_image.x']
+      $checked = true
+      respond_to do |format|
+        format.html { redirect_to(custs_url) }
+        format.xml  { head :ok }
+      end
+      return
+    elsif params['allrel_image.x']
+      $checked = false
+      respond_to do |format|
+        format.html { redirect_to(custs_url) }
+        format.xml  { head :ok }
+      end
+      return
     else
       @cust = Cust.new(params[:cust])
       respond_to do |format|
@@ -190,4 +242,40 @@ class CustsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def csv
+    filename = "custs#{Time.now.strftime('%Y_%m_%d_%H_%M_%S')}.csv"
+    filepath = "tmp/csv/" + filename
+    output = CSV.open(filepath, "a") do |csv|
+      csv << ['顧客ID', '個人・法人区分', '会員種別', '顧客名', '顧客名カナ', 'メールアドレス', 'パスワード', 'パスワードリマインダ質問', 'パスワードリマインダ回答', '郵便番号１', '郵便番号２', '住所１', '住所２', '住所３', '会社名', '連絡先電話番号', '連絡先FAX番号', 'お支払い方法', '生年月日', '性別', '職業', 'サイトを知った場所', '情報メール', '作成日時', '更新日時']
+      $custs.each do |cust|
+	csv << [cust.id, cust.memberlevelcode, cust.custcompanyflg, cust.custname, cust.custpronname, cust.email, cust.password, cust.pwquestion, cust.pwanswer, cust.postcode1, cust.postcode2, cust.address1, cust.address2, cust.address3, cust.companyname, cust.tel, cust.fax, cust.paymethodcode, cust.birthdate, cust.sex, cust.job, cust.howtoknow, cust.newmailflg, cust.created_at, cust.updated_at]
+      end
+    end
+    send_file(filepath,
+              :type => 'text/csv',
+              :filename => filename)
+  end
+
+  def sendmail
+    $custs.each do |cust|
+      if cust.newmailflg == 1
+	mail = UserMailer.notice(cust)
+	mail.deliver
+	end
+    end
+  end
+
+  def dm
+    f = File.open("public/dm/filename.txt","w")
+    $custs.each do |cust|
+      f.write cust.postcode1 + "-" + cust.postcode2 + " "
+      f.write cust.address1 + cust.address2
+      #f.write cust.address3 + " "
+      f.write " " + cust.custname
+      f.write "\n"
+    end
+    f.close
+  end
+
 end

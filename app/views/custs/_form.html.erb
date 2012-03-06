@@ -11,6 +11,22 @@
     </div>
   <% end %>
 
+  <table>
+    <tr>
+      <th colspan=2 bgcolor="#800000"><font color="#ffffff">項目</font></th>
+      <th colspan=4 bgcolor="#800000"><font color="#ffffff">値</font></th>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :custcompanyflg %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td colspan=3>
+        <%= @cust.custcompanyflg %>
+      </td>
+    </tr>
+  </table>
+
+
   <div class="field">
     <%= f.label :memberlevelcode %><br />
     <%= f.text_field :memberlevelcode %>
@@ -107,3 +123,4 @@
     <%= f.submit %>
   </div>
 <% end %>
+

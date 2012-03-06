@@ -100,7 +100,7 @@ border: 1px #2b2b2b solid;
         <div class="field">
           <tr style="border:0px">
           <td style="border:0px">
-            <a href=<%= new_comdty_path%>?copy=0&cmdtycode=0><%= image_tag("mallmgr/btn_L_AddNewCust.gif") %></a>
+            <a href=<%= new_cust_path%>?&custid=0><%= image_tag("mallmgr/btn_L_AddNewCust.gif") %></a>
           </td>
           </tr>
         </div>
@@ -145,6 +145,7 @@ border: 1px #2b2b2b solid;
   </tr>
 
     <tr style="color:white; background-color:#800000">
+      <th></th>
       <th>顧客コード</th>
       <th>会員種別</th>
       <th>個・法</th>
@@ -159,7 +160,13 @@ border: 1px #2b2b2b solid;
 
   <% @custs.each do |cust| %>
     <tr>
-      <td><%= cust.id %></td>
+      <td>
+	<%= check_box_tag "checked_items[#{cust.id}][flag]", "0", checked=$checked %>
+      </td>
+
+      <td>
+	<a href=<%= edit_cust_path(cust)%>?&idcmd=<%= cust.id %>><%= cust.id %></a>
+      </td>
       <td><%= cust.memberlevelcode %></td>
       <td><%= cust.custcompanyflg %></td>
       <td><%= cust.custname %></td>
@@ -209,5 +216,3 @@ border: 1px #2b2b2b solid;
 
 
 <br />
-
-<%= link_to 'New Cust', new_cust_path %>

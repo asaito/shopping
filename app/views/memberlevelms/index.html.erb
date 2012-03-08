@@ -1,0 +1,77 @@
+<style type="text/css">
+table {
+margin-bottom: 20px;
+border-collapse: collapse;
+}
+td, th {
+border: 1px #2b2b2b solid;
+}
+</style>
+
+<td><font color="#F6633" size=4 ><b>会員種別マスタ</b></font></td><br>
+<form method="POST" action="memberlevelms" name="memberlevelm">
+
+<table style="width:640px;height:10px">
+  <tr>
+    <th style="width:150px" bgcolor="#800000"><font color="#ffffff">会員レベル&nbsp;&nbsp;&nbsp;</font></th>
+    <th bgcolor="#800000"><font color="#ffffff">会員種別名</font></th>
+    <th bgcolor="#800000"><font color="#ffffff">値引率</font></th>
+  </tr>
+  <tr>
+    <td>
+      <%= image_tag("lbl_Hissu.gif") %>
+      <input size=5 name="memberleveln" style="ime-mode:disabled" value=<%= @memberleveln %>>
+    </td>
+    <td>
+      <%= image_tag("lbl_Hissu.gif") %>
+      <input name="memberlevelnamen" style="ime-mode:active" value=<%= @memberlevelnamen %>>
+    </td>
+    <td>
+      <%= image_tag("lbl_Hissu.gif") %>
+      <input size=4 name="discountraten" style="ime-mode:disabled" value=<%= @discountraten %>>%
+    </td>
+  </tr>
+  <tr>
+    <td colspan=3 align="center">
+      <input id="confirm_submit" name="confirm_image", type="image", src="/images/mallmgr/btn_L_Confirm.gif" value="confirm" %>
+      <input id="ireset_submit" name="reset_image", type="image", src="/images/mallmgr/btn_L_Reset.gif" value="reset" %>
+
+    </td>
+  </tr>
+</table>
+<br>
+<table style="width:720px;height:10px">
+  <tr>
+    <th style="width:150px" bgcolor="#800000"><font color="#ffffff">会員レベル</font></th>
+    <th bgcolor="#800000"><font color="#ffffff">会員種別名</font></th>
+    <th bgcolor="#800000"><font color="#ffffff">会員数</font></th>
+    <th bgcolor="#800000"><font color="#ffffff">値引率</font></th>
+    <th bgcolor="#800000"><font color="#ffffff">更新日時</font></th>
+    <th bgcolor="#800000"></th>
+    <th bgcolor="#800000"></th>
+  </tr>
+    <input type="hidden" name="line_no" value=<%= @line_no %> >
+  <% i = 0 %>
+  <% @memberlevelms.each do |ml| %>
+  <tr>
+      <input type="hidden" name="memberlevelmid[<%= i.to_s %>]" value=<%= ml.id %> >
+      <td><%= ml.memberlevel %></td>
+      <td><%= ml.memberlevelname %></td>
+      <td><%= @custcount.first %></td>
+      <td><%= ml.discountrate %></td>
+      <td><%= ml.updated_at %></td>
+      <td align="center">
+        <input id="upd_submit" name="upd_image[<%= i.to_s %>]", type="image", src="/images/mallmgr/btn_S_Select.gif" value="select" >
+      </td>
+      <td align="center">
+	  <% if @custcount.first == 0 && (ml.memberlevel != 1 || ml.memberlevelname != "基本会員") %>
+        <input id="del_submit" name="del_image[<%= i.to_s %>]", type="image", src="/images/mallmgr/btn_S_Delete.gif" value="delete" >
+	  <% end %>
+      </td>
+  </tr>
+    <% i += 1 %>
+    <% @custcount.shift %>
+  <% end %>
+</table>
+</form>
+

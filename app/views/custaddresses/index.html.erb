@@ -1,0 +1,50 @@
+<style type="text/css">
+table {
+margin-bottom: 20px;
+border-collapse: collapse;
+}
+td, th {
+border: 1px #2b2b2b solid;
+}
+</style>
+
+<td><font color="#F6633" size=4 ><b>配送先一覧</b></font></td><br>
+
+<form method="POST" action="custaddresses" name="custaddress">
+<table width=60%>
+    <tr style="color:white; background-color:#800000">
+      <th>ID</th>
+      <th>配送先呼称</th>
+      <th>宛名</th>
+      <th>個・法</th>
+      <th>会社名</th>
+      <th>電話番号</th>
+    </tr>
+
+  <% @custaddresses.each do |ca| %>
+    <tr>
+      <td>
+        <a href=<%= edit_custaddress_path(ca)%>?&idcmd=<%= ca.id %>><%= ca.id %></a>
+      </td>
+      <td><%= ca.deliveryname %></td>
+      <td><%= ca.deliveryaddressee %></td>
+      <td><%= ca.custcompanyflg %></td>
+      <td><%= ca.companyname %></td>
+      <td><%= $custtel %></td>
+
+
+    </tr>
+  <% end %>
+</table>
+<br />
+  <table>
+    <tr>
+      <td colspan=2 align="center" style="border:0px">      
+	<input id="back_submit" name="back_image", type="image", src="/images/mallmgr/btn_L_Back.gif" value="back" >
+      </td>
+      <td colspan=2 align="center" style="border:0px">
+          <%= link_to image_tag("mallmgr/btn_L_AddNew.gif"), new_custaddress_path %>
+      </td>
+    </tr>
+  </table>
+  </form>

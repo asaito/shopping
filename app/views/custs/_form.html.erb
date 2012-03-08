@@ -24,101 +24,189 @@
         <%= @cust.custcompanyflg %>
       </td>
     </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :memberlevelcode %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td colspan=3>
+        <%= select_tag "cust[memberlevelcode]",options_from_collection_for_select(@memberlevelms, :id, :memberlevelname, @cust.memberlevelcode), :include_blank => false %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :custname %></b></td>
+      <td ><%= image_tag("lbl_S_Zen.gif") %></td>
+      <td colspan=3>
+        <%= f.text_field :custname %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :custpronname %></b></td>
+      <td ><%= image_tag("lbl_ZenKana.gif") %></td>
+      <td colspan=3>
+        <%= f.text_field :custpronname %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :email %></b></td>
+      <td ><%= image_tag("lbl_Email.gif") %></td>
+      <td colspan=3>
+        <%= f.text_field :email %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :password %></b></td>
+      <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
+      <td colspan=3>
+        <%= f.password_field :password %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :pwquestion %></b></td>
+      <td ><%= image_tag("lbl_S_Zen.gif") %></td>
+      <td colspan=3>
+        <%= f.text_field :pwquestion %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :pwanswer %></b></td>
+      <td ><%= image_tag("lbl_S_Zen.gif") %></td>
+      <td colspan=3>
+        <%= f.text_field :pwanswer %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b>郵便番号</b></td>
+      <td ><%= image_tag("lbl_HanSuuji.gif") %></td>
+      <td>
+	<input type="text" name="postcode1" style="ime-mode:disabled" value=<%= @postcode1 %>>- 
+      </td>
+      <td colspan=2>
+	<input type="text" name="postcode2" style="ime-mode:disabled" value=<%= @postcode2 %>>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :address1 %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td colspan=3>
+        <%= select_tag "cust[address1]",options_from_collection_for_select(@prefectures, :id, :name, (@cust.address1).to_i), :include_blank => true %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :address2 %></b></td>
+      <td ><%= image_tag("lbl_S_Zen.gif") %></td>
+      <td colspan=3>
+        <%= @cust.address2 %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :address3 %></b></td>
+      <td ><%= image_tag("lbl_S_Zen.gif") %></td>
+      <td colspan=3>
+        <%= @cust.address3 %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :companyname %></b></td>
+      <td ><%= image_tag("lbl_S_Zen.gif") %></td>
+      <td colspan=3>
+        <%= @cust.companyname %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :tel %></b></td>
+      <td ><%= image_tag("lbl_TelNo.gif") %></td>
+      <td colspan=3>
+        <%= f.text_field :tel %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :fax %></b></td>
+      <td ><%= image_tag("lbl_TelNo.gif") %></td>
+      <td colspan=3>
+        <%= f.text_field :fax %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :paymethodcode %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td colspan=3>
+        <%= f.text_field :paymethodcode %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :birthdate %></b></td>
+      <td><%= image_tag("lbl_S_Seireki.gif") %></td>
+      <td colspan=3>
+        <%= f.date_select("birthdate", :use_month_numbers => true, :disabled => false) %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :sex %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td>
+        <%= f.radio_button(:sex, "0") %>男
+      </td>
+      <td>
+        <%= f.radio_button(:sex, "1") %>女
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :job %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td colspan=3>
+        <%= f.text_field :job %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :howtoknow %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td colspan=3>
+        <%= f.text_field :howtoknow %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :newmailflg %></b></td>
+      <td ><%= image_tag("lbl_Check.gif") %></td>
+      <td colspan=3>
+        <%= check_box_tag "checked_items[flag]", "0", checked=@cust.newmailflg %>
+      </td>
+    </tr>
+  </table>
+  <table>
+    <tr>
+      <td>
+      <input id="address_submit" name="address_image", type="image", src="/images/mallmgr/btn_L_Address.gif" value="address" %>
+    </td>
+      <td>
+          <%= link_to image_tag("mallmgr/btn_L_Back.gif"), custs_url %>
+          <%= link_to image_tag("mallmgr/btn_L_Reset.gif"), reset_comdty_path(@cust) %>
+          <%= image_submit_tag("mallmgr/btn_L_Confirm.gif", :confirm => 'Are you sure?') %>
+      </td>
+    </tr>
   </table>
 
 
-  <div class="field">
-    <%= f.label :memberlevelcode %><br />
-    <%= f.text_field :memberlevelcode %>
-  </div>
-  <div class="field">
-    <%= f.label :custcompanyflg %><br />
-    <%= f.text_field :custcompanyflg %>
-  </div>
-  <div class="field">
-    <%= f.label :custname %><br />
-    <%= f.text_field :custname %>
-  </div>
-  <div class="field">
-    <%= f.label :custpronname %><br />
-    <%= f.text_field :custpronname %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.text_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :pwquestion %><br />
-    <%= f.text_field :pwquestion %>
-  </div>
-  <div class="field">
-    <%= f.label :pwanswer %><br />
-    <%= f.text_field :pwanswer %>
-  </div>
-  <div class="field">
-    <%= f.label :postcode1 %><br />
-    <%= f.text_field :postcode1 %>
-  </div>
-  <div class="field">
-    <%= f.label :postcode2 %><br />
-    <%= f.text_field :postcode2 %>
-  </div>
-  <div class="field">
-    <%= f.label :address1 %><br />
-    <%= f.text_field :address1 %>
-  </div>
-  <div class="field">
-    <%= f.label :address2 %><br />
-    <%= f.text_field :address2 %>
-  </div>
-  <div class="field">
-    <%= f.label :address3 %><br />
-    <%= f.text_field :address3 %>
-  </div>
-  <div class="field">
-    <%= f.label :companyname %><br />
-    <%= f.text_field :companyname %>
-  </div>
-  <div class="field">
-    <%= f.label :tel %><br />
-    <%= f.text_field :tel %>
-  </div>
-  <div class="field">
-    <%= f.label :fax %><br />
-    <%= f.text_field :fax %>
-  </div>
-  <div class="field">
-    <%= f.label :paymethodcode %><br />
-    <%= f.text_field :paymethodcode %>
-  </div>
-  <div class="field">
-    <%= f.label :birthdate %><br />
-    <%= f.date_select :birthdate %>
-  </div>
-  <div class="field">
-    <%= f.label :sex %><br />
-    <%= f.text_field :sex %>
-  </div>
-  <div class="field">
-    <%= f.label :newmailflg %><br />
-    <%= f.text_field :newmailflg %>
-  </div>
-  <div class="field">
-    <%= f.label :job %><br />
-    <%= f.text_field :job %>
-  </div>
-  <div class="field">
-    <%= f.label :howtoknow %><br />
-    <%= f.text_field :howtoknow %>
-  </div>
-  <div class="field">
-    <%= f.label :id %><br />
-    <%= f.text_field :id %>
-  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

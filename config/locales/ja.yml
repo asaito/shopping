@@ -256,6 +256,35 @@ ja:
         initdatetime: 登録日時
       cust:
         custcompanyflg: 法人・個人区分
+        memberlevelcode: 会員種別
+        custname: 顧客名
+        custpronname: 顧客名カナ
+        email: メールアドレス
+        password: パスワード
+        pwquestion: パスワードリマインダリ質問
+        pwanswer: パスワードリマインダリ解答
+        address1: 住所１(都道府県)
+        address2: 住所２(市区町村・番地)
+        address3: 住所３(ビル名・階など)
+        companyname: 会社名
+        tel: 連絡先電話番号
+        fax: 連絡先FAX番号
+        paymethodcode: お支払い方法
+        birthdate: 生年月日
+        sex: 性別
+        job: 職業
+        howtoknow: サイトを知った場所
+        newmailflg: 情報メール
+      custaddress:
+        custcompanyflg: 法人・個人区分
+        deliveryname: 配送先呼称
+        deliveryaddressee: 宛名
+        address1: 住所１(都道府県)
+        address2: 住所２(市区町村・番地)
+        address3: 住所３(ビル名・階など)
+        companyname: 会社名
+        sendmailflg: 情報メール
+      
         
   site_title: ゲームブログ
   Listing_mallshopms: ショップマスタ

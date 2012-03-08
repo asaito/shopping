@@ -1,5 +1,11 @@
 Shopping::Application.routes.draw do
 
+  resources :memberlevelms, :only => [ :index ]
+
+  resources :custaddresses do
+    put :edit, :on => :member
+  end
+
   resources :custs do
     put :edit, :on => :member
   end

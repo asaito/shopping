@@ -1,0 +1,41 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  addresscode: 1
+  custcompanyflg: 1
+  deliveryname: MyString
+  deliveryaddressee: MyString
+  email: MyString
+  postcode1: MyString
+  postcode2: MyString
+  address1: MyString
+  address2: MyString
+  address3: MyString
+  companyname: MyString
+  fax: MyString
+  sendmailflg: 1
+  daysbeforehand: 1
+  mailmonth: 1
+  mailday: 1
+  lastdeliverydate: 2012-03-07
+  custid: 1
+
+two:
+  addresscode: 1
+  custcompanyflg: 1
+  deliveryname: MyString
+  deliveryaddressee: MyString
+  email: MyString
+  postcode1: MyString
+  postcode2: MyString
+  address1: MyString
+  address2: MyString
+  address3: MyString
+  companyname: MyString
+  fax: MyString
+  sendmailflg: 1
+  daysbeforehand: 1
+  mailmonth: 1
+  mailday: 1
+  lastdeliverydate: 2012-03-07
+  custid: 1

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120305015837) do
+ActiveRecord::Schema.define(:version => 20120308000641) do
 
   create_table "cmdtyctgries", :force => true do |t|
     t.string   "shopcode",   :null => false
@@ -104,6 +104,28 @@ ActiveRecord::Schema.define(:version => 20120305015837) do
   add_index "ctgrymtbls", ["ctgrycode"], :name => "index_ctgrymtbls_on_ctgrycode", :unique => true
   add_index "ctgrymtbls", ["ctgryname"], :name => "index_ctgrymtbls_on_ctgryname", :unique => true
   add_index "ctgrymtbls", ["id", "updated_at"], :name => "index_ctgrymtbls_on_id_and_updated_at"
+
+  create_table "custaddresses", :force => true do |t|
+    t.integer  "custcompanyflg",    :default => 0, :null => false
+    t.string   "deliveryname",                     :null => false
+    t.string   "deliveryaddressee",                :null => false
+    t.string   "email"
+    t.string   "postcode1",                        :null => false
+    t.string   "postcode2",                        :null => false
+    t.string   "address1",                         :null => false
+    t.string   "address2",                         :null => false
+    t.string   "address3"
+    t.string   "companyname"
+    t.string   "fax"
+    t.integer  "sendmailflg",       :default => 0, :null => false
+    t.integer  "daysbeforehand",    :default => 0, :null => false
+    t.integer  "mailmonth"
+    t.integer  "mailday"
+    t.date     "lastdeliverydate"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "custid",                           :null => false
+  end
 
   create_table "custs", :force => true do |t|
     t.integer  "memberlevelcode",                :null => false
@@ -205,6 +227,14 @@ ActiveRecord::Schema.define(:version => 20120305015837) do
   end
 
   add_index "mallshopms", ["malladmin_id", "updated_at"], :name => "index_mallshopms_on_malladmin_id_and_updated_at"
+
+  create_table "memberlevelms", :force => true do |t|
+    t.integer  "memberlevel",                    :null => false
+    t.string   "memberlevelname",                :null => false
+    t.integer  "discountrate",    :default => 0, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "prefectures", :id => false, :force => true do |t|
     t.string   "name"

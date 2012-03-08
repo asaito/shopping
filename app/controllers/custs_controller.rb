@@ -123,6 +123,9 @@ class CustsController < ApplicationController
   # GET /custs/1/edit
   def edit
     @cust = Cust.find(params[:id])
+    @prefectures = Prefecture.find_by_sql("select id, name from prefectures")
+    @memberlevelms = Memberlevelm.all
+    logd("@prefectures:", @prefectures)
   end
 
   # POST /custs
@@ -218,6 +221,10 @@ class CustsController < ApplicationController
   # PUT /custs/1
   # PUT /custs/1.xml
   def update
+    if params['address_image.x']
+      redirect_to :controller => 'custaddresses', :action => 'index', :id => params["id"]
+      return
+    end
     @cust = Cust.find(params[:id])
 
     respond_to do |format|

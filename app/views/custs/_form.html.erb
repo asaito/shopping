@@ -20,8 +20,11 @@
       <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
       <td bgcolor="#FFFFCC"><b><%= f.label :custcompanyflg %></b></td>
       <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
-      <td colspan=3>
-        <%= @cust.custcompanyflg %>
+      <td>
+        <%= f.radio_button(:custcompanyflg, "0") %>個人
+      </td>
+      <td>
+        <%= f.radio_button(:custcompanyflg, "1") %>法人
       </td>
     </tr>
     <tr>
@@ -169,11 +172,19 @@
       </td>
     </tr>
     <tr>
-      <td bgcolor="#FFFFCC"><%= image_tag("lbl_Hissu.gif") %></td>
+      <td bgcolor="#FFFFCC"></td>
       <td bgcolor="#FFFFCC"><b><%= f.label :job %></b></td>
       <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
       <td colspan=3>
-        <%= f.text_field :job %>
+        <%= select_tag "cust[job]",options_from_collection_for_select(@custattrms_job, :id, :attrname), :include_blank => false %>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"></td>
+      <td bgcolor="#FFFFCC"><b><%= f.label :hobby %></b></td>
+      <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
+      <td colspan=3>
+        <%= select_tag "cust[hobby]",options_from_collection_for_select(@custattrms_hobby, :id, :attrname), :include_blank => false %>
       </td>
     </tr>
     <tr>
@@ -181,7 +192,7 @@
       <td bgcolor="#FFFFCC"><b><%= f.label :howtoknow %></b></td>
       <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
       <td colspan=3>
-        <%= f.text_field :howtoknow %>
+        <%= select_tag "cust[howtoknow]",options_from_collection_for_select(@custattrms_howtoknow, :id, :attrname), :include_blank => false %>
       </td>
     </tr>
     <tr>

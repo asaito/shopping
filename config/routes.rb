@@ -1,5 +1,7 @@
 Shopping::Application.routes.draw do
 
+  resources :custattrms, :only => [ :index ]
+
   resources :memberlevelms, :only => [ :index ]
 
   resources :custaddresses do

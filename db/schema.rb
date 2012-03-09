@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308000641) do
+ActiveRecord::Schema.define(:version => 20120308065128) do
 
   create_table "cmdtyctgries", :force => true do |t|
     t.string   "shopcode",   :null => false
@@ -127,6 +127,14 @@ ActiveRecord::Schema.define(:version => 20120308000641) do
     t.integer  "custid",                           :null => false
   end
 
+  create_table "custattrms", :force => true do |t|
+    t.integer  "attrflag",                  :null => false
+    t.string   "attrname",                  :null => false
+    t.integer  "disporder",  :default => 0, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "custs", :force => true do |t|
     t.integer  "memberlevelcode",                :null => false
     t.integer  "custcompanyflg",  :default => 0, :null => false
@@ -152,6 +160,7 @@ ActiveRecord::Schema.define(:version => 20120308000641) do
     t.string   "howtoknow"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "hobby"
   end
 
   create_table "emp", :id => false, :force => true do |t|

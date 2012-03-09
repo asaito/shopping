@@ -273,6 +273,7 @@ ja:
         birthdate: 生年月日
         sex: 性別
         job: 職業
+        hobby: 趣味
         howtoknow: サイトを知った場所
         newmailflg: 情報メール
       custaddress:

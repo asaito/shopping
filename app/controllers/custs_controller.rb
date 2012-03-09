@@ -126,6 +126,10 @@ class CustsController < ApplicationController
     @prefectures = Prefecture.find_by_sql("select id, name from prefectures")
     @memberlevelms = Memberlevelm.all
     logd("@prefectures:", @prefectures)
+    @custattrms_job = Custattrm.find_by_sql("select * from custattrms where attrflag = '" + 0.to_s + "' order by disporder")
+    @custattrms_hobby = Custattrm.find_by_sql("select * from custattrms where attrflag = '" + 2.to_s + "' order by disporder")
+    @custattrms_howtoknow = Custattrm.find_by_sql("select * from custattrms where attrflag = '" + 1.to_s + "' order by disporder")
+
   end
 
   # POST /custs

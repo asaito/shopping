@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308065128) do
+ActiveRecord::Schema.define(:version => 20120309034652) do
 
   create_table "cmdtyctgries", :force => true do |t|
     t.string   "shopcode",   :null => false
@@ -241,6 +241,19 @@ ActiveRecord::Schema.define(:version => 20120308065128) do
     t.integer  "memberlevel",                    :null => false
     t.string   "memberlevelname",                :null => false
     t.integer  "discountrate",    :default => 0, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pointmanms", :force => true do |t|
+    t.string   "mallshopcode",                 :null => false
+    t.integer  "issueflg",      :default => 0
+    t.integer  "orderid"
+    t.integer  "reviewid"
+    t.datetime "issuedatetime",                :null => false
+    t.integer  "enableflg",     :default => 1
+    t.integer  "pointofissue",  :default => 0, :null => false
+    t.integer  "custid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

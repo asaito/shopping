@@ -1,0 +1,95 @@
+<style type="text/css">
+table {
+margin-bottom: 20px;
+border-collapse: collapse;
+}
+td, th {
+border: 1px #2b2b2b solid;
+}
+</style>
+
+<td><font color="#F6633" size=4 ><b>顧客ポイント管理</b></font></td><br>
+<table>
+  <form method="POST" action="pointmanms" name="pointmanm">
+  <tr style="border:0px">
+  <td style="border:0px">
+    <table style="width:840px;height:20px">
+      <tr>
+	<th bgcolor="#800000"><font color="#ffffff"><%= t('検索項目') %></font></th>
+	<th colspan=2 bgcolor="#800000"><font color="#ffffff"><%= t('検索条件') %></font></th>
+        <td rowspan=5 style="border:0px">
+          <input id="serch" name="serch_image", type="image", src="/images/mallmgr/btn_L_Serch.gif" value="serch" >
+        </td>
+      </tr>
+      <tr>
+        <td><b>顧客コード</b></td>
+        <td colspan=1>
+          <%= image_tag("lbl_S_HanSuuji.gif") %>
+          <input name="id_serch" style="ime-mode:disabled" value=<%= @id_serch.to_s %>>&nbsp;&nbsp;<font color="blue">完全一致</font>
+        </td>
+      </tr>
+      <tr>
+        <td><b>会員種別</b></td>
+        <td colspan=1>
+          <%= image_tag("lbl_Tanitu.gif") %>
+            <%= select_tag("memberlevel_serch", options_from_collection_for_select(@memberlevelms, :id, :memberlevelname), :include_blank => true) %>
+        </td>
+      </tr>
+      <tr>
+        <td><b>顧客名</b></td>
+        <td colspan=1>
+          <%= image_tag("lbl_S_Zen.gif") %>
+          <input name="custname_serch" style="ime-mode:active" value=<%= @custname_serch %>>&nbsp;&nbsp;<font color="blue">部分一致</font>
+        </td>
+      </tr>
+      <tr>
+        <td><b>顧客名カナ</b></td>
+        <td colspan=1>
+          <%= image_tag("lbl_S_ZenKana.gif") %>
+          <input name="custpronname_serch" style="ime-mode:active" value=<%= @custpronname_serch.to_s %>>&nbsp;&nbsp;<font color="blue">部分一致</font>
+        </td>
+      </tr>
+    </table>
+  </td>
+  </tr>
+  <tr>
+  <td style="border:0px">
+    <table style="width:840px;height:20px">
+      <tr>
+        <th bgcolor="#800000"><font color="#ffffff">顧客コード</font></th>
+        <th bgcolor="#800000"><font color="#ffffff">会員種別</font></th>
+        <th bgcolor="#800000"><font color="#ffffff">顧客名</font></th>
+        <th bgcolor="#800000"><font color="#ffffff">顧客名カナ</font></th>
+        <th bgcolor="#800000"><font color="#ffffff">メールアドレス</font></th>
+        <th bgcolor="#800000"><font color="#ffffff">無効ポイント</font></th>
+        <th bgcolor="#800000"><font color="#ffffff">仮発行ポイント</font></th>
+        <th bgcolor="#800000"><font color="#ffffff">有効ポイント</font></th>
+        <th bgcolor="#800000"><font color="#ffffff">追加ポイント</font></th>
+      </tr>
+    <% i = 0 %>
+    <% @custs.each do |cust| %>
+      <tr>
+	<td><%= cust.id %></td>
+	<td><%= @names.first %></td>
+	<td><%= cust.custname %></td>
+	<td><%= cust.custpronname %></td>
+	<td><%= cust.email %></td>
+	<td align="right"><%= @mks.first %>&nbsp;</td>
+	<td align="right"><%= @yks.first %>&nbsp;</td>
+	<td align="right"><%= @krs.first %>&nbsp;</td>
+	<td>
+	  <input type="text" name=addpoint[<%= i.to_s %> value=""]
+	</td>
+      </tr>
+      <% @names.shift %>
+      <% @mks.shift %>
+      <% @yks.shift %>
+      <% @krs.shift %>
+      <% i = 0 %>
+    <% end %>
+    </table>
+  </td>
+  </tr>
+  </form>
+</table>
+

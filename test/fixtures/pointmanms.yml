@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  mallshopcode: MyString
+  issueflg: 1
+  orderid: 1
+  reviewid: 1
+  issuedatetime: 2012-03-09
+  enableflg: 1
+  pointofissue: 1
+  custid: 1
+
+two:
+  mallshopcode: MyString
+  issueflg: 1
+  orderid: 1
+  reviewid: 1
+  issuedatetime: 2012-03-09
+  enableflg: 1
+  pointofissue: 1
+  custid: 1

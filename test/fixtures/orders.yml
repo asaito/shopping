@@ -1,0 +1,65 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  custcompanyflg: 1
+  custname: MyString
+  custpronname: MyString
+  email: MyString
+  orderaddressee: MyString
+  postcode1: MyString
+  postcode2: MyString
+  address2: MyString
+  address3: MyString
+  companyname: MyString
+  tel: MyString
+  fax: MyString
+  paymethodname: MyString
+  initdatetime: 2012-03-16 13:27:43
+  updatedatetime: 2012-03-16 13:27:43
+  paymentflg: 1
+  fee: 1
+  receiptdate: 2012-03-16
+  sendmailflg: 1
+  address1: MyString
+  sumofdiscount: 1
+  sumbypoint: 1
+  contactmsg: MyText
+  memo: MyText
+  taxrate: 1
+  status: 1
+  feetaxflg: 1
+  custid: 1
+  receiptmailflg: 1
+  pointenableflg: 1
+
+two:
+  custcompanyflg: 1
+  custname: MyString
+  custpronname: MyString
+  email: MyString
+  orderaddressee: MyString
+  postcode1: MyString
+  postcode2: MyString
+  address2: MyString
+  address3: MyString
+  companyname: MyString
+  tel: MyString
+  fax: MyString
+  paymethodname: MyString
+  initdatetime: 2012-03-16 13:27:43
+  updatedatetime: 2012-03-16 13:27:43
+  paymentflg: 1
+  fee: 1
+  receiptdate: 2012-03-16
+  sendmailflg: 1
+  address1: MyString
+  sumofdiscount: 1
+  sumbypoint: 1
+  contactmsg: MyText
+  memo: MyText
+  taxrate: 1
+  status: 1
+  feetaxflg: 1
+  custid: 1
+  receiptmailflg: 1
+  pointenableflg: 1

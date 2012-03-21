@@ -207,19 +207,6 @@ class CustsController < ApplicationController
       format.xml  { head :ok }
     end
     return
-
-=begin
-    @cust = Cust.new(params[:cust])
-    respond_to do |format|
-      if @cust.save
-        format.html { redirect_to(@cust, :notice => 'Cust was successfully created.') }
-        format.xml  { render :xml => @cust, :status => :created, :location => @cust }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @cust.errors, :status => :unprocessable_entity }
-      end
-    end
-=end
   end
 
   # PUT /custs/1

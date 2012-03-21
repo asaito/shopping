@@ -3,6 +3,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   #before_filter :authenticate_malladmin!
   #$checked = ' '
+
+  def check2digit(digit)
+    s = digit.to_s
+    if s.size == 1
+      s = "0" + s
+    end
+    s
+  end
+
   def logd(a, b)
     if a == nil && b == nil
       logger.debug 'nil' + 'nil'

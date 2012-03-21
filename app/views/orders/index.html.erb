@@ -1,0 +1,207 @@
+<style type="text/css">
+table {
+margin-bottom: 20px;
+border-collapse: collapse;
+}
+td, th {
+border: 1px #2b2b2b solid;
+}
+</style>
+
+<td><font color="#F6633" size=4 ><b>受注・入金管理</b></font></td><br>
+<table>
+  <form method="POST" action="orders" name="order">
+  <tr style="border:0px">
+    <td style="border:0px">
+      <table>
+	<tr>
+	  <th bgcolor="#800000"><font color="#ffffff">検索項目</font></th>
+	  <th colspan=3 bgcolor="#800000"><font color="#ffffff">検索条件</font></th>
+	</tr>
+	<tr>
+	  <td bgcolor="#FFFFCC"><b>顧客名カナ</b></td>
+	  <td style="border-top:1px #2b2b2b solid; border-bottom:1px #2b2b2b">
+            <%= image_tag("lbl_ZenKana.gif") %>
+            <input name="custpronname_serch" style="ime-mode:active" value=<%= $custpronname_serch %>>&nbsp;&nbsp;<font color="blue">部分一致</font>
+	  </td>
+	  <td bgcolor="#FFFFCC"><b>メールアドレス</b></td>
+	  <td style="border-top:1px #2b2b2b solid; border-bottom:1px #2b2b2b">
+	    <%= image_tag("lbl_HanEisuu.gif") %>
+	    <input name="email_serch" style="ime-mode:disabled" value=<%= $email_serch %>>&nbsp;&nbsp;<font color="blue">部分一致</font>
+	  </td>
+	</tr>
+	<tr>
+          <td bgcolor="#FFFFCC"><b>受注日</b></td>
+          <td colspan="3">
+	    <%= image_tag("lbl_Seireki.gif") %>
+	    <%= select_date $orderfrom,:prefix=>"orderfrom",:use_month_numbers => true %>～
+	    <%= select_date $orderto,:prefix=>"orderto",:use_month_numbers => true %>
+          </td>
+	</tr>
+	<tr>
+          <td bgcolor="#FFFFCC"><b>入金状況</b></td>
+	  <td colspan="3">
+	    <%= image_tag("lbl_Tanitu.gif") %>
+	    <input name="payment_mailflg" type="radio" value="all" <%= $payment_mailflg == "all" ? "checked":"" %> >全て
+	    <input name="payment_mailflg" type="radio" value="notpaid" <%= $payment_mailflg == "notpaid" ? "checked":"" %> >未入金のみ
+	    <input name="payment_mailflg" type="radio" value="paid" <%= $payment_mailflg == "paid" ? "checked":"" %> >入金済のみ
+	    <input name="payment_mailflg" type="radio" value="mailnotsent" <%= $payment_mailflg == "mailnotsent" ? "checked":"" %> >入金メール未送信
+	  </td>
+	</tr>
+        <tr>
+          <td bgcolor="#FFFFCC"><b>入金日</b></td>
+          <td colspan="3">
+            <%= image_tag("lbl_Seireki.gif") %>
+            <%= select_date $receivefrom,:prefix=>"receivefrom",:use_month_numbers => true %>～
+            <%= select_date $receiveto,:prefix=>"receiveto",:use_month_numbers => true %>
+          </td>
+        </tr>
+	<tr>
+          <td bgcolor="#FFFFCC"><b>支払方法</b></td>
+	  <td>
+	    <%= image_tag("lbl_Tanitu.gif") %>
+	    <%= select_tag("paymethodname", options_for_select(@paymethod_list, selected = $sel_paymethod), :include_blank => false) %>
+	  </td>
+          <td bgcolor="#FFFFCC"><b>受注状態</b></td>
+          <td colspan="2">
+            <%= image_tag("lbl_Tanitu.gif") %>
+            <input name="status" type="radio" value="all" <%= $status == "all" ? "checked":"" %> >全て
+            <input name="status" type="radio" value="normal" <%= $status == "normal" ? "checked":"" %> >通常
+            <input name="status" type="radio" value="cancel" <%= $status == "cancel" ? "checked":"" %> >キャンセル・返品
+          </td>
+	</tr>
+        <tr style="border:0px">
+	  <td style="border:0px">&nbsp;</td>
+	</tr>
+        <tr style="border:0px">
+	  <td style="border:0px">&nbsp;</td>
+	</tr>
+        <tr style="border:0px">
+	  <td style="border:0px">&nbsp;</td>
+	</tr>
+      </table>
+    </td>
+    <td style="border:0px">
+      &nbsp;&nbsp;
+    </td>
+    <td style="border:0px">
+      <table>
+        <tr style="border:0px">
+          <th bgcolor="#800000"><font color="#ffffff">並べ替え</font></th>
+        </tr>
+        <tr style="border:0px">
+	  <td>
+            <%= select_tag("disporder", options_for_select($disporder_list, $disporder), :include_blank => false) %>
+	  </td>
+        </tr>
+        <tr style="border:0px">
+	  <td style="border:0px">
+	    <input id="serch_submit" name="serch_image", type="image", src="/images/mallmgr/btn_L_Serch.gif" value="serch" >
+	  </td>
+        </tr>
+        <tr style="border:0px">
+          <td style="border:0px">
+            <a href=<%= new_order_path%> ><%= image_tag("mallmgr/btn_L_AddNewOrder.gif") %></a>
+          </td>
+        </tr>
+        <tr style="border:0px">
+          <td style="border:0px">
+            <input id="cmdtyorder_submit" name="cmdtyorder_image", type="image", src="/images/mallmgr/btn_L_CmdtyOrder.gif" value="cmdtyorder" >
+          </td>
+        </tr>
+        <tr style="border:0px">
+          <td style="border:0px">
+            <input id="csv_submit" name="csv_image", type="image", src="/images/mallmgr/btn_L_OutputCsv.gif" value="csv" >
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+      <table>
+	<tr style="border:0px">
+	  <td style="border:0px">
+	    <input id="allselect" name="allsel_image", type="image", src="/images/mallmgr/btn_SS_AllSelect.gif" value="allselect" >
+	  </td>
+	  <td style="border:0px">
+	    <input id="allrelease" name="allrel_image", type="image", src="/images/mallmgr/btn_SS_NoSelect.gif" value="allrelease" >
+	  </td>
+	  <td colspan=2 style="border:0px">
+	    <%= will_paginate @orders, :prev_label=>'«前', :next_label=>'次»' %>
+	  </td>
+	  <td colspan=2 style="border:0px">
+	    <%= select_tag("line_no", options_for_select(@num_list, $sel_no_cm)) %>
+	  </td>
+	  <td colspan=4 style="border:0px">
+	    検索結果<%= @total %>件
+	  </td>
+	</tr>
+	<tr style="color:white; background-color:#800000">
+	  <th></th>
+	  <th>受注番号</th>
+	  <th>メールアドレス</th>
+	  <th>顧客名</th>
+	  <th>受注日</th>
+	  <th>入金日</th>
+	  <th>メール</th>
+	  <th>支払方法</th>
+	  <th>合計価格</th>
+	  <th>受注状態</th>
+        </tr>
+      <% @orders.each do |order| %>
+        <tr>
+	  <td>
+	    <%= check_box_tag "checked_items[#{order.id}][flag]", "0", checked=$checked %>
+	  </td>
+	  <td>
+	    <a href=<%= edit_order_path(order)%>?idcmd=<%= order.id %>><%= order.id %></a>
+	  </td>
+	  <td><%= order.email %></td>
+	  <td><%= order.custname %></td>
+	  <td><%= order.initdatetime.strftime("%Y-%m-%d %H:%M:%S") %></td>
+	  <td><%= order.receiptdate %></td>
+	  <td><%= order.receiptmailflg == 1 ? "済" : "" %></td>
+	  <td><%= order.paymethodname %></td>
+	  <td align="right">￥<%= order.fee %></td>
+	  <td align="center"><%= order.status == 0 ? "通常" : (order.status == 1 ? "キャンセル" :"返品") %></td>
+        </tr>
+      <% end %>
+        <tr style="border:0px">
+          <td style="border:0px">
+            <input id="allselect" name="allsel_image", type="image", src="/images/mallmgr/btn_SS_AllSelect.gif" value="allselect" >
+          </td>
+          <td style="border:0px">
+            <input id="allrelease" name="allrel_image", type="image", src="/images/mallmgr/btn_SS_NoSelect.gif" value="allrelease" >
+          </td>
+          <td style="border:0px">&nbsp;</td>
+          <td style="border:0px">&nbsp;</td>
+          <td style="border:0px">
+	    <font size="3"><b>受注伝票一覧</b></font>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr style="border:0px">
+          <td style="border:0px">
+            <input id="paymentconfirm" name="paymentconfirm_image", type="image", src="/images/mallmgr/btn_L_PaymentConfirm.gif" value="paymentconfirm" >
+          </td>
+          <td style="border:0px">
+            <input id="paymentreminder" name="paymentreminder_image", type="image", src="/images/mallmgr/btn_L_PaymentReminder.gif" value="paymentreminder" >
+          </td>
+          <td style="border:0px">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          <td style="border:0px">
+	    <%= select_date $setdate,:prefix=>"setdate",:use_month_numbers => true %>
+          </td>
+          <td style="border:0px">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          <td style="border:0px">
+            <input id="receiptdate" name="receiptdate_image", type="image", src="/images/mallmgr/btn_L_ReceiptDate.gif" value="receiptdate" >
+          </td>
+          <td style="border:0px">
+            <input id="delete" name="delete_image", type="image", src="/images/mallmgr/btn_L_Delete.gif" value="delete" >
+          </td>
+
+        </tr>
+      </table>
+  </form>
+</table>
+
+<%= link_to 'New Order', new_order_path %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120309034652) do
+ActiveRecord::Schema.define(:version => 20120316044150) do
 
   create_table "cmdtyctgries", :force => true do |t|
     t.string   "shopcode",   :null => false
@@ -241,6 +241,41 @@ ActiveRecord::Schema.define(:version => 20120309034652) do
     t.integer  "memberlevel",                    :null => false
     t.string   "memberlevelname",                :null => false
     t.integer  "discountrate",    :default => 0, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "orders", :force => true do |t|
+    t.integer  "custcompanyflg", :default => 0, :null => false
+    t.string   "custname",                      :null => false
+    t.string   "custpronname",                  :null => false
+    t.string   "email"
+    t.string   "orderaddressee",                :null => false
+    t.string   "postcode1",                     :null => false
+    t.string   "postcode2",                     :null => false
+    t.string   "address2",                      :null => false
+    t.string   "address3"
+    t.string   "companyname"
+    t.string   "tel"
+    t.string   "fax"
+    t.string   "paymethodname"
+    t.datetime "initdatetime",                  :null => false
+    t.datetime "updatedatetime",                :null => false
+    t.integer  "paymentflg",     :default => 0, :null => false
+    t.integer  "fee",            :default => 0, :null => false
+    t.date     "receiptdate"
+    t.integer  "sendmailflg",    :default => 0, :null => false
+    t.string   "address1",                      :null => false
+    t.integer  "sumofdiscount",  :default => 0, :null => false
+    t.integer  "sumbypoint",     :default => 0, :null => false
+    t.text     "contactmsg"
+    t.text     "memo"
+    t.integer  "taxrate",        :default => 0, :null => false
+    t.integer  "status",         :default => 0, :null => false
+    t.integer  "feetaxflg",      :default => 1, :null => false
+    t.integer  "custid",                        :null => false
+    t.integer  "receiptmailflg", :default => 0, :null => false
+    t.integer  "pointenableflg", :default => 0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

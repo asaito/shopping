@@ -32,7 +32,7 @@ border: 1px #2b2b2b solid;
         <td><b>会員種別</b></td>
         <td colspan=1>
           <%= image_tag("lbl_Tanitu.gif") %>
-            <%= select_tag("memberlevel_serch", options_from_collection_for_select(@memberlevelms, :id, :memberlevelname), :include_blank => true) %>
+            <%= select_tag("memberlevel_serch", options_from_collection_for_select(@memberlevelms, :id, :memberlevelname, @memberlevel_serch), :include_blank => true) %>
         </td>
       </tr>
       <tr>
@@ -75,18 +75,24 @@ border: 1px #2b2b2b solid;
 	<td><%= cust.custpronname %></td>
 	<td><%= cust.email %></td>
 	<td align="right"><%= @mks.first %>&nbsp;</td>
-	<td align="right"><%= @yks.first %>&nbsp;</td>
 	<td align="right"><%= @krs.first %>&nbsp;</td>
+	<td align="right"><%= @yks.first %>&nbsp;</td>
 	<td>
-	  <input type="text" name=addpoint[<%= i.to_s %> value=""]
+	  <input type="text" name="addpoint[<%= i.to_s %>]" value="" >
 	</td>
       </tr>
       <% @names.shift %>
       <% @mks.shift %>
-      <% @yks.shift %>
       <% @krs.shift %>
-      <% i = 0 %>
+      <% @yks.shift %>
+      <% i += 1 %>
     <% end %>
+    <tr>
+      <td colspan="9" align="right" style="border:0px">
+        <input id="delpoint" name="delpoint_image", type="image", src="/images/mallmgr/btn_L_DeletePoint.gif" value="delpoint" >
+        <input id="addpoint" name="addpoint_image", type="image", src="/images/mallmgr/btn_L_AddPoint.gif" value="addpoint" >
+      </td>
+    </tr>
     </table>
   </td>
   </tr>

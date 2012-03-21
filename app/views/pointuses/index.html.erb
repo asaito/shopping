@@ -1,0 +1,97 @@
+<style type="text/css">
+table {
+margin-bottom: 20px;
+border-collapse: collapse;
+}
+td, th {
+border: 1px #2b2b2b solid;
+}
+</style>
+
+<td><font color="#F6633" size=4 ><b>ポイント利用状況</b></font></td><br>
+<table>
+  <form method="POST" action="pointuses" name="pointuse">
+  <tr style="border:0px">
+  <td style="border:0px">
+    <table style="width:840px;height:20px">
+      <tr>
+        <th bgcolor="#800000"><font color="#ffffff"><%= t('検索項目') %></font></th>
+        <th colspan=2 bgcolor="#800000"><font color="#ffffff"><%= t('検索条件') %></font></th>
+        <td rowspan=5 style="border:0px">
+          <input id="serch" name="serch_image", type="image", src="/images/mallmgr/btn_L_Serch.gif" value="serch" >
+        </td>
+      </tr>
+      <tr>
+        <td><b>顧客コード</b></td>
+        <td>
+          <%= image_tag("lbl_S_HanSuuji.gif") %>
+          <input name="id_serch" style="ime-mode:disabled" value=<%= @id_serch.to_s %>>&nbsp;&nbsp;<font color="blue">完全一致</font>
+        </td>
+      </tr>
+      <tr>
+        <td><b>発行種別</b></td>
+        <td>
+          <%= image_tag("lbl_S_Tanitu.gif") %>
+	  <input name="issueflg" type="radio" value="all" <%= @issueflg == "all" ? "checked":"" %>>全種別
+	  <input name="issueflg" type="radio" value="buy" <%= @issueflg == "buy" ? "checked":"" %> >購入時
+	  <input name="issueflg" type="radio" value="review" <%= @issueflg == "review" ? "checked":"" %>>レビュー
+	  <input name="issueflg" type="radio" value="else" <%= @issueflg == "else" ? "checked":"" %> >その他
+        </td>
+      </tr>
+      <tr>
+        <td><b>有効フラグ</b></td>
+        <td>
+          <%= image_tag("lbl_S_Tanitu.gif") %>
+          <input name="enableflg" type="radio" value="all" <%= @enableflg == "all" ? "checked":"" %> >全て
+          <input name="enableflg" type="radio" value="no" <%= @enableflg == "no" ? "checked":"" %> >無効
+          <input name="enableflg" type="radio" value="yes" <%= @enableflg == "yes" ? "checked":"" %> >有効
+          <input name="enableflg" type="radio" value="kari" <%= @enableflg == "kari" ? "checked":"" %> >仮発行
+        </td>
+      </tr>
+      <tr>
+        <td><b>ポイント発行期間</b></td>
+        <td>
+          <%= image_tag("lbl_S_Seireki.gif") %>
+	  <%= select_date @issuefrom,:prefix=>"issuefrom",:use_month_numbers => true %>～
+	  <%= select_date @issueto,:prefix=>"issueto",:use_month_numbers => true %>
+        </td>
+      </tr>
+    </table>
+  </td>
+  </tr>
+    <table style="width:840px;height:20px">
+      <tr>
+        <td style="border:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="border:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="border:0px">全明細</td>
+        <td style="border:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="border:0px">件</td>
+        <td style="border:0px">
+          <input id="allcsv" name="allcsv_image", type="image", src="/images/mallmgr/btn_L_PrintAllPoint.gif" value="allcsv" >
+        </td>
+      </tr>
+      <tr>
+        <td style="border:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="border:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="border:0px">顧客別</td>
+        <td style="border:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="border:0px">件</td>
+        <td style="border:0px">
+          <input id="custcsv" name="custcsv_image", type="image", src="/images/mallmgr/btn_L_PrintCustPoint.gif" value="custcsv" >
+        </td>
+      </tr>
+      <tr>
+        <td style="border:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="border:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="border:0px"></td>
+        <td style="border:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="border:0px"></td>
+        <td style="border:0px">
+          <input id="totalcsv" name="totalcsv_image", type="image", src="/images/mallmgr/btn_L_TotalSaleCSV.gif" value="totalcsv" >
+        </td>
+      </tr>
+
+
+  </form>
+</table>
+

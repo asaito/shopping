@@ -1,5 +1,9 @@
 Shopping::Application.routes.draw do
 
+  resources :orders
+
+  resources :pointuses, :only => [ :index ]
+
   resources :pointmanms, :only => [ :index ]
 
   resources :custattrms, :only => [ :index ]

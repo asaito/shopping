@@ -1,0 +1,247 @@
+<style type="text/css">
+table {
+margin-bottom: 20px;
+border-collapse: collapse;
+}
+td, th {
+border: 1px #2b2b2b solid;
+}
+</style>
+
+<%= form_for(@order) do |f| %>
+<% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% @order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <table>
+    <tr style="border:0px">
+      <td style="border:0px"><%= image_tag("lbl_Hissu.gif") %><font color="#FF0000">・・・必須情報</font></td>
+    </tr>
+    <tr>
+      <td colspan="5" bgcolor="#800000"><font color="#ffffff">受注番号：<%= @order.id %></font></td>
+    </tr>
+    <tr>
+      <td rowspan="2" bgcolor="#FFFFCC"><font color="#000000">顧客情報</font></td>
+      <td >コード：
+        <%= @order.custid %>&nbsp;&nbsp;&nbsp;&nbsp;
+      </td>
+      <td>
+	<%= image_tag("lbl_Hissu.gif") %>
+	氏名：
+	<input name="order[custname]" type="text">
+      </td>
+      <td><%= image_tag("lbl_Hissu.gif") %>
+	カナ：
+        <input name="order[custpronename]" type="text">
+      </td>
+      <td><%= image_tag("lbl_Hissu.gif") %>
+        <input name="order[custcompanyflg]" type="radio" <%= @order.custcompanyflg == 0 ? "checked" : "" %> >個人
+        <input name="order[custcompanyflg]" type="radio" <%= @order.custcompanyflg == 1 ? "checked" : "" %> >法人
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= image_tag("lbl_Hissu.gif") %>
+        TEL:
+        <input name="order[tel]" type="text">
+      </td>
+      <td>
+        FAX:
+        <input name="order[fax]" type="text">
+      </td>
+      <td colspan="2">
+        <%= image_tag("lbl_Hissu.gif") %>
+        E-Mail:
+        <input name="order[tel]" type="text">
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2" bgcolor="#FFFFCC"><font color="#000000">請求書・領収書</font></td>
+      <td>
+        郵便番号：
+        <%= @order.postcode1 %>-<%= @order.postcode2 %>&nbsp;&nbsp;&nbsp;&nbsp;
+      </td>
+      <td>
+        <%= image_tag("lbl_Hissu.gif") %>
+        宛名：
+        <input name="order[orderaddressee]" type="text">
+      </td>
+      <td colspan="2">
+        会社名：
+        <input name="order[companyname]" type="text">
+      </td>
+    </tr>
+    <tr>
+      <td colspan="5">
+        住所：
+        <%= @order.address1 %>&nbsp;<%= @order.address2 %>&nbsp;<%= @order.address3 %>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2" bgcolor="#FFFFCC"><font color="#000000">入金・出荷情報</font></td>
+      <td colspan="2">
+        支払方法：
+        <%= @order.paymethodname %>&nbsp;&nbsp;&nbsp;&nbsp;
+      </td>
+      <td>
+        支払区分：
+        <%= @order.paymethodname %>&nbsp;&nbsp;&nbsp;&nbsp;
+      </td>
+      <td>
+        手数料：
+        <%= @order.paymethodname %>&nbsp;&nbsp;&nbsp;&nbsp;
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+	入金日：<%= @order.receiptdate %>&nbsp;&nbsp;&nbsp;&nbsp;
+      </td>
+      <td colspan="2">
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><font color="#000000">連絡情報</font></td>
+      <td colspan="4">
+        <textarea cols="60" rows="5" name="order[contactmsg]"></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFCC"><font color="#000000">備考</font></td>
+      <td colspan="4">
+        <textarea cols="60" rows="5" name="order[memo]"></textarea>
+      </td>
+    </tr>
+   </table>
+
+  <div class="field">
+    <%= f.label :custcompanyflg %><br />
+    <%= f.text_field :custcompanyflg %>
+  </div>
+  <div class="field">
+    <%= f.label :custname %><br />
+    <%= f.text_field :custname %>
+  </div>
+  <div class="field">
+    <%= f.label :custpronname %><br />
+    <%= f.text_field :custpronname %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :orderaddressee %><br />
+    <%= f.text_field :orderaddressee %>
+  </div>
+  <div class="field">
+    <%= f.label :postcode1 %><br />
+    <%= f.text_field :postcode1 %>
+  </div>
+  <div class="field">
+    <%= f.label :postcode2 %><br />
+    <%= f.text_field :postcode2 %>
+  </div>
+  <div class="field">
+    <%= f.label :address2 %><br />
+    <%= f.text_field :address2 %>
+  </div>
+  <div class="field">
+    <%= f.label :address3 %><br />
+    <%= f.text_field :address3 %>
+  </div>
+  <div class="field">
+    <%= f.label :companyname %><br />
+    <%= f.text_field :companyname %>
+  </div>
+  <div class="field">
+    <%= f.label :tel %><br />
+    <%= f.text_field :tel %>
+  </div>
+  <div class="field">
+    <%= f.label :fax %><br />
+    <%= f.text_field :fax %>
+  </div>
+  <div class="field">
+    <%= f.label :paymethodname %><br />
+    <%= f.text_field :paymethodname %>
+  </div>
+  <div class="field">
+    <%= f.label :initdatetime %><br />
+    <%= f.datetime_select :initdatetime %>
+  </div>
+  <div class="field">
+    <%= f.label :updatedatetime %><br />
+    <%= f.datetime_select :updatedatetime %>
+  </div>
+  <div class="field">
+    <%= f.label :paymentflg %><br />
+    <%= f.text_field :paymentflg %>
+  </div>
+  <div class="field">
+    <%= f.label :fee %><br />
+    <%= f.text_field :fee %>
+  </div>
+  <div class="field">
+    <%= f.label :receiptdate %><br />
+    <%= f.date_select :receiptdate %>
+  </div>
+  <div class="field">
+    <%= f.label :sendmailflg %><br />
+    <%= f.text_field :sendmailflg %>
+  </div>
+  <div class="field">
+    <%= f.label :address1 %><br />
+    <%= f.text_field :address1 %>
+  </div>
+  <div class="field">
+    <%= f.label :sumofdiscount %><br />
+    <%= f.text_field :sumofdiscount %>
+  </div>
+  <div class="field">
+    <%= f.label :sumbypoint %><br />
+    <%= f.text_field :sumbypoint %>
+  </div>
+  <div class="field">
+    <%= f.label :contactmsg %><br />
+    <%= f.text_area :contactmsg %>
+  </div>
+  <div class="field">
+    <%= f.label :memo %><br />
+    <%= f.text_area :memo %>
+  </div>
+  <div class="field">
+    <%= f.label :taxrate %><br />
+    <%= f.text_field :taxrate %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :feetaxflg %><br />
+    <%= f.text_field :feetaxflg %>
+  </div>
+  <div class="field">
+    <%= f.label :custid %><br />
+    <%= f.text_field :custid %>
+  </div>
+  <div class="field">
+    <%= f.label :receiptmailflg %><br />
+    <%= f.text_field :receiptmailflg %>
+  </div>
+  <div class="field">
+    <%= f.label :pointenableflg %><br />
+    <%= f.text_field :pointenableflg %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

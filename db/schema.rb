@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120316044150) do
+ActiveRecord::Schema.define(:version => 20120322062356) do
 
   create_table "cmdtyctgries", :force => true do |t|
     t.string   "shopcode",   :null => false
@@ -276,6 +276,16 @@ ActiveRecord::Schema.define(:version => 20120316044150) do
     t.integer  "custid",                        :null => false
     t.integer  "receiptmailflg", :default => 0, :null => false
     t.integer  "pointenableflg", :default => 0, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "paymethodms", :force => true do |t|
+    t.string   "mallshopcode",                    :null => false
+    t.integer  "paymethodcode",                   :null => false
+    t.string   "paymethodname", :default => "通常", :null => false
+    t.integer  "paymentflg",    :default => 0,    :null => false
+    t.integer  "fee",           :default => 0,    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

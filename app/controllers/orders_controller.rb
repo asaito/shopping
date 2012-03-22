@@ -11,6 +11,7 @@ class OrdersController < ApplicationController
   # receiptmailflg:1 入金aメール送信済
   def index
     Time.zone = 'Tokyo'
+    $reload = nil
     @orders = Order.all
     @num_list = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20']
 
@@ -67,6 +68,14 @@ class OrdersController < ApplicationController
   # GET /orders/new.xml
   def new
     @order = Order.new
+    $new = 1
+    @custs = Cust.all
+    logd("@custs:", @custs)
+    logd("params[:custid]:", params[:custid])
+    logd("$reload:", $reload)
+    if $reload != nil
+      newedit
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -74,14 +83,75 @@ class OrdersController < ApplicationController
     end
   end
 
+  def newedit
+    @cust = Cust.find(params[:custid].to_i)
+    @order.custid = @cust.id
+    @order.custname = @cust.custname
+    @order.custpronname = @cust.custpronname
+    @order.custcompanyflg = @cust.custcompanyflg
+    @order.tel = @cust.tel
+    @order.fax = @cust.fax
+    @order.email = @cust.email
+    @order.postcode1 = @cust.postcode1
+    @order.postcode2 = @cust.postcode2
+    @order.companyname = @cust.companyname
+    @order.address1 = prefecture(@cust.address1)
+    @order.address2 = @cust.address2
+    @order.address3 = @cust.address3
+    @order.address3 = @cust.address3
+    @order.paymethodname, @payment_fee = paymethodm(@cust.paymethodcode)
+  end
+
+  def prefecture(adr)
+    prefectures = Prefecture.find_by_sql("select id, name from prefectures")
+    prefectures.each do |p|
+      if p.id.to_s == adr
+	return p.name
+      end
+    end
+    return ""
+  end
+
+  def paymethodm(method)
+    paymethodm = Paymethodm.all
+    paymethodm.each do |p|
+      if p.paymethodcode == method
+	return p.paymethodname, p.fee
+      end
+    end
+    return "", 0
+  end
+
   # GET /orders/1/edit
   def edit
     @order = Order.find(params[:id])
+    $new = 0
   end
+
+  #def newcreate
+  #end
 
   # POST /orders
   # POST /orders.xml
   def create
+    #if $new == 1
+    if params[:custid]
+      @order = Order.new
+      $new = 1
+      @custs = Cust.all
+      #logd("@custs:", @custs)
+      logd("params[:custid]:", params[:custid])
+      logd("$reload:", $reload)
+      if $reload
+	newedit
+      end
+
+      respond_to do |format|
+	format.html # new.html.erb
+	format.xml  { render :xml => @order }
+      end
+      return
+    end
     Time.zone = 'Tokyo'
     @num_list = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20']
     @paymethod_list = ["選択してください", "現金", "銀行振込", "クレジットカード", "コンビニ決済", "代金引換"]

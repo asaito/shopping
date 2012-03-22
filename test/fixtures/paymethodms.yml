@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  mallshopcode: MyString
+  paymethodcode: 1
+  paymethodname: MyString
+  paymentflg: 1
+  fee: 1
+
+two:
+  mallshopcode: MyString
+  paymethodcode: 1
+  paymethodname: MyString
+  paymentflg: 1
+  fee: 1

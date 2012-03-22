@@ -8,6 +8,13 @@ border: 1px #2b2b2b solid;
 }
 </style>
 
+<script type="text/javascript">
+function submit_func() {
+//window.location.reload();
+document.forms["new_order"].submit();
+}
+</script>
+
 <%= form_for(@order) do |f| %>
 <% if @order.errors.any? %>
     <div id="error_explanation">
@@ -21,105 +28,139 @@ border: 1px #2b2b2b solid;
     </div>
   <% end %>
 
-   <table>
-    <tr style="border:0px">
-      <td style="border:0px"><%= image_tag("lbl_Hissu.gif") %><font color="#FF0000">・・・必須情報</font></td>
-    </tr>
-    <tr>
-      <td colspan="5" bgcolor="#800000"><font color="#ffffff">受注番号：<%= @order.id %></font></td>
-    </tr>
-    <tr>
-      <td rowspan="2" bgcolor="#FFFFCC"><font color="#000000">顧客情報</font></td>
-      <td >コード：
-        <%= @order.custid %>&nbsp;&nbsp;&nbsp;&nbsp;
-      </td>
-      <td>
-	<%= image_tag("lbl_Hissu.gif") %>
-	氏名：
-	<input name="order[custname]" type="text">
-      </td>
-      <td><%= image_tag("lbl_Hissu.gif") %>
-	カナ：
-        <input name="order[custpronename]" type="text">
-      </td>
-      <td><%= image_tag("lbl_Hissu.gif") %>
-        <input name="order[custcompanyflg]" type="radio" <%= @order.custcompanyflg == 0 ? "checked" : "" %> >個人
-        <input name="order[custcompanyflg]" type="radio" <%= @order.custcompanyflg == 1 ? "checked" : "" %> >法人
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= image_tag("lbl_Hissu.gif") %>
-        TEL:
-        <input name="order[tel]" type="text">
-      </td>
-      <td>
-        FAX:
-        <input name="order[fax]" type="text">
-      </td>
-      <td colspan="2">
-        <%= image_tag("lbl_Hissu.gif") %>
-        E-Mail:
-        <input name="order[tel]" type="text">
-      </td>
-    </tr>
-    <tr>
-      <td rowspan="2" bgcolor="#FFFFCC"><font color="#000000">請求書・領収書</font></td>
-      <td>
-        郵便番号：
-        <%= @order.postcode1 %>-<%= @order.postcode2 %>&nbsp;&nbsp;&nbsp;&nbsp;
-      </td>
-      <td>
-        <%= image_tag("lbl_Hissu.gif") %>
-        宛名：
-        <input name="order[orderaddressee]" type="text">
-      </td>
-      <td colspan="2">
-        会社名：
-        <input name="order[companyname]" type="text">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="5">
-        住所：
-        <%= @order.address1 %>&nbsp;<%= @order.address2 %>&nbsp;<%= @order.address3 %>
-      </td>
-    </tr>
-    <tr>
-      <td rowspan="2" bgcolor="#FFFFCC"><font color="#000000">入金・出荷情報</font></td>
-      <td colspan="2">
-        支払方法：
-        <%= @order.paymethodname %>&nbsp;&nbsp;&nbsp;&nbsp;
-      </td>
-      <td>
-        支払区分：
-        <%= @order.paymethodname %>&nbsp;&nbsp;&nbsp;&nbsp;
-      </td>
-      <td>
-        手数料：
-        <%= @order.paymethodname %>&nbsp;&nbsp;&nbsp;&nbsp;
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-	入金日：<%= @order.receiptdate %>&nbsp;&nbsp;&nbsp;&nbsp;
-      </td>
-      <td colspan="2">
-      </td>
-    </tr>
-    <tr>
-      <td bgcolor="#FFFFCC"><font color="#000000">連絡情報</font></td>
-      <td colspan="4">
-        <textarea cols="60" rows="5" name="order[contactmsg]"></textarea>
-      </td>
-    </tr>
-    <tr>
-      <td bgcolor="#FFFFCC"><font color="#000000">備考</font></td>
-      <td colspan="4">
-        <textarea cols="60" rows="5" name="order[memo]"></textarea>
-      </td>
-    </tr>
-   </table>
+<table>
+  <tr style="border:0px">
+    <td style="border:0px">
+      <table>
+	<tr style="border:0px">
+	  <td style="border:0px"><%= image_tag("lbl_Hissu.gif") %><font color="#FF0000">・・・必須情報</font></td>
+	</tr>
+	<tr>
+	  <td colspan="5" bgcolor="#800000"><font color="#ffffff">受注番号：<%= @order.id %></font></td>
+	</tr>
+	<tr>
+	  <td rowspan="2" bgcolor="#FFFFCC"><font color="#000000">顧客情報</font></td>
+	  <td >コード：
+	    <% if @new == 0 %>
+	      <%= @order.custid %>&nbsp;&nbsp;&nbsp;&nbsp;
+	    <% else %>
+	      <%= @order.custid %>&nbsp;&nbsp;&nbsp;&nbsp;
+	      <% if $reload == nil %>
+		<%= select_tag("custid", options_from_collection_for_select(@custs , 'id', 'custname'), html_options = {:onchange => "submit_func()"}) %>
+	      <% else %>
+		<%= select_tag("custid", options_from_collection_for_select(@custs , 'id', 'custname', @cust.id), html_options = {:onchange => "submit_func()"}) %>
+	      <% end %>
+	      <% $reload = 1 %>
+	    <% end %>
+	  </td>
+	  <td>
+	    <%= image_tag("lbl_Hissu.gif") %>
+	    氏名：
+	    <input name="order[custname]" type="text" value=<%= @order.custname %> >
+	  </td>
+	  <td><%= image_tag("lbl_Hissu.gif") %>
+	    カナ：
+	    <input name="order[custpronname]" type="text" value=<%= @order.custpronname%> >
+	  </td>
+	  <td><%= image_tag("lbl_Hissu.gif") %>
+	    <input name="order[custcompanyflg]" type="radio" <%= @order.custcompanyflg == 0 ? "checked" : "" %> >個人
+	    <input name="order[custcompanyflg]" type="radio" <%= @order.custcompanyflg == 1 ? "checked" : "" %> >法人
+	  </td>
+	</tr>
+	<tr>
+	  <td>
+	    <%= image_tag("lbl_Hissu.gif") %>
+	    TEL:
+	    <input name="order[tel]" type="text" value=<%= @order.tel %> >
+	  </td>
+	  <td>
+	    FAX:
+	    <input name="order[fax]" type="text" value=<%= @order.fax %> >
+	  </td>
+	  <td colspan="2">
+	    <%= image_tag("lbl_Hissu.gif") %>
+	    E-Mail:
+	    <input name="order[email]" type="text" value=<%= @order.email %> >
+	  </td>
+	</tr>
+	<tr>
+	  <td rowspan="2" bgcolor="#FFFFCC"><font color="#000000">請求書・領収書</font></td>
+	  <td>
+	    郵便番号：
+	    <%= @order.postcode1 %>-<%= @order.postcode2 %>&nbsp;&nbsp;&nbsp;&nbsp;
+	  </td>
+	  <td>
+	    <%= image_tag("lbl_Hissu.gif") %>
+	    宛名：
+	    <input name="order[orderaddressee]" type="text" value=<%= @order.orderaddressee %> >
+	  </td>
+	  <td colspan="2">
+	    会社名：
+	    <input name="order[companyname]" type="text" value=<%= @order.companyname %> >
+	  </td>
+	</tr>
+	<tr>
+	  <td colspan="5">
+	    住所：
+	    <%= @order.address1 %>&nbsp;<%= @order.address2 %>&nbsp;<%= @order.address3 %>
+	  </td>
+	</tr>
+	<tr>
+	  <td rowspan="2" bgcolor="#FFFFCC"><font color="#000000">入金・出荷情報</font></td>
+	  <td colspan="2">
+	    支払方法：
+	    <%= @order.paymethodname %>&nbsp;&nbsp;&nbsp;&nbsp;
+	  </td>
+	  <td>
+	    支払区分：
+	    <%= @order.paymentflg == 0 ? "未" : "済" %>
+	  </td>
+	  <td>
+	    手数料：
+	    <%= @payment_fee.to_s %>&nbsp;&nbsp;&nbsp;&nbsp;
+	  </td>
+	</tr>
+	<tr>
+	  <td colspan="2">
+	    入金日：<%= @order.receiptdate %>&nbsp;&nbsp;&nbsp;&nbsp;
+	  </td>
+	  <td colspan="2">
+	  </td>
+	</tr>
+	<tr>
+	  <td bgcolor="#FFFFCC"><font color="#000000">連絡情報</font></td>
+	  <td colspan="4">
+	    <textarea cols="60" rows="5" name="order[contactmsg]"></textarea>
+	  </td>
+	</tr>
+	<tr>
+	  <td bgcolor="#FFFFCC"><font color="#000000">備考</font></td>
+	  <td colspan="4">
+	    <textarea cols="60" rows="5" name="order[memo]"></textarea>
+	  </td>
+	</tr>
+      </table>
+    <td style="border:0px">
+      <table>
+        <tr style="border:0px">
+	  <td style="border:0px">&nbsp;&nbsp;</td>
+          <td style="border:0px">
+            <a href=<%= new_cust_path%> ><%= image_tag("mallmgr/btn_L_AddNewCust.gif") %></a>
+          </td>
+        </tr>
+        <tr style="border:0px"><td style="border:0px">&nbsp;&nbsp;</td></tr>
+        <tr style="border:0px"><td style="border:0px">&nbsp;&nbsp;</td></tr>
+        <tr style="border:0px"><td style="border:0px">&nbsp;&nbsp;</td></tr>
+        <tr style="border:0px"><td style="border:0px">&nbsp;&nbsp;</td></tr>
+        <tr style="border:0px"><td style="border:0px">&nbsp;&nbsp;</td></tr>
+        <tr style="border:0px"><td style="border:0px">&nbsp;&nbsp;</td></tr>
+        <tr style="border:0px"><td style="border:0px">&nbsp;&nbsp;</td></tr>
+        <tr style="border:0px"><td style="border:0px">&nbsp;&nbsp;</td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
 
   <div class="field">
     <%= f.label :custcompanyflg %><br />

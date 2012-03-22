@@ -147,7 +147,7 @@
       <td bgcolor="#FFFFCC"><b><%= f.label :paymethodcode %></b></td>
       <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
       <td colspan=3>
-        <%= f.text_field :paymethodcode %>
+        <%= select_tag "cust[paymethodcode]",options_from_collection_for_select(@paymethodms, :paymethodcode, :paymethodname, (@cust.paymethodcode).to_i), :include_blank => false %>
       </td>
     </tr>
     <tr>
@@ -211,7 +211,7 @@
     </td>
       <td>
           <%= link_to image_tag("mallmgr/btn_L_Back.gif"), custs_url %>
-          <%= link_to image_tag("mallmgr/btn_L_Reset.gif"), reset_comdty_path(@cust) %>
+          <%= link_to image_tag("mallmgr/btn_L_Reset.gif"), new_cust_path %>
           <%= image_submit_tag("mallmgr/btn_L_Confirm.gif", :confirm => 'Are you sure?') %>
       </td>
     </tr>

@@ -113,6 +113,12 @@ class CustsController < ApplicationController
   # GET /custs/new.xml
   def new
     @cust = Cust.new
+    @prefectures = Prefecture.find_by_sql("select id, name from prefectures")
+    @memberlevelms = Memberlevelm.all
+    @paymethodms = Paymethodm.all
+    @custattrms_job = Custattrm.find_by_sql("select * from custattrms where attrflag = '" + 0.to_s + "' order by disporder")
+    @custattrms_hobby = Custattrm.find_by_sql("select * from custattrms where attrflag = '" + 2.to_s + "' order by disporder")
+    @custattrms_howtoknow = Custattrm.find_by_sql("select * from custattrms where attrflag = '" + 1.to_s + "' order by disporder")
 
     respond_to do |format|
       format.html # new.html.erb
@@ -125,6 +131,7 @@ class CustsController < ApplicationController
     @cust = Cust.find(params[:id])
     @prefectures = Prefecture.find_by_sql("select id, name from prefectures")
     @memberlevelms = Memberlevelm.all
+    @paymethodms = Paymethodm.all
     logd("@prefectures:", @prefectures)
     @custattrms_job = Custattrm.find_by_sql("select * from custattrms where attrflag = '" + 0.to_s + "' order by disporder")
     @custattrms_hobby = Custattrm.find_by_sql("select * from custattrms where attrflag = '" + 2.to_s + "' order by disporder")
@@ -191,6 +198,7 @@ class CustsController < ApplicationController
       return
     else
       @cust = Cust.new(params[:cust])
+      logd("@params[:cust[address1]]:", params[:cust][:address1])
       respond_to do |format|
 	if @cust.save
 	  format.html { redirect_to(@cust, :notice => 'Cust was successfully created.') }
@@ -217,6 +225,7 @@ class CustsController < ApplicationController
       return
     end
     @cust = Cust.find(params[:id])
+    logd("params[:cust][:address1]]:", params[:cust][:address1])
 
     respond_to do |format|
       if @cust.update_attributes(params[:cust])

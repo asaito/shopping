@@ -306,7 +306,9 @@
       <td>
 	  <%= link_to image_tag("mallmgr/btn_L_Preview.gif"), @comdty %>
 	  <%= link_to image_tag("mallmgr/btn_L_Back.gif"), comdties_url %>
+	<% if @comdty.id != nil %>
 	  <%= link_to image_tag("mallmgr/btn_L_Reset.gif"), reset_comdty_path(@comdty) %>
+	<% end %>
 	  <%= image_submit_tag("mallmgr/btn_L_Confirm.gif", :confirm => 'Are you sure?') %>
       </td>
     </tr>

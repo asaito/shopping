@@ -135,6 +135,7 @@ class ComdtiesController < ApplicationController
   def new
     logger.debug 'new_some interesting information'
     @comdty = Comdty.new
+    setvariables
 
     respond_to do |format|
       format.html # new.html.erb
@@ -145,6 +146,10 @@ class ComdtiesController < ApplicationController
   # GET /comdties/1/edit
   def edit
     @comdty = Comdty.find(params[:id])
+    setvariables
+  end
+
+  def setvariables
     @stockcode_all = getstockcodes  #["1", "2", "3", "4", "5"]
     if params[:stockcode] != nil
       @stockcode = params[:stockcode]

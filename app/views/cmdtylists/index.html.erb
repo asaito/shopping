@@ -1,0 +1,106 @@
+<style type="text/css">
+table {
+margin-left: 20px;
+margin-bottom: 20px;
+border-collapse: collapse;
+}
+td, th {
+border: 0px #2b2b2b solid;
+}
+span.small {font-size: small; }
+</style>
+
+<script type="text/javascript">
+function callRuby(actionName) {
+query = 'skp:get_data@' + actionName;
+window.location.href = query;
+}
+$(document).ready(function() {
+    //$("#ctgtree").treeview({});
+    $("#ctgtree").treeview({ collapsed : false, unique  : false });
+});
+</script>
+
+<tr>
+  <form method="GET" action="cmdtylists" name="cmdlst">
+    <div id="ctgtree">
+    </div>
+<table>
+  <table>
+    <tr>
+      <td bgcolor="#070a74"><font color="#ffffff">｜&nbsp;トップ</font></td>
+      <td bgcolor="#070a74"><font color="#ffffff">｜&nbsp;ログイン</font></td>
+      <td bgcolor="#070a74"><font color="#ffffff">｜&nbsp;ログアウト</font></td>
+      <td bgcolor="#070a74"><font color="#ffffff">｜&nbsp;お会計</font></td>
+      <td bgcolor="#070a74"><font color="#ffffff">｜&nbsp;お客様情報</font></td>
+      <td bgcolor="#070a74"><font color="#ffffff">｜&nbsp;ご注文履歴</font></td>
+      <td bgcolor="#070a74"><font color="#ffffff">｜&nbsp;予約確認</font></td>
+      <td bgcolor="#070a74"><font color="#ffffff">｜&nbsp;お問合せ一覧</font></td>
+      <td bgcolor="#070a74"><font color="#ffffff">｜&nbsp;ショップ紹介</font></td>
+      <td bgcolor="#070a74"><font color="#ffffff">｜&nbsp;お買物方法</font></td>
+    </tr>
+  </table>
+  <tr>
+      <table>
+	<tr>
+          <td>&nbsp;&nbsp;</td>
+	  <td><font color="#070a74" size=3 >ようこそ 安達　義雄 様</font></td>
+	</tr>
+	<tr>
+          <td>&nbsp;&nbsp;</td>
+	  <td><font color="#070a74" size=2 >(現在のポイント：65 )</font></td>
+	</tr>
+        <tr>
+          <td>&nbsp;&nbsp;</td>
+          <td><font color="#070a74" size=2 >カート</font></td>
+	</tr>
+        <tr>
+          <td>&nbsp;&nbsp;</td>
+          <td><font size=2 >お買い物数</font></td>
+          <td><font size=2 >0個</font></td>
+	</tr>
+        <tr>
+          <td>&nbsp;&nbsp;</td>
+          <td><font size=2 >合計金額</font></td>
+          <td><font size=2 >0円</font></td>
+        </tr>
+        <tr>
+          <td>&nbsp;&nbsp;</td>
+          <td align="right">
+            <%= image_tag("btn_M_WatchCart.gif") %>
+	  </td>
+        </tr>
+        <tr>
+          <td>&nbsp;&nbsp;</td>
+          <td><font color="#070a74" size=2 >検索</font></td>
+        </tr>
+        <tr>
+          <td>&nbsp;&nbsp;</td>
+          <td><font size=2 >ワード検索</font>
+	    <input type="text" name="wordserch">
+	  </td>
+        </tr>
+        <tr>
+          <td>&nbsp;&nbsp;</td>
+          <td align="right">
+            <%= image_tag("btn_M_Search.gif") %>
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;&nbsp;</td>
+          <td><font color="#070a74" size=2 >カテゴリ</font></td>
+        </tr>
+      </table>
+  </tr>
+  <tr>
+      <td style="border:0px">
+	<table style="width:260px;">
+	  <span class="small">
+	    <%= raw $htmlstr %>
+	  </span>
+	</table>
+      </td>
+  </tr>
+</table>
+  </form>
+</tr>

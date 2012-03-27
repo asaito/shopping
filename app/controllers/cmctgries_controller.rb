@@ -24,7 +24,7 @@ class CmctgriesController < ApplicationController
     @name_ary = Array.new
     @ctgcd_ary = Array.new
     @depth = 0
-
+    $from_cmdtylists = 0
     list_tree
     #$htmlstr = "test"
     

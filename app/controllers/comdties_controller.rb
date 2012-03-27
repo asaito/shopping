@@ -145,7 +145,9 @@ class ComdtiesController < ApplicationController
 
   # GET /comdties/1/edit
   def edit
-    @comdty = Comdty.find(params[:id])
+    @comdty = Comdty.find(params[:id].to_i)
+    comdtyn = Comdty.new(params[:comdty])
+    #@comdty = comdtyn
     setvariables
   end
 
@@ -271,15 +273,59 @@ class ComdtiesController < ApplicationController
     end
   end
 
+  def params2db
+    d = Comdty.find(params[:id].to_i)
+    logd("d:", d)
+    logd("d.cmdtycode:", d.cmdtycode)
+    logd("params[:comdty][description]:", params[:comdty]["description"])
+    logd("params[:unitprice]:", params[:unitprice])
+    #d.shopcode = params[:comdty[shopcope]]
+    #d.cmdtycode = params[:comdty]["cmdtycode"]
+    d.jancode = params[:comdty]["jancode"]
+    d.cmdtyname = params[:comdty]["cmdtyname"]
+    d.description = params[:comdty]["description"]
+    d.stockcode = params[:stockcode]
+    d.stockunitprice = params[:stockunitprice].to_i
+    d.unitprice = params[:unitprice].to_i
+    d.salesunitprice = params[:salesunitprice].to_i
+    d.taxflg = params[:comdty]["taxflg"] == "taxincluded" ? 0 : (params[:comdty]["taxflg"] == "taxexcluded" ? 1 : 2)
+    d.adviceflg = params[:comdty]["adviceflg"] == "normal" ? 0 : 1
+    d.bannerfile = params[:comdty]["bannerfile"]
+    d.bannerurl = params[:comdty]["bannerurl"]
+    d.memberdiscountflg = params[:comdty]["memberdiscountflg"] == "no" ? 0 : 1
+    d.srchkeyname1 = params[:comdty]["srchkeyname1"]
+    d.srchkeyname2 = params[:comdty]["srchkeyname2"]
+    d.srchkeyname3 = params[:comdty]["srchkeyname3"]
+    d.cmdtysize = params[:cmdtysize]
+    #d.sellfromdate = params[:comdty]["sellfromdate"]
+    #logd("params[:comdty][sellfromdate(1i)]:", params[:comdty]["sellfromdate(1i)"])
+    d.sellfromdate = Date.new(params[:comdty]["sellfromdate(1i)"].to_i, params[:comdty]["sellfromdate(2i)"].to_i, params[:comdty]["sellfromdate(3i)"].to_i)
+    #d.endsellflg = params[:comdty[endsellflg]]
+    d.selltodate = Date.new(params[:comdty]["selltodate(1i)"].to_i, params[:comdty]["selltodate(2i)"].to_i, params[:comdty]["selltodate(3i)"].to_i)
+    d.salesfromdate = Date.new(params[:comdty]["salesfromdate(1i)"].to_i, params[:comdty]["salesfromdate(2i)"].to_i, params[:comdty]["salesfromdate(3i)"].to_i)
+    d.salestodate = params[:comdty]["salestodate"]
+    d.salestodate = Date.new(params[:comdty]["salestodate(1i)"].to_i, params[:comdty]["salestodate(2i)"].to_i, params[:comdty]["salestodate(3i)"].to_i)
+    d.rsrvenableflg = params[:comdty]["rsrvenableflg"] == "no" ? 0 : 1
+    d.nostockflg = params[:comdty]["nostockflg"] == "no" ? 0 : 1
+    d.amount = params[:amount].to_i
+    d.stockstatuscode = params[:stockstatuscode]
+    d.wrappingflg = params[:comdty]["wrappingflg"] == "no" ? 0 : 1
+    d.deliverytypecode = params[:deliverytypecode].to_i
+    d.amountflg = params[:comdty]["amountflg"] == "no" ? 0 : 1
+    d.rsrvamount = params[:rsrvamount].to_i
+    #d.ranking = params[:comdty[ranking]]
+    d.rankingdatetime = params[:comdty]["rankingdatetime"]
+    d.initdatetime = params[:comdty]["initdatetime"]
+    d
+  end
+
   # PUT /comdties/1
   # PUT /comdties/1.xml
   def update
     #@bodyFlash = 0
     $saveSuccess = 1
-    @comdty = Comdty.find(params[:id].to_i)
-    comdtyn = Comdty.new(params[:comdty])
-    @comdty = comdtyn
-    @comdty = Comdty.find(params[:id])
+    #@comdty = Comdty.find(params[:id].to_i)
+    @comdty = params2db
     @stockstatusid = Stockstatusm.find_by_stockstatusname(params[:stockstatusname]).id.to_s
       @comdty.stockstatuscode = @stockstatusid
     logd("params[:stockstatusname]:", params[:stockstatusname])

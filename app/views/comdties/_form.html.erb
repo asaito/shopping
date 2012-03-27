@@ -85,13 +85,13 @@
       <td bgcolor="#FFFFCC"><b><%= f.label :taxflg %></b></td>
       <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
       <td>
-        <%= f.radio_button(:taxflg, "taxincluded") %>税込
+        <%= f.radio_button(:taxflg, "taxincluded", :checked => @comdty.taxflg == 0 ? "checked" : "") %>税込
       </td>
       <td>
-        <%= f.radio_button(:taxflg, "taxexcluded") %>税抜
+        <%= f.radio_button(:taxflg, "taxexcluded", :checked => @comdty.taxflg == 1 ? "checked" : "") %>税抜
       </td>
       <td>
-        <%= f.radio_button(:taxflg, "notax") %>非課税
+        <%= f.radio_button(:taxflg, "notax", :checked => @comdty.taxflg == 2 ? "checked" : "") %>非課税
       </td>
     </tr>
     <tr>
@@ -99,10 +99,10 @@
       <td bgcolor="#FFFFCC"><b><%= f.label :adviceflg %></b></td>
       <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
       <td>
-        <%= f.radio_button(:adviceflg, "normal") %>通常
+        <%= f.radio_button(:adviceflg, "normal", :checked => @comdty.adviceflg == 0 ? "checked" : "") %>通常
       </td>
       <td>
-        <%= f.radio_button(:adviceflg, "advice") %>おすすめ
+        <%= f.radio_button(:adviceflg, "advice", :checked => @comdty.adviceflg == 1 ? "checked" : "") %>おすすめ
       </td>
       <td>
       </td>
@@ -128,10 +128,10 @@
       <td bgcolor="#FFFFCC"><b><%= f.label :memberdiscountflg %></b></td>
       <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
       <td>
-        <%= f.radio_button(:memberdiscountflg, "no") %>しない
+        <%= f.radio_button(:memberdiscountflg, "no", :checked => @comdty.memberdiscountflg == 0 ? "checked" : "") %>しない
       </td>
       <td>
-        <%= f.radio_button(:memberdiscountflg, "yes") %>する
+        <%= f.radio_button(:memberdiscountflg, "yes", :checked => @comdty.memberdiscountflg == 1 ? "checked" : "") %>する
       </td>
       <td>
       </td>
@@ -205,10 +205,10 @@
       <td bgcolor="#FFFFCC"><b><%= f.label :rsrvenableflg %></b></td>
       <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
       <td>
-        <%= f.radio_button(:rsrvenableflg, "no") %>しない
+        <%= f.radio_button(:rsrvenableflg, "no", :checked => @comdty.rsrvenableflg == 0 ? "checked" : "") %>しない
       </td>
       <td>
-        <%= f.radio_button(:rsrvenableflg, "yes") %>する
+        <%= f.radio_button(:rsrvenableflg, "yes", :checked => @comdty.rsrvenableflg == 1 ? "checked" : "") %>する
       </td>
       <td>
       </td>
@@ -218,10 +218,10 @@
       <td bgcolor="#FFFFCC"><b><%= f.label :wrappingflg %></b></td>
       <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
       <td>
-        <%= f.radio_button(:wrappingflg, "no") %>しない
+        <%= f.radio_button(:wrappingflg, "no", :checked => @comdty.wrappingflg == 0 ? "checked" : "") %>しない
       </td>
       <td>
-        <%= f.radio_button(:wrappingflg, "yes") %>する
+        <%= f.radio_button(:wrappingflg, "yes", :checked => @comdty.wrappingflg == 1 ? "checked" : "") %>する
       </td>
       <td>
       </td>
@@ -231,10 +231,10 @@
       <td bgcolor="#FFFFCC"><b><%= f.label :amountflg %></b></td>
       <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
       <td>
-        <%= f.radio_button(:amountflg, "no") %>しない
+        <%= f.radio_button(:amountflg, "no", :checked => @comdty.amountflg == 0 ? "checked" : "") %>しない
       </td>
       <td>
-        <%= f.radio_button(:amountflg, "yes") %>する
+        <%= f.radio_button(:amountflg, "yes", :checked => @comdty.amountflg == 1 ? "checked" : "") %>する
       </td>
       <td>
       </td>
@@ -244,10 +244,10 @@
       <td bgcolor="#FFFFCC"><b><%= f.label :nostockflg %></b></td>
       <td ><%= image_tag("lbl_S_Tanitu.gif") %></td>
       <td>
-        <%= f.radio_button(:nostockflg, "no") %>しない
+        <%= f.radio_button(:nostockflg, "no", :checked => @comdty.nostockflg == 0 ? "checked" : "") %>しない
       </td>
       <td>
-        <%= f.radio_button(:nostockflg, "yes") %>する
+        <%= f.radio_button(:nostockflg, "yes", :checked => @comdty.nostockflg == 1 ? "checked" : "") %>する
       </td>
       <td>
       </td>
@@ -257,7 +257,7 @@
       <td bgcolor="#FFFFCC"><b><%= f.label :amount %></b></td>
       <td ><%= image_tag("lbl_S_HanEisuu.gif") %></td>
       <td colspan=3>
-        <input type="text" name="salesunitprice" style="text-align:right;" value=<%= @comdty.amount %>>
+        <input type="text" name="amount" style="text-align:right;" value=<%= @comdty.amount %>>
       </td>
     </tr>
     <tr>

@@ -21,11 +21,9 @@ $(document).ready(function() {
 });
 </script>
 
-<tr>
   <form method="GET" action="cmdtylists" name="cmdlst">
     <div id="ctgtree">
     </div>
-<table>
   <table>
     <tr>
       <td bgcolor="#070a74"><font color="#ffffff">｜&nbsp;トップ</font></td>
@@ -40,67 +38,92 @@ $(document).ready(function() {
       <td bgcolor="#070a74"><font color="#ffffff">｜&nbsp;お買物方法</font></td>
     </tr>
   </table>
-  <tr>
       <table>
 	<tr>
-          <td>&nbsp;&nbsp;</td>
-	  <td><font color="#070a74" size=3 >ようこそ 安達　義雄 様</font></td>
+	  <td>
+	    <table>
+	      <tr>
+		<td>&nbsp;&nbsp;</td>
+		<td><font color="#070a74" size=3 >ようこそ 安達　義雄 様</font></td>
+	      </tr>
+	      <tr>
+		<td>&nbsp;&nbsp;</td>
+		<td><font color="#070a74" size=2 >(現在のポイント：65 )</font></td>
+	      </tr>
+	      <tr>
+		<td>&nbsp;&nbsp;</td>
+		<td><font color="#070a74" size=2 >カート</font></td>
+	      </tr>
+	      <tr>
+		<td>&nbsp;&nbsp;</td>
+		<td><font size=2 >お買い物数</font></td>
+		<td><font size=2 >0個</font></td>
+	      </tr>
+	      <tr>
+		<td>&nbsp;&nbsp;</td>
+		<td><font size=2 >合計金額</font></td>
+		<td><font size=2 >0円</font></td>
+	      </tr>
+	      <tr>
+		<td>&nbsp;&nbsp;</td>
+		<td align="right">
+		  <%= image_tag("btn_M_WatchCart.gif") %>
+		</td>
+	      </tr>
+	      <tr>
+		<td>&nbsp;&nbsp;</td>
+		<td><font color="#070a74" size=2 >検索</font></td>
+	      </tr>
+	      <tr>
+		<td>&nbsp;&nbsp;</td>
+		<td><font size=2 >ワード検索</font>
+		  <input type="text" name="wordserch">
+		</td>
+	      </tr>
+	      <tr>
+		<td>&nbsp;&nbsp;</td>
+		<td align="right">
+		  <%= image_tag("btn_M_Search.gif") %>
+		</td>
+	      </tr>
+	      <tr>
+		<td>&nbsp;&nbsp;</td>
+		<td><font color="#070a74" size=2 >カテゴリ</font></td>
+	      </tr>
+	    </table>
+	  </td>
+	  <td rowspan="2" valign="top">
+	    <table>
+	      <tr>&nbsp;&nbsp;&nbsp;&nbsp;全&nbsp;<%= @cmdties.size.to_s %>件</tr>
+	      <tr><td>-----------------------------------------------------------------------------------------------------------</td></tr>
+	      <% @cmdties.each do |c| %>
+		  <td>&nbsp;&nbsp;</td>
+		  <tr>
+		  <td>
+		<table>
+		  <tr>
+		    <td rowspan="5">
+		      <%= image_tag("cmdty/" + c.bannerfile) %>
+		    </td>
+		  </tr>
+		  <tr><td>&nbsp;&nbsp;</td><td><%= c.cmdtyname %></td></tr>
+		  <tr><td>&nbsp;&nbsp;</td><td><%= c.description %></td></tr>
+		  <tr><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;価格：￥<%= c.unitprice %></td></tr>
+		  <tr><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(税込)</td></tr>
+	      </table>
+		  </td>
+		  </tr>
+	      <tr><td>-----------------------------------------------------------------------------------------------------------</td></tr>
+	      <% end %>
+	    </table>
+	  </td>
 	</tr>
 	<tr>
-          <td>&nbsp;&nbsp;</td>
-	  <td><font color="#070a74" size=2 >(現在のポイント：65 )</font></td>
-	</tr>
-        <tr>
-          <td>&nbsp;&nbsp;</td>
-          <td><font color="#070a74" size=2 >カート</font></td>
-	</tr>
-        <tr>
-          <td>&nbsp;&nbsp;</td>
-          <td><font size=2 >お買い物数</font></td>
-          <td><font size=2 >0個</font></td>
-	</tr>
-        <tr>
-          <td>&nbsp;&nbsp;</td>
-          <td><font size=2 >合計金額</font></td>
-          <td><font size=2 >0円</font></td>
-        </tr>
-        <tr>
-          <td>&nbsp;&nbsp;</td>
-          <td align="right">
-            <%= image_tag("btn_M_WatchCart.gif") %>
+	  <td style="width:260px;">
+	    <span class="small">
+	      <%= raw $htmlstr %>
+	    </span>
 	  </td>
-        </tr>
-        <tr>
-          <td>&nbsp;&nbsp;</td>
-          <td><font color="#070a74" size=2 >検索</font></td>
-        </tr>
-        <tr>
-          <td>&nbsp;&nbsp;</td>
-          <td><font size=2 >ワード検索</font>
-	    <input type="text" name="wordserch">
-	  </td>
-        </tr>
-        <tr>
-          <td>&nbsp;&nbsp;</td>
-          <td align="right">
-            <%= image_tag("btn_M_Search.gif") %>
-          </td>
-        </tr>
-        <tr>
-          <td>&nbsp;&nbsp;</td>
-          <td><font color="#070a74" size=2 >カテゴリ</font></td>
-        </tr>
+	</tr>
       </table>
-  </tr>
-  <tr>
-      <td style="border:0px">
-	<table style="width:260px;">
-	  <span class="small">
-	    <%= raw $htmlstr %>
-	  </span>
-	</table>
-      </td>
-  </tr>
-</table>
   </form>
-</tr>

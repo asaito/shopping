@@ -94,17 +94,14 @@ class ApplicationController < ActionController::Base
     @children = $children
     @parents = $parents
     path = './'
-    #@arry = []
-    #logd('list $tree:', '')
-    #logd('', $tree)
-    logd('list $parents:', '')
-    logd('', $parents)
-    logd('list $children:', '')
-    logd('', $children)
+    #logd('list $parents:', '')
+    #logd('', $parents)
+    #logd('list $children:', '')
+    #logd('', $children)
 
     $htmlstr = ""
     d = ls_tree(path)
-    logd('$htmlstr:', $htmlstr)
+    #logd('$htmlstr:', $htmlstr)
   end
 
   def get_ctg_list
@@ -132,7 +129,7 @@ class ApplicationController < ActionController::Base
         #logd('path:', ctg.path)
         ary[i] = ctg.path.split(/\//)
         @name_ary[i] = ctg.ctgryname
-        logd('path name:', ctg.path + "          " + @name_ary[i])
+        #logd('path name:', ctg.path + "          " + @name_ary[i])
         i += 1
       #end
     end
@@ -141,7 +138,7 @@ class ApplicationController < ActionController::Base
   end
 
   def sortctg(ary, name_ary, i)
-    logd('i:', i.to_s)
+    #logd('i:', i.to_s)
     #logary('name_ary:', name_ary)
     pathsize = 0
     for j in 0..i - 1
@@ -154,7 +151,7 @@ class ApplicationController < ActionController::Base
 
     for j in 0..i - 1
       for l in 0..pathsize - 1
-        logd('bf ary['+j.to_s+']['+l.to_s+']:', ary[j][l])
+        #logd('bf ary['+j.to_s+']['+l.to_s+']:', ary[j][l])
       end
     end
 
@@ -163,18 +160,18 @@ class ApplicationController < ActionController::Base
 
     logd('before cd_to_name ary:', '')
     for j in 0..i - 1
-      logary('ary', ary[j], j)
+      #logary('ary', ary[j], j)
     end
 
     cd_to_name(ary, @ctgcd_ary, ctgname_ary, name_ary, i)
 
     logd('after cd_to_name ary:', '')
     for j in 0..i - 1
-      logary('ary', ary[j], j)
+      #logary('ary', ary[j], j)
     end
-    logd("ary[0][0]", ary[0][0])
-    logd('ctgname_ary:', ctgname_ary)
-    logd('name_ary:', name_ary)
+    #logd("ary[0][0]", ary[0][0])
+    #logd('ctgname_ary:', ctgname_ary)
+    #logd('name_ary:', name_ary)
 
     seq = 0
     cur = 0
@@ -183,7 +180,7 @@ class ApplicationController < ActionController::Base
       t = Array.new
       for k in 0..pathsize - 1
         if ary[j][k] != nil
-          logd("mn ary["+j.to_s+"]["+k.to_s+"] ary["+j.to_s+"]["+(k-1).to_s+"]:", ary[j][k].to_s+' '+(k==0 ? "" : to_s_nil(ary[j][k-1])))
+          #logd("mn ary["+j.to_s+"]["+k.to_s+"] ary["+j.to_s+"]["+(k-1).to_s+"]:", ary[j][k].to_s+' '+(k==0 ? "" : to_s_nil(ary[j][k-1])))
           if k == 1 && ary[j][k - 1] == "0"   #####
             t << '/'
           end
@@ -193,62 +190,75 @@ class ApplicationController < ActionController::Base
           end
         end
       end
-      logcont('t', t)
+      #logcont('t', t)
       $tree << t
       #logd('$tree:', '')
       #logd('', $tree)
     end
-    logcont('@ctgcd_ary:', @ctgcd_ary)
+    #logcont('@ctgcd_ary:', @ctgcd_ary)
     logd('after tree ary:', '')
     for j in 0..i - 1
-      logary('ary'+'['+j.to_s+']:', ary[j], j)
+      #logary('ary'+'['+j.to_s+']:', ary[j], j)
     end
     logd('after tree ctgname_ary:', '')
-    logd('$tree:', '')
-    logd('', $tree)
+    #logd('$tree:', '')
+    #logd('', $tree)
     
     @cnt_ary = cmsum_count(name_ary)
-    logd("@cnt_ary.size:", @cnt_ary.size)
-    logd('@cnt_ary:', @cnt_ary)
+    #logd("@cnt_ary.size:", @cnt_ary.size)
+    #logd('@cnt_ary:', @cnt_ary)
   end
 
   def ls_tree(path)
     d = $tree.roots
     @count = 0
-    logd('$tree.root:', d)
-    logd('@depth:', @depth)
-    logcont('d[0]::', d[0])
-    logd('@name_ary:', @name_ary)
-    logd('@ctgcd_ary:', @ctgcd_ary)
+    #logd('$tree.root:', d)
+    #logd('@depth:', @depth)
+    #logcont('d[0]::', d[0])
+    #logd('@name_ary:', @name_ary)
+    #logd('@ctgcd_ary:', @ctgcd_ary)
     _sbtree(d[0])
-    logd('@count:', @count)
+    #logd('@count:', @count)
     $htmlstr << "\n" + gettab(@depth) + "</li>"
     $htmlstr << "\n" + gettab(@depth) + "</ul>"
     $tree
   end
 
   def _sbtree(node)
+    url = "../cmdtylists?ctgrycode="
+    ctcd = ""
+    if $from_cmdtylists == 0
+      ctcd = "(" + getctgcd(@ctgcd_ary, @name_ary, node).to_s + ")"
+    end
     if @depth == 0
       $htmlstr << "\n<ul id=\"navigation\" class=\"navigation\">"
       $htmlstr << "\n" + gettab(@depth) + "<li>"
-      $htmlstr << "<a href=\"" + node + "\">" + node + "</a>" + "【 "+ getctg_count(@cnt_ary, @name_ary, node).to_s + "件】(" + getctgcd(@ctgcd_ary, @name_ary, node).to_s + ")"
+      if $from_cmdtylists == 0
+	$htmlstr << "<a href=\"" + node + "\">" + node + "</a>" + "【 "+ getctg_count(@cnt_ary, @name_ary, node).to_s + "件】(" + getctgcd(@ctgcd_ary, @name_ary, node).to_s + ")"
+      else
+	$htmlstr << "<a href=" + url + getctgcd(@ctgcd_ary, @name_ary, node).to_s + ">" + node + "</a>" + "【 "+ getctg_count(@cnt_ary, @name_ary, node).to_s + "件】" + ctcd
+      end
       $htmlstr << "\n" + gettab(@depth) + "<ul>"
     else
         $htmlstr << "\n" + gettab(@depth) + "<ul>"
     end
     @depth += 1
-    logd('node:', node)
-    logcont('$children[node]:', $children[node])
     $children[node].map do |c|
+      if $from_cmdtylists == 0
+	ctcd = "(" + getctgcd(@ctgcd_ary, @name_ary, c).to_s + ")"
+      end
       $htmlstr << "\n" + gettab(@depth) + "<li>"
-      $htmlstr << "<a href=\"" + c + "\">" + c + "</a>" +
-                  "【 "+ getctg_count(@cnt_ary, @name_ary, c).to_s + "件】(" + getctgcd(@ctgcd_ary, @name_ary, c) + ")"
+      if $from_cmdtylists == 0
+	$htmlstr << "<a href=\"" + c + "\">" + c + "</a>" + "【 "+ getctg_count(@cnt_ary, @name_ary, c).to_s + "件】(" + getctgcd(@ctgcd_ary, @name_ary, c) + ")" 
+      else
+	$htmlstr << "<a href=" + url + getctgcd(@ctgcd_ary, @name_ary, c).to_s + ">" + c + "</a>" + "【 "+ getctg_count(@cnt_ary, @name_ary, c).to_s + "件】" + ctcd
+      end
       classes = "file"
       classes = "folder" if $children.has_key?(c)
       hasChildren = $children.has_key?(c) ? true : false
       iddata = './/' + c
       dirname = $parents[c][0]
-      logcont('$children[c]:', $children[c])
+      #logcont('$children[c]:', $children[c])
       if hasChildren
         @count = _sbtree(c)
         $htmlstr << "\n" + gettab(@depth) + "</li>"
@@ -259,7 +269,6 @@ class ApplicationController < ActionController::Base
     end
     @depth -= 1
     $htmlstr << "\n" + gettab(@depth) + "</ul>"
-    #return 
     return @count
   end
 
@@ -326,7 +335,7 @@ class ApplicationController < ActionController::Base
       @where = ""
       where = cmsum_where(nm)
       where = where[4, where.length - 4]
-      logd("where:", where)
+      #logd("where:", where)
       sql = "select count(distinct cmdtycode) from cmdtyctgry_ctgry_views where " + where
       cnt_ary.push(CmdtyCtgryView.count_by_sql(sql))
     end
